@@ -23,4 +23,10 @@ class InfoBeasiswa extends Model
     ];
 
     protected  $table = 'info_beasiswa';
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

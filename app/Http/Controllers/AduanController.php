@@ -22,7 +22,7 @@ class AduanController extends Controller
             return view('aduan.mahasiswa.index', compact('aduan'));
         }
         // Jika Admin: Melihat seluruh aduan mahasiswa masuk untuk diproses
-        if ($user->hasRole('Kajur')) {
+        if ($user->hasRole('Kajur') || $user->hasRole('Admin')) {
             $aduan = Aduan::with('mahasiswa')->orderBy('id', 'DESC')->paginate(10);
             return view('aduan.admin.index', compact('aduan'));
         }
@@ -68,7 +68,7 @@ class AduanController extends Controller
             ]);
         }
 
-        if ($user->hasRole('Kajur')) {
+        if ($user->hasRole('Kajur') || $user->hasRole('Admin')) {
             return view('aduan.admin.show', [
                 'aduan' => $aduan
             ]);
@@ -93,10 +93,57 @@ class AduanController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Show the form for editing the specified resource (Hanya Mahasiswa).
+     */
+    public function edit(Aduan $aduan)
+    {
+        if (!auth()->user()->hasRole('Mahasiswa')) abort(403);
+
+        // Validasi Keamanan: Jika status bukan 'menunggu', tolak pengeditan
+        if ($aduan->status !== 'menunggu') {
+            return redirect()->route('aduan.index')->withErrors('Aduan tidak dapat diubah karena sedang diproses atau sudah selesai.');
+        }
+
+        return view('aduan.mahasiswa.edit', compact('aduan'));
+    }
+
+    /**
+     * Update the specified resource in storage (Hanya Mahasiswa).
+     */
+    public function update(Request $request, Aduan $aduan)
+    {
+        if (!auth()->user()->hasRole('Mahasiswa')) abort(403);
+
+        // Validasi Keamanan Backend sebelum menyimpan perubahan data
+        if ($aduan->status !== 'menunggu') {
+            return redirect()->route('aduan.index')->withErrors('Aduan gagal diperbarui karena status sudah berubah.');
+        }
+
+        $request->validate([
+            'subjek' => 'required|string|max:255',
+            'isi_aduan' => 'required|string',
+        ]);
+
+        $aduan->update([
+            'subjek' => $request->subjek,
+            'isi_aduan' => $request->isi_aduan,
+        ]);
+
+        return redirect()->route('aduan.index')->withSuccess('Aduan berhasil diperbarui');
+    }
+
+    /**
+     * Remove the specified resource from storage (Hanya Mahasiswa).
      */
     public function destroy(Aduan $aduan)
     {
+        if (!auth()->user()->hasRole('Mahasiswa')) abort(403);
+
+        // Validasi Keamanan Backend sebelum menghapus dari database
+        if ($aduan->status !== 'menunggu') {
+            return redirect()->route('aduan.index')->withErrors('Aduan tidak dapat dihapus karena sudah diproses oleh Admin/Kajur.');
+        }
+
         $aduan->delete();
         return redirect()->route('aduan.index')->withSuccess('Aduan berhasil dihapus');
     }

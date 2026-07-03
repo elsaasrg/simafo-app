@@ -6,8 +6,8 @@
         <div class="card">
             <div class="card-header ">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div>Detail Tracer Study</div>
-                    <div><a href="{{ route('tracer-study.index') }}" class="btn btn-primary btn-sm">&larr; Back</a></div>
+                    <div>Rincian Tracer Study</div>
+                    <div><a href="{{ route('tracer-study.index') }}" class="btn btn-primary btn-sm">Kembali</a></div>
                 </div>
             </div>
             <div class="card-body">

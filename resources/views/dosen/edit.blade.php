@@ -127,7 +127,7 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
-                                Simpan Perubahan
+                                Simpan
                             </button>
 
                             <a href="{{ route('dosen.index') }}" class="btn btn-secondary">

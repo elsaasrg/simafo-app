@@ -17,7 +17,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="float-start">Data aduan</div>
-                    <div class="float-end"><a href="{{ route('aduan.index') }}" class="btn btn-primary btn-sm">&larr; Back</a></div>
+                    <div class="float-end"><a href="{{ route('aduan.index') }}" class="btn btn-primary btn-sm">Kembali</a></div>
                 </div>
 
             </div>
@@ -71,7 +71,7 @@
 
                                 </select>
                                 <button type="submit" class="btn btn-success btn-sm">
-                                    Simpan Status
+                                    Simpan
                                 </button>
 
                             </div>

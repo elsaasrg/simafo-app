@@ -87,7 +87,7 @@
 
                         <div class="mb-3 row">
                             <div class="col-md-8 offset-md-3">
-                                <button type="submit" class="btn btn-success btn-sm px-4">Terbitkan Info</button>
+                                <button type="submit" class="btn btn-success btn-sm px-4">Buat Informasi Beasiswa</button>
                             </div>
                         </div>
                     </form>

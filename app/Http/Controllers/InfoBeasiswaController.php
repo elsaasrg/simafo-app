@@ -14,7 +14,7 @@ class InfoBeasiswaController extends Controller
     public function index()
     {
         return view('info_beasiswa.index', [
-            'infoBeasiswa' => InfoBeasiswa::orderBy('id', 'DESC')->paginate()
+            'infoBeasiswa' => InfoBeasiswa::with('user')->orderBy('id', 'DESC')->paginate()
         ]);
     }
 
@@ -31,7 +31,7 @@ class InfoBeasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->hasRole('DosenKemahasiswaan')) {
+        if (!auth()->user()->hasRole('DosenKemahasiswaan') && !auth()->user()->hasRole('Admin')) {
             abort(403, 'Anda tidak memiliki akses untuk mengakses fungsi ini');
         }
 

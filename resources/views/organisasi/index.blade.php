@@ -14,6 +14,61 @@
         </div>
         @endif
 
+        {{-- ==================== LOCK FILTER DAN CARI HANYA UNTUK ADMIN ==================== --}}
+        @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Kajur'))
+        <div class="card shadow-sm mb-4">
+            <div class="card-body bg-light">
+                <form action="{{ route('organisasi.index') }}" method="GET" class="form-row align-items-end">
+
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <label class="font-weight-bold small text-muted">Cari Data Mahasiswa / Organisasi</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-right-0"><i class="fas fa-search text-muted"></i></span>
+                            </div>
+                            <input type="text" name="search" class="form-control border-left-0" value="{{ request('search') }}" placeholder="Ketik Nama, NIM, atau Nama Organisasi...">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <label class="font-weight-bold small text-muted">Kategori Status Validasi</label>
+                        <select name="status" class="form-control">
+                            <option value="semua" {{ request('status') == 'semua' ? 'selected' : '' }}>Semua Status</option>
+                            <option value="menunggu" {{ request('status') == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                            <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : '' }}>Diterima</option>
+                            <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <label class="font-weight-bold small text-muted">Kategori Tahun Mulai</label>
+                        <select name="tahun" class="form-control">
+                            <option value="semua" {{ request('tahun') == 'semua' ? 'selected' : '' }}>Semua Tahun</option>
+                            @for($i = date('Y'); $i >= 2020; $i--)
+                            <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <div class="d-flex align-items-center justify-content-end" style="gap: 5px;">
+
+                            <button type="submit" class="btn btn-primary px-3">
+                                <i class="fas fa-search mr-1"></i> Cari
+                            </button>
+
+                            <a href="{{ route('organisasi.index') }}" class="btn btn-secondary px-3">
+                                <i class="fas fa-sync-alt mr-1"></i> Reset
+                            </a>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        @endif
+        {{-- ======================================================================================== --}}
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span class="font-weight-bold"><i class="fas fa-sitemap mr-1"></i> Data Organisasi</span>
@@ -29,6 +84,9 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" style="width:100%">
                         <thead>
+                            <a href="{{ route('organisasi.cetak', request()->all()) }}" target="_blank" class="btn btn-success btn-sm px-3 mb-3">
+                                <i class="fas fa-print mr-1"></i> Cetak Laporan Rekap
+                            </a>
                             <tr class="text-center align-middle">
                                 <th style="width:5%;">No</th>
                                 @if(!Auth::user()->hasRole('Mahasiswa'))
@@ -167,7 +225,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

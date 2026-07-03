@@ -15,9 +15,6 @@
     @if(!Auth::user()->hasRole('Mahasiswa'))
     <div class="card mb-4 border-0 shadow-sm bg-light">
         <div class="card-body">
-            <h6 class="font-weight-bold text-muted small mb-3">
-                <i class="fas fa-search"></i> PANEL PENCARIAN & FILTER DATA
-            </h6>
 
             <form method="GET" action="{{ route('aktivitas.index') }}" id="formFilter" class="row align-items-end">
                 <div class="col-md-5 mb-2">
@@ -112,7 +109,7 @@
         <div class="card-body">
             @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur'))
             <a href="{{ route('aktivitas.cetak', request()->all()) }}" class="btn btn-success btn-sm mb-3" target="_blank">
-                <i class="fas fa-print"></i> Cetak Laporan Terfilter
+                <i class="fas fa-print"></i> Cetak Laporan Rekap
             </a>
             @endif
 
@@ -242,7 +239,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Keputusan</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

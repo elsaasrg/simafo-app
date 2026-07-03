@@ -86,7 +86,7 @@
                     {{-- Tombol --}}
                     <div class="row">
                         <div class="col-md-6 offset-md-4">
-                            <input type="submit" class="btn btn-primary" value="Daftar">
+                            <input type="submit" class="btn btn-primary" value="Tambah">
                             <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>

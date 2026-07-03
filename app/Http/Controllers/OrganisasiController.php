@@ -12,12 +12,45 @@ class OrganisasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->hasRole('Mahasiswa')) {
             $organisasi = Organisasi::where('mahasiswa_id', Auth::user()->mahasiswa->id)->paginate(10);
         } else if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur')) {
-            $organisasi = Organisasi::with('mahasiswa')->orderBy('id', 'DESC')->paginate(3);
+
+            // Inisialisasi query utama
+            $query = Organisasi::with(['mahasiswa.user'])->orderBy('id', 'DESC');
+
+            // --- LOCK FILTER HANYA UNTUK ADMIN ---
+            if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur')) {
+
+                // 1. Fitur Cari (Nama Mahasiswa, NIM, atau Nama Organisasi)
+                if ($request->filled('search')) {
+                    $search = $request->search;
+                    $query->where(function ($mainQuery) use ($search) {
+                        $mainQuery->where('nama_organisasi', 'LIKE', '%' . $search . '%')
+                            ->orWhereHas('mahasiswa', function ($q) use ($search) {
+                                $q->where('nim', 'LIKE', '%' . $search . '%')
+                                    ->orWhereHas('user', function ($qu) use ($search) {
+                                        $qu->where('name', 'LIKE', '%' . $search . '%');
+                                    });
+                            });
+                    });
+                }
+
+                // 2. Dropdown Kategori: Status Validasi
+                if ($request->filled('status') && $request->status !== 'semua') {
+                    $query->where('status_validasi', $request->status);
+                }
+
+                // 3. Dropdown Kategori: Tahun Mulai
+                if ($request->filled('tahun') && $request->tahun !== 'semua') {
+                    $query->where('tahun_mulai', $request->tahun);
+                }
+            }
+
+            // Simpan parameter request di pagination agar filter tidak reset saat pindah halaman
+            $organisasi = $query->paginate(10)->appends($request->all());
         }
         return view('organisasi.index', compact('organisasi'));
     }
@@ -128,5 +161,40 @@ class OrganisasiController extends Controller
         ]);
 
         return redirect()->route('organisasi.index', $organisasi->id)->with('success', 'Status berhasil diperbarui');
+    }
+
+    public function cetakLaporan(Request $request)
+    {
+        if (!auth()->user()->hasRole('Admin') && !auth()->user()->hasRole('Kajur')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $query = Organisasi::with(['mahasiswa.user'])->orderBy('id', 'DESC');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($mainQuery) use ($search) {
+                $mainQuery->where('nama_organisasi', 'LIKE', '%' . $search . '%')
+                    ->orWhere('jabatan', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('mahasiswa', function ($q) use ($search) {
+                        $q->where('nim', 'LIKE', '%' . $search . '%')
+                            ->orWhereHas('user', function ($qu) use ($search) {
+                                $qu->where('name', 'LIKE', '%' . $search . '%');
+                            });
+                    });
+            });
+        }
+
+        if ($request->filled('status') && $request->status !== 'semua') {
+            $query->where('status_validasi', $request->status);
+        }
+
+        if ($request->filled('tahun') && $request->tahun !== 'semua') {
+            $query->where('tahun_mulai', $request->tahun);
+        }
+
+        $organisasi = $query->get();
+
+        return view('organisasi.cetak_laporan', compact('organisasi'));
     }
 }

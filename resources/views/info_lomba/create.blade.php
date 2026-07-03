@@ -5,7 +5,7 @@
     <div class="col m-4">
         <div class="card">
             <div class="card-header">
-                <div class="float-start">Tambah Lomba</div>
+                <div class="float-start">Tambah Informasi Lomba</div>
             </div>
             <div class="card-body">
                 <form action="{{ route('info-lomba.store') }}" method="POST" enctype="multipart/form-data">
@@ -81,7 +81,7 @@
             </div>
 
             <div class="mb-3 row">
-                <input type="submit" class="btn btn-primary btn-sm col-md-3 offset-5">
+                <input type="submit" class="btn btn-primary btn-sm col-md-3 offset-5" value="Buat Informasi Lomba">
             </div>
             </form>
         </div>

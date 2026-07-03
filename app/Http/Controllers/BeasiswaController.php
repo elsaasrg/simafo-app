@@ -11,17 +11,48 @@ class BeasiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->hasRole('Mahasiswa')) {
             $beasiswa = Beasiswa::where('mahasiswa_id', Auth::user()->mahasiswa->id)->paginate(10);
-        } else {
+        } else if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur')) {
 
-            $beasiswa = Beasiswa::with('mahasiswa')->orderBy('id', 'DESC')->paginate(3);
+            // Inisialisasi query utama dengan memuat relasi mahasiswa dan user
+            $query = Beasiswa::with(['mahasiswa.user'])->orderBy('id', 'DESC');
+
+
+            // 1. Fitur Cari (Nama Mahasiswa, NIM, Nama Beasiswa, atau Penyelenggara)
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function ($mainQuery) use ($search) {
+                    $mainQuery->where('nama_beasiswa', 'LIKE', '%' . $search . '%')
+                        ->orWhere('penyelenggara', 'LIKE', '%' . $search . '%')
+                        ->orWhereHas('mahasiswa', function ($q) use ($search) {
+                            $q->where('nim', 'LIKE', '%' . $search . '%')
+                                ->orWhereHas('user', function ($qu) use ($search) {
+                                    $qu->where('name', 'LIKE', '%' . $search . '%');
+                                });
+                        });
+                });
+            }
+
+            // 2. Dropdown Kategori: Status Validasi
+            if ($request->filled('status') && $request->status !== 'semua') {
+                $query->where('status_validasi', $request->status);
+            }
+
+            // 3. Dropdown Kategori: Tahun Mulai (Menggunakan whereYear untuk kolom tipe DATE)
+            if ($request->filled('tahun') && $request->tahun !== 'semua') {
+                $query->whereYear('tanggal_mulai', $request->tahun);
+            }
+
+
+            // Gunakan appends agar filter tidak ter-reset saat berpindah halaman pagination
+            $beasiswa = $query->paginate(10)->appends($request->all());
         }
+
         return view('beasiswa.index', compact('beasiswa'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -123,5 +154,43 @@ class BeasiswaController extends Controller
         ]);
 
         return redirect()->route('beasiswa.index', $beasiswa->id)->with('success', 'Status validasi berhasil diperbarui');
+    }
+
+
+    public function cetakLaporan(Request $request)
+    {
+        // Pastikan hanya Admin atau Kajur yang bisa mengakses cetak laporan
+        if (!auth()->user()->hasRole('Admin') && !auth()->user()->hasRole('Kajur')) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $query = Beasiswa::with(['mahasiswa.user'])->orderBy('id', 'DESC');
+
+        // Terapkan filter yang sama dengan halaman index
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($mainQuery) use ($search) {
+                $mainQuery->where('nama_beasiswa', 'LIKE', '%' . $search . '%')
+                    ->orWhere('penyelenggara', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('mahasiswa', function ($q) use ($search) {
+                        $q->where('nim', 'LIKE', '%' . $search . '%')
+                            ->orWhereHas('user', function ($qu) use ($search) {
+                                $qu->where('name', 'LIKE', '%' . $search . '%');
+                            });
+                    });
+            });
+        }
+
+        if ($request->filled('status') && $request->status !== 'semua') {
+            $query->where('status_validasi', $request->status);
+        }
+
+        if ($request->filled('tahun') && $request->tahun !== 'semua') {
+            $query->whereYear('tanggal_mulai', $request->tahun);
+        }
+
+        $beasiswa = $query->get(); // Ambil semua data tanpa pagination untuk cetak laporan
+
+        return view('beasiswa.cetak_laporan', compact('beasiswa'));
     }
 }

@@ -13,7 +13,7 @@
                         <tr class="text-center align-middle">
                             <th style="width: 50px">No</th>
                             <th>Subjek</th>
-                            <th style="width: 500px">Isi</th>
+                            <th style="">Isi</th>
                             <th>Nama Mahasiswa</th>
                             <th style="width:100px">Status</th>
                             <th>Aksi</th>

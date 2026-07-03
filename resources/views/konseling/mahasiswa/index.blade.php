@@ -52,20 +52,37 @@
                         <td class="text-center">
                             <div class="badge bg-primary">{{ $item->status }}</div>
                         </td>
-
-                        <td>
-                            <div class="text-center">
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center align-items-center">
+                                {{-- Tombol Edit & Hapus HANYA muncul jika statusnya 'dikirim' --}}
                                 @if($item->status == 'dikirim')
+                                <a href="{{ route('konseling.edit', $item->id) }}"
+                                    class="btn btn-warning btn-sm mx-1"
+                                    style="padding: .25rem .4rem;"
+                                    title="Edit Pengajuan">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                                <form action="{{ route('konseling.destroy', $item->id) }}" method="POST" class="btn-group">
+                                <form action="{{ route('konseling.destroy', $item->id) }}" method="POST" class="d-inline m-0">
                                     @csrf
                                     @method("DELETE")
-                                    <a href="{{ route('konseling.edit',$item->id) }}" class="btn btn-warning btn-sm mx-1"><i class="fas fa-edit"></i></a>
-                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    <button type="submit"
+                                        onclick="return confirm('Yakin ingin menghapus pengajuan konseling ini?');"
+                                        class="btn btn-danger btn-sm"
+                                        style="padding: .25rem .4rem;"
+                                        title="Hapus Pengajuan">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </form>
                                 @endif
-                                <a href="{{ route('konseling.show',$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
+                                {{-- Tombol Detail selalu muncul di semua status --}}
+                                <a href="{{ route('konseling.show', $item->id) }}"
+                                    class="btn btn-primary btn-sm mx-1"
+                                    style="padding: .25rem .4rem;"
+                                    title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

@@ -1,5 +1,3 @@
-<div>
-</div>
 @extends('layouts.app')
 
 @section('content')
@@ -35,6 +33,7 @@
                                 <th>Penyelenggara</th>
                                 <th>Pendaftaran</th>
                                 <th>Contact Person</th>
+                                <th>Diposting Oleh</th> {{-- TAMBAHAN: Judul Kolom Baru --}}
                                 <th style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
@@ -50,6 +49,12 @@
                                     <span class="badge bg-danger text-white">{{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}</span>
                                 </td>
                                 <td class="text-center">{{ $item->contact_person ?? '-' }}</td>
+
+                                {{-- TAMBAHAN: Menampilkan Nama User yang Posting --}}
+                                <td class="text-center">
+                                    {{ $item->user->name ?? 'Tidak Diketahui' }}
+                                </td>
+
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Aksi Data">
                                         <button type="button" class="btn btn-info btn-sm text-white"
@@ -58,7 +63,7 @@
                                             <i class="fas fa-eye"></i>
                                         </button>
 
-                                        @if(auth()->user()->hasRole('DosenKemahasiswaan'))
+                                        @if(auth()->user()->hasRole('DosenKemahasiswaan') || auth()->user()->hasRole('Admin'))
                                         <a href="{{ route('info-beasiswa.edit', $item->id) }}" class="btn btn-warning btn-sm text-white">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -79,13 +84,14 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title font-weight-bold text-dark">Detail: {{ $item->nama_beasiswa }}</h5>
+                                            <h5 class="modal-title font-weight-bold text-dark">Detail Beasiswa: {{ $item->nama_beasiswa }}</h5>
                                             <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body text-start" style="text-align: left !important;">
                                             <p><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
+                                            <p><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p> {{-- TAMBAHAN di dalam modal --}}
                                             <p><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
                                             <p><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
                                             <p><strong>Benefit / Cakupan:</strong><br>{!! nl2br(e($item->benefit)) !!}</p>
@@ -105,7 +111,7 @@
                             </div>
                             @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">Belum ada informasi beasiswa yang diterbitkan.</td>
+                                <td colspan="7" class="text-center text-muted py-4">Belum ada informasi beasiswa yang diposting.</td> {{-- Diubah ke colspan="7" --}}
                             </tr>
                             @endforelse
                         </tbody>
@@ -126,7 +132,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-body d-flex flex-column">
-                        <div class="mb-2">
+                        <div class="mb-2 d-flex justify-content-between align-items-center">
                             <span class="badge badge-purple bg-light border text-primary px-2 py-1"><i class="fas fa-university mr-1"></i> {{ $item->penyelenggara }}</span>
                         </div>
                         <h5 class="card-title font-weight-bold text-dark mb-2">{{ $item->nama_beasiswa }}</h5>
@@ -143,6 +149,11 @@
                                 <i class="fas fa-phone-alt mr-1"></i> CP: {{ $item->contact_person }}
                             </span>
                             @endif
+
+                            {{-- TAMBAHAN: Keterangan pengunggah di card mahasiswa --}}
+                            <span class="text-muted d-block mt-2 small text-right italic">
+                                Diposting Oleh: {{ $item->user->name ?? 'tidak diketahui' }}
+                            </span>
                         </div>
 
                         <div class="d-flex gap-2 mt-auto">
@@ -152,11 +163,11 @@
                                 <i class="fas fa-eye mr-1"></i> Lihat Detail
                             </button>
 
-                            @if($item->link_pendaftaran)
+                            <!-- @if($item->link_pendaftaran)
                             <a href="{{ $item->link_pendaftaran }}" target="_blank" class="btn btn-primary btn-sm flex-fill ml-1 shadow-sm">
                                 <i class="fas fa-external-link-alt mr-1"></i> Daftar
                             </a>
-                            @endif
+                            @endif -->
                         </div>
                     </div>
                 </div>
@@ -166,13 +177,14 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title font-weight-bold text-dark">Detail: {{ $item->nama_beasiswa }}</h5>
+                            <h5 class="modal-title font-weight-bold text-dark">Detail Beasiswa: {{ $item->nama_beasiswa }}</h5>
                             <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body text-start" style="text-align: left !important;">
                             <p><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
+                            <p><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p> {{-- TAMBAHAN di modal mahasiswa --}}
                             <p><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
                             <p><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
                             <p><strong>Benefit / Cakupan:</strong><br>{!! nl2br(e($item->benefit)) !!}</p>

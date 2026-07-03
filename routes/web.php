@@ -37,6 +37,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('tracer-study/sukses', [App\Http\Controllers\TracerStudyController::class, 'halamanSukses'])->name('tracer-study.sukses')->middleware('auth');
+
+// BLOK : ADMIN DAN KAJUR
+Route::middleware(['auth', 'role:Admin|Kajur'])->group(function () {
+    Route::get('/beasiswa/cetak', [BeasiswaController::class, 'cetakLaporan'])->name('beasiswa.cetak');
+    Route::get('/organisasi/cetak', [OrganisasiController::class, 'cetakLaporan'])->name('organisasi.cetak');
+    Route::get('/cetak', [AktivitasController::class, 'cetak'])->name('aktivitas.cetak');
+});
+
+
 
 // BLOK 1: RUTE UMUM
 
@@ -52,7 +62,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('konseling', KonselingController::class);
     Route::resource('aduan', AduanController::class);
     Route::resource('tracer-study', TracerStudyController::class);
-    Route::get('/referensi-tempat-kp', [ReferensiTempatKpController::class, 'index'])->name('referensi.kp');
 });
 
 // BLOK 3: ADMIN
@@ -60,9 +69,6 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('dosen', DosenController::class);
-    Route::resource('mitra-jurusan', MitraJurusanController::class);
-    Route::resource('tempat-kp', TempatKpController::class);
-    Route::get('/cetak', [AktivitasController::class, 'cetak'])->name('aktivitas.cetak');
     Route::put('/organisasi/{organisasi}/update-status-validasi', [OrganisasiController::class, 'updateStatusValidasi'])->name('organisasi.updateStatusValidasi');
     Route::put('/beasiswa/{beasiswa}/update-status', [BeasiswaController::class, 'updateStatus'])->name('beasiswa.updateStatus');
     Route::put('/pengajuan-surat/{id}/update-status', [ValidasiSuratController::class, 'updateStatus'])->name('pengajuan-surat.updateStatus');
@@ -72,11 +78,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 
 // BLOK 4 : KAJUR
 Route::middleware(['auth', 'role:Kajur'])->group(function () {
-    Route::get('/cetak', [AktivitasController::class, 'cetak'])->name('aktivitas.cetak');
     Route::put('/aduan/{id}/update-status', [AduanController::class, 'updateStatus'])->name('aduan.updateStatus');
 });
-
-// BLOK 5 : DOSEN KEMAHASISWAAN
 
 
 // BLOK 6 : DOSEN

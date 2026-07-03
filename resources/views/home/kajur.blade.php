@@ -67,6 +67,17 @@
                     </div>
 
                     <div class="col-12 col-md-6 mb-3">
+                        <a href="{{ route('organisasi.index') }}" class="text-decoration-none action-card">
+                            <div class="card h-100 shadow-sm border-0 p-2 border-top-success">
+                                <div class="card-body p-3">
+                                    <i class="fas fa-graduation-cap fa-2x text-success mb-2"></i>
+                                    <span class="d-block font-weight-bold text-dark text-sm">Data Organisasi Mahasiswa</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-3">
                         <a href="{{ route('beasiswa.index') }}" class="text-decoration-none action-card">
                             <div class="card h-100 shadow-sm border-0 p-2 border-top-success">
                                 <div class="card-body p-3">
@@ -100,7 +111,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
                 <div class="card card-purple card-outline shadow-sm mb-4">
                     <div class="card-header bg-white">
                         <h3 class="card-title text-purple font-weight-bold mb-0 text-sm">
@@ -162,7 +173,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

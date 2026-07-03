@@ -42,7 +42,29 @@
                             <div class="card h-100 shadow-sm border-0  p-2">
                                 <div class="card-body p-3">
                                     <i class="fas fa-trophy fa-2x text-purple mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Aktivitas dan Prestasi</span>
+                                    <span class="d-block font-weight-bold text-dark text-sm">Data Aktivitas dan Prestasi</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <a href="{{ route('organisasi.index') }}" class="text-decoration-none action-card">
+                            <div class="card h-100 shadow-sm border-0  p-2">
+                                <div class="card-body p-3">
+                                    <i class="fas fa-graduation-cap fa-2x text-secondary mb-2"></i> <span class="d-block font-weight-bold text-dark text-sm">Data Organisasi</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <a href="{{ route('beasiswa.index') }}" class="text-decoration-none action-card">
+                            <div class="card h-100 shadow-sm border-0  p-2">
+                                <div class="card-body p-3">
+                                    <i class="fas fa-graduation-cap fa-2x text-secondary mb-2"></i> <span class="d-block font-weight-bold text-dark text-sm">Data Beasiswa</span>
                                 </div>
                             </div>
                         </a>
@@ -70,15 +92,6 @@
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="{{ route('beasiswa.index') }}" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0  p-2">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-graduation-cap fa-2x text-secondary mb-2"></i> <span class="d-block font-weight-bold text-dark text-sm">Input Data Beasiswa</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
 
                     <div class="col-12 col-md-6 mb-3">
                         <a href="/pengajuan-surat" class="text-decoration-none action-card">
@@ -95,6 +108,16 @@
                             <div class="card h-100 shadow-sm border-0  p-2">
                                 <div class="card-body p-3"> <i class="fas fa-briefcase fa-2x text-danger mb-2"></i>
                                     <span class="d-block font-weight-bold text-dark text-sm">Informasi Lomba</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <a href="" class="text-decoration-none action-card">
+                            <div class="card h-100 shadow-sm border-0  p-2">
+                                <div class="card-body p-3"> <i class="fas fa-briefcase fa-2x text-danger mb-2"></i>
+                                    <span class="d-block font-weight-bold text-dark text-sm">Informasi Beasiswa</span>
                                 </div>
                             </div>
                         </a>

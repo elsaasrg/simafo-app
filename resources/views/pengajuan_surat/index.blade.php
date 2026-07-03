@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-purple"><i class="fas fa-envelope shadow-sm p-1 rounded bg-purple-light"></i>Pengajuan Surat</h1>
+                <h1 class="m-0 text-purple">Pengajuan Surat</h1>
             </div>
         </div>
     </div>
@@ -88,10 +88,10 @@
                             <td>
                                 @if($item->file_surat_keluar)
                                 <a href="{{ asset('uploads/surat_keluar/' . $item->file_surat_keluar) }}" target="_blank" class="btn btn-sm bg-success shadow-sm">
-                                    <i class="fas fa-download"></i> Unduh Surat Resmi
-                                </a>
-                                @else
-                                <span class="text-muted small"><em>Belum diterbitkan</em></span>
+                                    <i class="fas fa-download"></i> Surat Resmi
+                                </a
+                                    @else
+                                    <span class="text-muted small"><em>Belum diterbitkan</em></span>
                                 @endif
                             </td>
                             @if(auth()->user()->hasRole('Admin'))
@@ -130,7 +130,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn bg-purple text-white">Simpan Perubahan</button>
+                                                    <button type="submit" class="btn bg-purple text-white">Simpan</button>
                                                 </div>
                                             </form>
                                         </div>

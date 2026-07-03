@@ -2,7 +2,6 @@
 
 @section('content')
 
-{{ $errors }}
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,7 +11,7 @@
                 </div>
                 <div class="card-body p-4 text-center">
                     <h4 class="mb-2">Halo, {{ $mahasiswa->user->name }}!</h4>
-                    <p class="text-muted mb-4">Terima kasih telah berpartisipasi dalam pengisian pelacakan alumni.</p>
+                    <p class="text-muted mb-4">Terima kasih telah berpartisipasi dalam pengisian tracer study.</p>
 
                     @if(!$tracerstudy)
                     <div class="alert alert-warning border-0 shadow-sm mb-4" role="alert">
@@ -38,11 +37,18 @@
                         <a href="{{ route('tracer-study.show', $tracerstudy->id) }}" class="btn btn-info text-white px-3">
                             <i class="fas fa-eye me-1"></i> Lihat Detail
                         </a>
+
+                        {{-- PERBAIKAN: Tombol menuju halaman cetak struk terima kasih --}}
+                        <a href="{{ route('tracer-study.sukses') }}" class="btn btn-success text-white px-3">
+                            <i class="fas fa-print me-1"></i> Cetak Bukti Selesai
+                        </a>
+
                         <a href="{{ route('tracer-study.edit', $tracerstudy->id) }}" class="btn btn-warning text-white px-3">
                             <i class="fas fa-pencil-alt me-1"></i> Edit Jawaban
                         </a>
                     </div>
                     @endif
+
                 </div>
             </div>
         </div>

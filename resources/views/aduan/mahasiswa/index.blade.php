@@ -50,20 +50,37 @@
                         <td class="text-center">
                             <div class="badge bg-primary">{{ $item->status }}</div>
                         </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center align-items-center">
+                                {{-- Tombol Edit & Hapus HANYA muncul jika status aduan masih 'menunggu' --}}
+                                @if($item->status == 'menunggu')
+                                <a href="{{ route('aduan.edit', $item->id) }}"
+                                    class="btn btn-warning btn-sm mx-1"
+                                    style="padding: .25rem .4rem;"
+                                    title="Edit Aduan">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                        <td>
-                            <div class="text-center">
-                                @if($item->status == 'dikirim')
-
-                                <form action="{{ route('mahasiswa.aduan.destroy', $item->id) }}" method="POST" class="btn-group">
+                                <form action="{{ route('aduan.destroy', $item->id) }}" method="POST" class="d-inline m-0 mx-1">
                                     @csrf
                                     @method("DELETE")
-                                    <a href="{{ route('mahasiswa.aduan.edit',$item->id) }}" class="btn btn-warning btn-sm mx-1"><i class="fas fa-edit"></i></a>
-                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    <button type="submit"
+                                        onclick="return confirm('Yakin ingin menghapus aduan ini?');"
+                                        class="btn btn-danger btn-sm"
+                                        style="padding: .25rem .4rem;"
+                                        title="Hapus Aduan">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </form>
                                 @endif
-                                <a href="{{ route('aduan.show',$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
+                                {{-- Tombol Detail selalu muncul untuk semua status --}}
+                                <a href="{{ route('aduan.show', $item->id) }}"
+                                    class="btn btn-primary btn-sm mx-1"
+                                    style="padding: .25rem .4rem;"
+                                    title="Lihat Detail">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

@@ -15,7 +15,8 @@ class InfoLombaController extends Controller
     public function index()
     {
         return view('info_lomba.index', [
-            'infolomba' => InfoLomba::orderBy('id', 'DESC')->paginate()
+            // PERBAIKAN: Menambahkan with('user') untuk memuat data pengunggah secara efisien
+            'infolomba' => InfoLomba::with('user')->orderBy('id', 'DESC')->paginate()
         ]);
     }
 
@@ -24,7 +25,7 @@ class InfoLombaController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->hasRole('DosenKemahasiswaan')) {
+        if (!auth()->user()->hasRole('DosenKemahasiswaan') && !auth()->user()->hasRole('Admin')) {
             abort(403, 'Anda tidak memiliki akses untuk mengakses fungsi ini');
         }
 
