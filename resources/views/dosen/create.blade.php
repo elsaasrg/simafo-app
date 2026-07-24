@@ -6,8 +6,8 @@
     <div class="col m-4">
         <div class="card">
 
-            <div class="card-header">
-                <div class="float-start">Tambah Dosen</div>
+            <div class="card-header text-center font-weight-bold">
+                <h3>Tambah Dosen</h3>
             </div>
 
             <div class="card-body">
@@ -68,7 +68,7 @@
                     {{-- Role --}}
                     <div class="mb-3 row">
                         <label class="col-form-label col-md-4 text-md-end">
-                            Role / Jabatan
+                            Role
                         </label>
                         <div class="col-md-6">
                             {{-- 1. name diubah menjadi format array 'roles[]' --}}
@@ -114,12 +114,12 @@
                     {{-- Tombol --}}
                     <div class="row">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary btn-sm btn-radius">
                                 Tambah
                             </button>
 
                             <a href="{{ route('dosen.index') }}"
-                                class="btn btn-secondary">
+                                class="btn btn-secondary btn-sm bg-abu-abu btn-radius">
                                 Batal
                             </a>
                         </div>

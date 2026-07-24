@@ -21,12 +21,14 @@ class TracerStudy extends Model
         'status_saat_ini',
         'masa_tunggu',
         'nama_pekerjaan',
-        'lokasi_pekerjaan',
+        'lokasi_kerja',
+        'sektor_kerja',
+        'metode_cari_kerja',
         'gaji',
         'tingkat_kesesuaian',
         'program_studi_lanjut',
         'institusi_studi_lanjut',
+        'sumber_dana_studi',
         'saran_perbaikan',
-        'mahasiswa_id'
     ];
 }

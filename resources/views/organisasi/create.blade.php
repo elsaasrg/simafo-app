@@ -3,11 +3,7 @@
 @section('content')
 <div class="container-fluid px-4">
     {{-- Header Judul & Breadcrumb --}}
-    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Tambah Organisasi</h1>
-    <ol class="breadcrumb mb-4 bg-light p-2 rounded small">
-        <li class="breadcrumb-item"><a href="{{ route('organisasi.index') }}" class="text-decoration-none">Organisasi Saya</a></li>
-        <li class="breadcrumb-item active">Input Baru</li>
-    </ol>
+    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;"></h1>
 
     {{-- Alert Validation Error Global --}}
     @if ($errors->any())
@@ -23,8 +19,8 @@
     {{-- Main Card Form --}}
     <div class="card mb-4 border-0 shadow-sm">
         {{-- Header Card Hijau Khas SIMAFO --}}
-        <div class="card-header bg-success text-white py-2">
-            <i class="fas fa-edit me-1"></i> Form Pengajuan Riwayat Organisasi
+        <div class="card-header text-center py-3 ">
+            <h4 class="font-weight-bold">TAMBAH ORGANISASI</h4>
         </div>
 
         <div class="card-body p-4 pb-2">
@@ -94,10 +90,10 @@
 
                 {{-- Tombol Kontrol --}}
                 <div class="d-flex justify-content-start mb-2">
-                    <button type="submit" class="btn btn-primary px-4 font-weight-bold me-2 shadow-sm">
-                        <i class="fas fa-save me-1"></i> Simpan Organisasi
+                    <button type="submit" class="btn btn-sm btn-primary px-2 me-2 btn-radius mr-1">
+                        Tambah
                     </button>
-                    <a href="{{ route('organisasi.index') }}" class="btn btn-secondary px-4 shadow-sm">Batal</a>
+                    <a href="{{ route('organisasi.index') }}" class="btn btn-sm btn-radius px-2 bg-abu-abu text-white">Batal</a>
                 </div>
             </form>
         </div>

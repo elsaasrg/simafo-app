@@ -4,8 +4,8 @@
 <div class="row justify-content-center">
     <div class="col m-4">
         <div class="card">
-            <div class="card-header">
-                Daftar Konseling Masuk
+            <div class="card-header text-center">
+                <h4 class="font-weight-bold">Daftar Konseling Masuk</h4>
             </div>
             <div class="card-body">
                 <table class="table table-fixed" style="table-layout:fixed">
@@ -31,10 +31,10 @@
                             </td>
                             <td>{{ $item->mahasiswa->user->name }}</td>
                             <td>
-                                <div class="badge bg-primary">{{ $item->status }}</div>
+                                <div class="badge bg-primary btn-radius px-2">{{ $item->status }}</div>
                             </td>
                             <td>
-                                <a href="{{ route('konseling.show',$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('konseling.show',$item->id) }}" class="btn bg-kuning-3 btn-sm btn-radius"><i class="fas fa-eye"></i></a>
                             </td>
                         </tr>
                         @empty

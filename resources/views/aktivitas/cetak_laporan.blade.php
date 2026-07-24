@@ -80,10 +80,10 @@
     <div class="container mt-3 no-print">
         <div class="d-flex justify-content-between align-items-center p-2 bg-white rounded shadow-sm mb-3">
             <a href="javascript:history.back()" class="btn btn-sm btn-dark">
-                <i class="fas fa-arrow-left"></i> Kembali ke Daftar
+                <i class="fas fa-arrow-left"></i> Kembali
             </a>
             <button onclick="window.print()" class="btn btn-sm btn-primary">
-                <i class="fas fa-print"></i> Cetak / Simpan PDF
+                <i class="fas fa-print"></i> Cetak
             </button>
         </div>
     </div>

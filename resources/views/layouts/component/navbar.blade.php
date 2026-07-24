@@ -1,180 +1,91 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar light">
-    <!-- Left navbar links -->
-    <!-- <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
+<nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-between align-items-center px-5 py-2">
 
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-        </li>
-    </ul> -->
+    <!-- SISI KIRI HEADER: Foto / Silhouette & Nama Jabatan Berdasarkan Peran (Role) -->
+    <div class="d-flex flex-column align-items-center text-center mt-2" style="width: 180px;">
+        @if(auth()->user()->hasRole('Admin'))
+        <img src="{{ asset('images/admin.png') }}"
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/000000?text=Admin';"
+            alt="Admin SIMAFO"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.9rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            Admin
+        </span>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-        <div class="nav-item">
-            <a href="" class="nav-link">
-                @auth
-                <i class="fas fa-user"></i> {{ auth()->user()->name }}
-                @else
-                Guest
-                @endauth
+        @elseif(auth()->user()->hasRole('Kajur'))
+        <img src="{{ asset('images/ketua-jurusan.png') }}"
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/000000?text=Kajur';"
+            alt="Ketua Jurusan"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.9rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            Ketua Jurusan
+        </span>
 
-            </a>
+        @elseif(auth()->user()->hasRole('DosenKemahasiswaan'))
+        <img src="{{ asset('images/dosen-kemahasiswaan.png') }}"
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/000000?text=Dosen+Kemhs';"
+            alt="Dosen Kemahasiswaan"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.8rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            Dosen Kemahasiswaan
+        </span>
 
+
+        @elseif(auth()->user()->hasRole('Dosen'))
+        <img src="{{ asset('images/dosen.png') }}"
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/000000?text=Dosen';"
+            alt="Dosen"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.9rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            Dosen
+        </span>
+
+        @elseif(auth()->user()->hasRole('alumni'))
+        <img src="{{ asset('images/alumni.png') }}"
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/000000?text=Alumni';"
+            alt="Alumni"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.9rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            Alumni
+        </span>
+
+        @elseif(auth()->user()->hasROle('Mahasiswa'))
+        <img src="{{ asset('images/mahasiswa.png') }}"
+            onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/000000?text=Mhs';"
+            alt="Mahasiswa"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.9rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            Mahasiswa
+        </span>
+        @else
+        <!-- Default Tampian jika tidak terautentikasi (Guest) -->
+        <img src="https://placehold.co/100x100/ffffff/000000?text=Guest"
+            alt="Guest"
+            class="img-fluid mb-1"
+            style="height: 65px; width: auto; object-fit: contain;">
+        <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.9rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
+            SIMAFO USER
+        </span>
+        @endif
+    </div>
+
+    <!-- SISI KANAN HEADER: Simafo Colorful Logo & Deskripsi -->
+    <div class="d-flex flex-column align-items-end justify-content-center text-right pr-3">
+        <div class="d-flex align-items-center mb-1">
+            <img src="{{ asset('images/logo-simafo.png') }}"
+                onerror="this.onerror=null; this.src='https://placehold.co/120x45/ffffff/000000?text=Simafo+Logo';"
+                alt="Simafo Logo"
+                class="img-fluid"
+                style="height: 52px; width: auto; object-fit: contain;">
         </div>
-        <!-- Navbar Search -->
-        <!-- <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-            </a>
+        <p class="text-dark m-0 font-weight-bold text-uppercase" style="font-size: 11px; letter-spacing: 1px; line-height: 1.3; font-family: 'Arial', sans-serif; opacity: 0.9;">
+            Sistem Informasi Mahasiswa
+        </p>
+    </div>
 
-            <div class="navbar-search-block">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control navbar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar"
-                                type="submit">
-
-                                <i class="fas fa-search"></i>
-
-                            </button>
-                            <button class="btn btn-navbar"
-                                type="button" data-widget="navbar-search">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </li> -->
-
-        <!-- Messages Dropdown Menu -->
-        <!-- <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar badge">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu right">
-                <a href="#" class="dropdown-item">
- 
-                    <div class="media">
-                        <img src="{{asset('assets/dist/img/user1128x128.jpg')}}" alt="User Avatar"
-                            class="img-size-50 mr-3 img-circle">
-
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Brad Diesel
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you
-                                can...</p>
-                            <p class="text-sm text-muted"><i
-                                    class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-
-                </a>
-
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-          
-                    <div class="media">
-                        <img src="{{asset('assets/dist/img/user8128x128.jpg')}}" alt="User Avatar"
-                            class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                John Pierce
-                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                            </h3>
-
-                            <p class="text-sm">I got your message
-                                bro</p>
-                            <p class="text-sm text-muted"><i
-                                    class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-        
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-          
-                    <div class="media">
-                        <img src="{{asset('assets/dist/img/user3128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Nora Silvester
-                                <span class="float-right text-sm text-warning"><i
-                                        class="fas fastar"></i></span>
-                            </h3>
-                            <p class="text-sm">The subject goes
-                                here</p>
-                            <p class="text-sm text-muted"><i
-                                    class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-
-                    </div>
-     
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-        </li> -->
-        <!-- Notifications Dropdown Menu -->
-        <!-- <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar badge">15</span>
-
-
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu right">
-                <span class="dropdown-item dropdown-header">15
-                    Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new
-                    messages
-                    <span class="float-right text-muted text-sm">3
-                        mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend
-                    requests
-                    <span class="float-right text-muted text-sm">12
-                        hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2
-                        days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See
-                    All Notifications</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#"
-                role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data
-                controlsidebar-slide="true" href="#"
-                role="button">
-
-                <i class="fas fa-th-large"></i>
-            </a>
-        </li> -->
-    </ul>
 </nav>

@@ -17,11 +17,16 @@ class InfoLomba extends Model
         'nama_lomba',
         'deskripsi',
         'penyelenggara',
+        'syarat_ketentuan',
+        'hadiah',
         'tanggal_mulai_pendaftaran',
         'tanggal_selesai_pendaftaran',
+        'tanggal_mulai_pendaftaran',
+        'tanggal_selesai_pelaksanaan',
+        'tempat_pelaksanaan',
         'link_pendaftaran',
         'contact_person',
-        'poster',
+
     ];
 
     public function user()

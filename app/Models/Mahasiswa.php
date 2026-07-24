@@ -24,18 +24,37 @@ class Mahasiswa extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function Organisasi()
+    public function aktivitas()
     {
-        return $this->belongsTo(Organisasi::class);
+        return $this->hasMany(Aktivitas::class);
+    }
+    public function organisasi()
+    {
+        return $this->hasMany(Organisasi::class);
     }
 
-    public function Beasiswa()
+    public function beasiswa()
     {
-        return $this->belongsTo(Beasiswa::class);
+        return $this->hasMany(Beasiswa::class);
+    }
+
+    public function aduan()
+    {
+        return $this->hasMany(Aduan::class);
+    }
+
+    public function pengajuanSurat()
+    {
+        return $this->hasMany(PengajuanSurat::class);
+    }
+
+    public function konseling()
+    {
+        return $this->hasMany(Konseling::class);
     }
 
     public function tracerStudy()
     {
-        return $this->belongsTo(TracerStudy::class);
+        return $this->hasOne(TracerStudy::class);
     }
 }

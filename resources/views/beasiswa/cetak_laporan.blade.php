@@ -91,7 +91,7 @@
                 <i class="fas fa-arrow-left mr-1"></i> Kembali ke Daftar
             </a>
             <button onclick="window.print()" class="btn btn-sm btn-primary">
-                <i class="fas fa-print mr-1"></i> Cetak / Simpan PDF
+                <i class="fas fa-print mr-1"></i> Cetak
             </button>
         </div>
     </div>

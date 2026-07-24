@@ -2,11 +2,6 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Tambah Aktivitas SKCPAM</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="{{ route('aktivitas.index') }}">Aktivitas</a></li>
-        <li class="breadcrumb-item active">Input Baru</li>
-    </ol>
 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -18,9 +13,10 @@
     </div>
     @endif
 
-    <div class="card mb-4">
-        <div class="card-header bg-success text-white">
-            <i class="fas fa-edit me-1"></i> Form Pengajuan Aktivitas / Sertifikat
+    <div class="card mb-4 ">
+        <div class="card-header ">
+            <h4 class="font-weight-bold text-center">
+                TAMBAH DATA AKTIVITAS DAN PRESTASI </h4>
         </div>
         <div class="card-body">
             <form action="{{ route('aktivitas.store') }}" method="POST" enctype="multipart/form-data">
@@ -212,8 +208,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Ajukan Aktivitas</button>
-                    <a href="{{ route('aktivitas.index') }}" class="btn bg-secondary text-white">Batal</a>
+                    <button type="submit" class="btn btn-sm btn-primary btn-radius px-2">Tambah</button>
+                    <a href="{{ route('aktivitas.index') }}" class="btn btn-sm bg-abu-abu btn-radius px-2 text-white">Batal</a>
                 </div>
             </form>
         </div>

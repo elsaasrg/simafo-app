@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-purple">Pengajuan Surat</h1>
-            </div>
-        </div>
+    <div class="container-fluid bg-white text-center py-3 ">
+
+        <h4 class="font-weight-bold">PENGAJUAN SURAT</h4>
+
+
     </div>
 </div>
 
@@ -21,7 +20,7 @@
         </div>
         @endif
 
-        <div class="card card-purple card-outline shadow-sm">
+        <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title font-weight-bold">Daftar Riwayat Pengajuan</h3>
                 @if(auth()->user()->hasRole('Mahasiswa'))
@@ -44,7 +43,7 @@
                             <th>Berkas Persyaratan (Lampiran)</th>
                             <th>Status Proses</th>
                             <th>Surat Resmi Jadi</th>
-                            @if(auth()->user()->role == 'admin')
+                            @if(auth()->user()->hasRole('Admin'))
                             <th style="width: 100px">Aksi</th>
                             @endif
                         </tr>
@@ -59,7 +58,7 @@
                                 <span class="badge badge-secondary">{{ $item->mahasiswa->nim ?? 'NIM' }}</span>
                             </td>
                             @endif
-                            <td><span class="text-purple font-weight-bold">{{ $item->jenis_surat }}</span></td>
+                            <td>{{ $item->jenis_surat }}</td>
                             <td>{{ $item->keperluan }}</td>
                             <td>
                                 <div class="d-flex flex-column">
@@ -86,12 +85,12 @@
                                 @endif
                             </td>
                             <td>
-                                @if($item->file_surat_keluar)
+                                @if($item->file_surat_keluar && $item->status == 'selesai')
                                 <a href="{{ asset('uploads/surat_keluar/' . $item->file_surat_keluar) }}" target="_blank" class="btn btn-sm bg-success shadow-sm">
-                                    <i class="fas fa-download"></i> Surat Resmi
-                                </a
-                                    @else
-                                    <span class="text-muted small"><em>Belum diterbitkan</em></span>
+                                    <i class="fas fa-download"></i> Unduh Surat
+                                </a>
+                                @else
+                                <span class="text-muted small"><em>Belum diterbitkan</em></span>
                                 @endif
                             </td>
                             @if(auth()->user()->hasRole('Admin'))
@@ -106,14 +105,14 @@
                                             <form action="{{ route('pengajuan-surat.updateStatus', $item->id) }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="modal-header bg-purple text-white">
+                                                <div class="modal-header bg-kuning-2">
                                                     <h5 class="modal-title"><i class="fas fa-tasks"></i> Proses Surat Mahasiswa</h5>
-                                                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <div class="modal-body text-left">
                                                     <div class="form-group">
                                                         <label class="font-weight-bold">Ubah Status</label>
-                                                        <select name="status" class="form-control custom-select" required>
+                                                        <select name="status" class="form-control custom-select status-select" data-id="{{ $item->id }}" required>
                                                             <option value="diproses" {{ $item->status == 'diproses' ? 'selected' : '' }}>Diproses (Sedang Dimintakan TTD)</option>
                                                             <option value="selesai" {{ $item->status == 'selesai' ? 'selected' : '' }}>Selesai (Unggah Berkas Jadi)</option>
                                                             <option value="ditolak" {{ $item->status == 'ditolak' ? 'selected' : '' }}>Tolak Permohonan</option>
@@ -123,14 +122,15 @@
                                                         <label class="font-weight-bold">Catatan / Alasan Penolakan</label>
                                                         <textarea name="keterangan_admin" class="form-control" rows="2" placeholder="Tulis catatan jika dokumen ditolak...">{{ $item->keterangan_admin }}</textarea>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-bold">Unggah Surat Resmi(Format .pdf jika Selesai)</label>
+
+                                                    <div class="form-group" id="uploadSuratWrapper{{ $item->id }}" style="display: none;">
+                                                        <label class="font-weight-bold">Unggah Surat Resmi (Format .pdf jika Selesai)</label>
                                                         <input type="file" name="file_surat_keluar" class="form-control-file" accept="application/pdf">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn bg-purple text-white">Simpan</button>
+                                                    <button type="button" class="btn btn-default btn-sm btn-radius bg-abu-abu text-white" data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -150,4 +150,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const statusSelects = document.querySelectorAll('.status-select');
+
+        statusSelects.forEach(function(select) {
+            const itemId = select.getAttribute('data-id');
+            const wrapper = document.getElementById('uploadSuratWrapper' + itemId);
+
+            function toggleUploadInput() {
+                if (select.value === 'selesai') {
+                    wrapper.style.display = 'block';
+                } else {
+                    wrapper.style.display = 'none';
+                }
+            }
+
+            toggleUploadInput();
+            select.addEventListener('change', toggleUploadInput);
+        });
+    });
+</script>
 @endsection

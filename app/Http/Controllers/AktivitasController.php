@@ -149,9 +149,10 @@ class AktivitasController extends Controller
     }
 
 
-    public function edit(string $id)
+    public function edit(Aktivitas $aktivita)
     {
-        //
+        $aktivitas = $aktivita;
+        return view('aktivitas.edit', compact('aktivitas'));
     }
 
 

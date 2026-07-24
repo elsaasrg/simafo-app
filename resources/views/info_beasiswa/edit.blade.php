@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-10 m-4">
             <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 font-weight-bold">Edit Informasi Beasiswa</h5>
-                    <a href="{{ route('info-beasiswa.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                <div class="card-header ">
+                    <h5 class="font-weight-bold text-center">EDIT INFORMASI BEASISWA</h5>
+
                 </div>
                 <div class="card-body">
                     <form action="{{ route('info-beasiswa.update', $infoBeasiswa->id) }}" method="POST">
@@ -88,7 +88,8 @@
 
                         <div class="mb-3 row">
                             <div class="col-md-8 offset-md-3">
-                                <button type="submit" class="btn btn-warning text-white btn-sm px-4">Simpan Perubahan</button>
+                                <button type="submit" class="btn btn-primary text-white btn-sm px-2 btn-radius">Simpan</button>
+                                <a href="{{ route('info-beasiswa.index') }}" class="btn bg-abu-abu btn-sm btn-radius px-2 text-white"> Kembali</a>
                             </div>
                         </div>
                     </form>

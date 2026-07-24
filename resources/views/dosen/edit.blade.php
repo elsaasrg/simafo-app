@@ -6,8 +6,8 @@
     <div class="col m-4">
         <div class="card">
 
-            <div class="card-header font-weight-bold">
-                <div class="float-start">Edit Dosen</div>
+            <div class="card-header font-weight-bold text-center">
+                <h3>Edit Dosen</h3>
             </div>
 
             <div class="card-body">
@@ -126,12 +126,11 @@
                     {{-- Tombol Aksi --}}
                     <div class="row">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary btn-sm btn-radius">
                                 Simpan
                             </button>
-
-                            <a href="{{ route('dosen.index') }}" class="btn btn-secondary">
-                                Kembali
+                            <a href="{{ route('dosen.index') }}" class="btn bg-abu-abu btn-sm btn-radius text-white">
+                                Batal
                             </a>
                         </div>
                     </div>

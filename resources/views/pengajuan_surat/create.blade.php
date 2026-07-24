@@ -88,7 +88,8 @@
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn bg-purple text-white shadow-sm">
-                        <i class="fas fa-paper-plane"></i> Kirim Pengajuan
+                        <!-- <i class="fas fa-paper-plane"></i>  -->
+                        Buat Pengajuan
                     </button>
                 </div>
             </form>

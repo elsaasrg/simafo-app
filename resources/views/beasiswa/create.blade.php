@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    {{-- Header Judul & Breadcrumb --}}
-    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Tambah Beasiswa</h1>
-    <ol class="breadcrumb mb-4 bg-light p-2 rounded small">
-        <li class="breadcrumb-item"><a href="{{ route('beasiswa.index') }}" class="text-decoration-none">Beasiswa Saya</a></li>
-        <li class="breadcrumb-item active">Input Baru</li>
-    </ol>
 
     {{-- Alert Validation Error Global --}}
     @if ($errors->any())
@@ -25,9 +19,9 @@
 
     {{-- Main Card Form --}}
     <div class="card mb-4 border-0 shadow-sm">
-        {{-- Header Card Hijau Khas SIMAFO --}}
-        <div class="card-header bg-success text-white py-2 font-weight-bold">
-            <i class="fas fa-edit me-1"></i> Form Pengajuan Riwayat Beasiswa
+
+        <div class="card-header py-3">
+            <h4 class="text-center font-weight-bold">TAMBAH DATA BEASISWA</h4>
         </div>
 
         {{-- Padding bawah diperkecil (pb-2) agar merapat ke tombol kontrol --}}
@@ -98,10 +92,10 @@
 
                 {{-- Tombol Kontrol pas sebelum penutup form (menghilangkan sisa ruang putih) --}}
                 <div class="d-flex justify-content-start mb-2">
-                    <button type="submit" class="btn btn-primary px-4 font-weight-bold me-2 shadow-sm">
-                        <i class="fas fa-save me-1"></i> Simpan Ajuan
+                    <button type="submit" class="btn btn-sm btn-primary px-2 btn-radius mr-1">
+                        Tambah
                     </button>
-                    <a href="{{ route('beasiswa.index') }}" class="btn btn-secondary px-4 shadow-sm">Batal</a>
+                    <a href="{{ route('beasiswa.index') }}" class="btn btn-sm bg-abu-abu px-2 btn-radius text-white">Batal</a>
                 </div>
             </form>
         </div>

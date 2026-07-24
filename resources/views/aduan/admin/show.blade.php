@@ -1,94 +1,174 @@
 @extends('layouts.app')
+
 @section('content')
 
-{{-- Flash Message Berhasil --}}
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
+<div class="container-fluid pt-3">
 
-<div class="row justify-content-center">
-    <div class="col m-4">
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="float-start">Data aduan</div>
-                    <div class="float-end"><a href="{{ route('aduan.index') }}" class="btn btn-primary btn-sm">Kembali</a></div>
-                </div>
+    {{-- Flash Message Success --}}
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
+    {{-- Flash Message Error --}}
+    @if(session('error') || $errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle mr-1"></i> {{ session('error') ?? 'Terdapat kesalahan pada pengisian form di bawah ini.' }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h4 class="font-weight-bold" style="display: inline;">
+                Detail Aduan
+            </h4>
+            <div class="card-tools">
+                <a href="{{ route('aduan.index') }}" class="btn bg-abu-abu btn-sm btn-radius px-2 text-white">
+                    Kembali
+                </a>
             </div>
-            <div class="card-body">
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Nama Mahasiswa:</strong></div>
-                    <div class="col-md-6">{{ $aduan->mahasiswa->nama_lengkap }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Subjek:</strong></div>
-                    <div class="col-md-6">{{ $aduan->subjek }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Isi aduan:</strong></div>
-                    <div class="col-md-6">{{ $aduan->isi_aduan }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <form action="{{ route('aduan.updateStatus', $aduan->id) }}" method="POST">
+        </div>
 
-                        @csrf
-                        @method('PUT')
+        <div class="card-body">
 
-                        <div class="mb-3 row">
-                            <div class="col-md-4 text-md-end">
-                                <strong>Status:</strong>
-                            </div>
+            <!-- Information Table -->
+            <table class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <th style="width: 22%;">Pelapor</th>
+                        <td>
+                            {{ $aduan->mahasiswa->user->name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width: 22%;">NIM Pelapor</th>
+                        <td>
+                            @if($aduan->is_anonim)
+                            <span>
+                                -
+                            </span>
+                            @else
 
-                            <div class="col-md-6 d-flex justify-content-start align-items-center gap-2">
+                            <span class="mr-2">
+                                {{ $aduan->mahasiswa->nim ?? '-' }}
+                            </span>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Kategori</th>
+                        <td>
 
-                                <select name="status" class="form-select col-md-2 w-auto">
+                            {{ ucfirst(str_replace('_', ' ', $aduan->kategori ?? 'Lainnya')) }}
 
-                                    <option value="menunggu"
-                                        {{ $aduan->status == 'menunggu' ? 'selected' : '' }}>
-                                        Menunggu
-                                    </option>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Subjek</th>
+                        <td class="font-weight-bold text-dark">{{ $aduan->subjek }}</td>
+                    </tr>
+                    <tr>
+                        <th>Isi Aduan</th>
+                        <td style="white-space: pre-line;" class="text-justify">{{ $aduan->isi_aduan }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lampiran Bukti</th>
+                        <td>
+                            @if($aduan->lampiran)
+                            <a href="{{ asset('storage/' . $aduan->lampiran) }}" target="_blank" class="btn btn-sm btn-info font-weight-bold">
+                                <i class="fas fa-paperclip mr-1"></i> Lihat / Unduh Lampiran
+                            </a>
+                            @else
+                            <span class="text-muted font-italic">Tidak ada lampiran terlampir</span>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal Masuk</th>
+                        <td>{{ $aduan->created_at ? $aduan->created_at->format('d F Y - H:i') : '-' }} WIB</td>
+                    </tr>
+                </tbody>
+            </table>
 
-                                    <option value="diproses"
-                                        {{ $aduan->status == 'diproses' ? 'selected' : '' }}>
-                                        Diproses
-                                    </option>
+            <hr class="my-4">
 
-                                    <option value="selesai"
-                                        {{ $aduan->status == 'selesai' ? 'selected' : '' }}>
-                                        Selesai
-                                    </option>
+            <!-- Form Process & Response -->
+            <div class="bg-light p-3 rounded border">
+                <h5 class="mb-3 font-weight-bold">
+                    <i class="fas fa-user-shield mr-1"></i> Form Tindak Lanjut & Tanggapan Jurusan
+                </h5>
 
-                                    <option value="ditolak"
-                                        {{ $aduan->status == 'ditolak' ? 'selected' : '' }}>
-                                        Ditolak
-                                    </option>
+                <form action="{{ route('aduan.updateStatus', $aduan->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
-                                </select>
-                                <button type="submit" class="btn btn-success btn-sm">
-                                    Simpan
-                                </button>
+                    <!-- Input Status -->
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label font-weight-bold">
+                            Status Aduan <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <select name="status" class="form-control @error('status') is-invalid @enderror" required>
+                                <option value="menunggu" {{ old('status', $aduan->status) == 'menunggu' ? 'selected' : '' }}>
+                                    Menunggu
+                                </option>
+                                <option value="diproses" {{ old('status', $aduan->status) == 'diproses' ? 'selected' : '' }}>
+                                    Diproses
+                                </option>
+                                <option value="selesai" {{ old('status', $aduan->status) == 'selesai' ? 'selected' : '' }}>
+                                    Selesai
+                                </option>
+                                <option value="ditolak" {{ old('status', $aduan->status) == 'ditolak' ? 'selected' : '' }}>
+                                    Ditolak
+                                </option>
+                            </select>
 
-                            </div>
+                            @error('status')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
+                    </div>
 
+                    <!-- Input Tanggapan / Balasan -->
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label font-weight-bold">
+                            Tanggapan / Solusi <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <textarea
+                                name="tanggapan"
+                                rows="5"
+                                class="form-control @error('tanggapan') is-invalid @enderror"
+                                placeholder=""
+                                required>{{ old('tanggapan', $aduan->tanggapan) }}</textarea>
 
+                            @error('tanggapan')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
 
+                    <!-- Tombol Simpan -->
+                    <div class="form-group row mb-0">
+                        <div class="col-md-10 offset-md-2">
+                            <button type="submit" class="btn btn-sm btn-primary px-2 btn-radius">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
 
-                    </form>
-                </div>
-
-
+                </form>
             </div>
 
         </div>
     </div>
-</div>
 </div>
 
 @endsection

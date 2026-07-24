@@ -1,189 +1,189 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container-fluid px-4">
-    <div class="row justify-content-center">
-        <div class="col-12 my-4">
 
-            {{-- Bagian Pencarian & Filter Detail --}}
-            <div class="card mb-4 shadow-sm border-0">
-                <div class="card-body bg-light">
-                    <form action="{{ route('tracer-study.index') }}" method="GET">
-                        <div class="row">
-                            {{-- Input Kata Kunci (Nama / NIM) --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold small text-muted">Cari Alumni (Nama / NIM)</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white"><i class="fas fa-user text-muted"></i></span>
-                                    </div>
-                                    <input type="text" name="search" class="form-control"
-                                        placeholder="Ketik nama atau NIM..."
-                                        value="{{ request('search') }}">
-                                </div>
-                            </div>
+    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Tracer Study Alumni</h1>
 
-                            {{-- Filter Tahun Lulus --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold small text-muted">Tahun Lulus / Angkatan</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white"><i class="fas fa-calendar-alt text-muted"></i></span>
-                                    </div>
-                                    <select name="tahun" class="form-control">
-                                        <option value="">-- Semua Tahun Lulus --</option>
-                                        @for ($year = date('Y'); $year >= 2015; $year--)
-                                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
-                                            Lulusan Tahun {{ $year }}
-                                        </option>
-                                        @endfor
-                                    </select>
-                                </div>
-                            </div>
+    {{-- Alert Validation Error Global --}}
+    @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <ul class="mb-0 small">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
-                            {{-- Filter Status (Bekerja / Tidak) --}}
-                            <div class="col-md-4 mb-3">
-                                <label class="font-weight-bold small text-muted">Status Saat Ini</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-white"><i class="fas fa-briefcase text-muted"></i></span>
-                                    </div>
-                                    <select name="status" class="form-control">
-                                        <option value="">-- Semua Status --</option>
-                                        <option value="bekerja" {{ request('status') == 'bekerja' ? 'selected' : '' }}>Bekerja</option>
-                                        <option value="wiraswasta" {{ request('status') == 'wiraswasta' ? 'selected' : '' }}>Wiraswasta / Wirausaha</option>
-                                        <option value="kuliah" {{ request('status') == 'kuliah' ? 'selected' : '' }}>Studi Lanjut (Kuliah)</option>
-                                        <option value="mencari_kerja" {{ request('status') == 'mencari_kerja' ? 'selected' : '' }}>Mencari Kerja / Tidak Bekerja</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Tombol Aksi Filter --}}
-                        <div class="d-flex justify-content-end">
-                            @if(request()->filled('search') || request()->filled('tahun') || request()->filled('status'))
-                            <a href="{{ route('tracer-study.index') }}" class="btn btn-secondary btn-sm mr-2 d-flex align-items-center">
-                                <i class="fas fa-redo mr-1"></i> Reset Filter
-                            </a>
-                            @endif
-                            <button type="submit" class="btn btn-primary btn-sm d-flex align-items-center">
-                                <i class="fas fa-filter mr-1"></i> Terapkan Filter
-                            </button>
-                        </div>
-                    </form>
+    {{-- 1. BAGIAN ATAS: BIODATA ALUMNI --}}
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-header bg-dark text-white py-2 font-weight-bold">
+            <i class="fas fa-id-card mr-1"></i> Biodata Alumni
+        </div>
+        <div class="card-body p-4">
+            <div class="row text-center text-md-left">
+                <div class="col-md-4 mb-3 mb-md-0 border-end-md">
+                    <small class="text-muted d-block font-weight-bold text-uppercase">Nama</small>
+                    <span class="h6 font-weight-bold text-dark mb-0">{{ $mahasiswa->user->name }}</span>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0 border-end-md">
+                    <small class="text-muted d-block font-weight-bold text-uppercase">Nomor Induk Mahasiswa (NIM)</small>
+                    <span class="h6 font-weight-bold text-dark mb-0">{{ $mahasiswa->nim }}</span>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted d-block font-weight-bold text-uppercase">Tahun Kelulusan</small>
+                    <span class="h6 font-weight-bold text-success mb-0">
+                        <i class="fas fa-graduation-cap mr-1"></i> Lulus Tahun {{ $mahasiswa->tahun_lulus }}
+                    </span>
                 </div>
             </div>
+        </div>
+    </div>
 
-            {{-- Tabel Utama Data Alumni --}}
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
-                    <h5 class="m-0 font-weight-bold text-dark">
-                        Tracer Study
-                    </h5>
+    {{-- 2. BAGIAN BAWAH: FORM KUESIONER TRACER STUDY --}}
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-header bg-success text-white py-2 font-weight-bold">
+            <i class="fas fa-poll-h mr-1"></i> Pengisian Kuesioner Pelacakan Alumni
+        </div>
+
+        <div class="card-body p-4">
+            <form action="{{ route('tracer-study.store') }}" method="POST">
+                @csrf
+
+                {{-- Pertanyaan Utama: Status --}}
+                <div class="mb-4">
+                    <label for="status_saat_ini" class="form-label font-weight-bold">1. Apa status kegiatan utama Anda saat ini? <span class="text-danger">*</span></label>
+                    <select name="status_saat_ini" id="status_saat_ini" class="form-control @error('status_saat_ini') is-invalid @enderror">
+                        <option value="" disabled {{ old('status_saat_ini') == '' ? 'selected' : '' }}>-- Pilih Status Saat Ini --</option>
+                        <option value="bekerja" {{ old('status_saat_ini') == 'bekerja' ? 'selected' : '' }}>Bekerja</option>
+                        <option value="wirausaha" {{ old('status_saat_ini') == 'wirausaha' ? 'selected' : '' }}>Wirausaha</option>
+                        <option value="studi_lanjut" {{ old('status_saat_ini') == 'studi_lanjut' ? 'selected' : '' }}>Melanjutkan Pendidikan</option>
+                        <option value="mencari_kerja" {{ old('status_saat_ini') == 'mencari_kerja' ? 'selected' : '' }}>Mencari Kerja / Belum Bekerja</option>
+                    </select>
+                    @error('status_saat_ini')
+                    <span class="text-danger small d-block mt-1"><strong>{{ $message }}</strong></span>
+                    @enderror
                 </div>
 
-                <div class="card-body">
-                    @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    @endif
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover m-0">
-                            <thead class="thead-light">
-                                <tr class="text-center">
-                                    <th style="width: 8%;">No</th>
-                                    <th>Nama Alumni</th>
-                                    <th style="width: 15%;">NIM</th>
-                                    <th style="width: 15%;">Tahun Lulus</th>
-                                    <th style="width: 20%;">Status Saat Ini</th>
-                                    <th style="width: 15%;">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($tracerstudy as $item)
-                                <tr>
-                                    <td class="text-center align-middle">
-                                        {{ $loop->iteration + ($tracerstudy->firstItem() - 1) }}
-                                    </td>
-                                    <td class="align-middle text-dark pl-3">
-                                        {{ $item->mahasiswa->user->name ?? 'N/A' }}
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        {{ $item->mahasiswa->nim ?? '-' }}
-                                    </td>
-                                    <td class="text-center align-middle  text-primary">
-                                        {{ $item->mahasiswa->tahun_lulus ?? $item->tahun_lulus ?? '-' }}
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        @php
-                                        $statusLower = Str::lower($item->status_saat_ini);
-                                        @endphp
-
-                                        @if(Str::contains($statusLower, 'bekerja') && !Str::contains($statusLower, 'tidak'))
-                                        Bekerja
-                                        @elseif(Str::contains($statusLower, 'wiraswasta') || Str::contains($statusLower, 'wirausaha'))
-                                        Wiraswasta
-                                        @elseif(Str::contains($statusLower, 'kuliah') || Str::contains($statusLower, 'studi lanjut') || Str::contains($statusLower, 'pendidikan'))
-                                        Studi Lanjut
-                                        @else
-                                        </i> {{ $item->status_saat_ini ?? 'Mencari Kerja' }}
-                                        @endif
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            {{-- Tombol Detail --}}
-                                            <a href="{{ route('tracer-study.show', $item->id) }}"
-                                                class="btn btn-primary btn-sm mx-1"
-                                                style="padding: .25rem .4rem;"
-                                                title="Lihat Detail Lengkap">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-
-                                            {{-- Tombol Hapus --}}
-                                            @can('delete-tracerstudy')
-                                            <form action="{{ route('tracer-study.destroy', $item->id) }}" method="POST" class="d-inline m-0 mx-1">
-                                                @csrf
-                                                @method("DELETE")
-                                                <button type="submit"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data Tracer Study ini?');"
-                                                    class="btn btn-danger btn-sm"
-                                                    style="padding: .25rem .4rem;"
-                                                    title="Hapus Data">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                            @endcan
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted font-italic py-4">
-                                        <i class="fas fa-graduation-cap fa-2x mb-2 d-block text-secondary"></i>
-                                        Belum ada data alumni yang sesuai dengan kriteria pencarian Anda.
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                {{-- CONTAINER GRUP A: RIWAYAT PEKERJAAN / WIRAUSAHA --}}
+                <div class="card p-3 border-0 bg-light mb-4">
+                    <div class="p-2 mb-3 bg-white rounded font-weight-bold text-success small shadow-sm">
+                        <i class="fas fa-briefcase mr-1"></i> KUESIONER RIWAYAT PEKERJAAN / WIRAUSAHA <span class="text-muted font-weight-normal">(Diisi jika Anda bekerja / wirausaha)</span>
                     </div>
 
-                    {{-- Navigasi Pagination --}}
-                    <div class="mt-3 d-flex justify-content-end">
-                        {{ $tracerstudy->appends(request()->query())->links() }}
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">2. Berapa lama waktu yang Anda butuhkan untuk mendapatkan pekerjaan pertama setelah lulus?</label>
+                        <select name="masa_tunggu" class="form-control">
+                            <option value="" selected disabled>-- Pilih Masa Tunggu --</option>
+                            <option value="kurang dari 3 bulan" {{ old('masa_tunggu') == 'kurang dari 3 bulan' ? 'selected' : '' }}>Kurang dari 3 bulan</option>
+                            <option value="3-6 bulan" {{ old('masa_tunggu') == '3-6 bulan' ? 'selected' : '' }}>3-6 bulan</option>
+                            <option value="6-12 bulan" {{ old('masa_tunggu') == '6-12 bulan' ? 'selected' : '' }}>6-12 bulan</option>
+                            <option value="1-2 tahun" {{ old('masa_tunggu') == '1-2 tahun' ? 'selected' : '' }}>1-2 tahun</option>
+                            <option value="lebih dari 2 tahun" {{ old('masa_tunggu') == 'lebih dari 2 tahun' ? 'selected' : '' }}>Lebih dari 2 tahun</option>
+                        </select>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">3. Apa pekerjaan / jabatan / bidang usaha Anda saat ini?</label>
+                        <input type="text" name="nama_pekerjaan" class="form-control" value="{{ old('nama_pekerjaan') }}" placeholder="Contoh: IT Support / Software Engineer / Owner Coffee Shop">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">4. Dimana lokasi perusahaan / usaha tempat Anda bekerja?</label>
+                        <input type="text" name="lokasi_kerja" class="form-control" value="{{ old('lokasi_kerja') }}" placeholder="Contoh: Jakarta Selatan / Remote / Pontianak">
+                    </div>
+
+                    {{-- [TAMBAHAN BARU]: Sektor Kerja --}}
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">5. Sektor tempat bekerja / perusahaan:</label>
+                        <select name="sektor_kerja" class="form-control">
+                            <option value="" selected disabled>-- Pilih Sektor Kerja --</option>
+                            <option value="instansi_pemerintah" {{ old('sektor_kerja') == 'instansi_pemerintah' ? 'selected' : '' }}>Instansi Pemerintah</option>
+                            <option value="bumn_bumd" {{ old('sektor_kerja') == 'bumn_bumd' ? 'selected' : '' }}>BUMN / BUMD</option>
+                            <option value="swasta" {{ old('sektor_kerja') == 'swasta' ? 'selected' : '' }}>Swasta</option>
+                            <option value="organisasi_non_profit" {{ old('sektor_kerja') == 'organisasi_non_profit' ? 'selected' : '' }}>Organisasi Non-Profit / NGO</option>
+                            <option value="wirausaha" {{ old('sektor_kerja') == 'wirausaha' ? 'selected' : '' }}>Wirausaha / Usaha Sendiri</option>
+                        </select>
+                    </div>
+
+                    {{-- [TAMBAHAN BARU]: Metode Cari Kerja --}}
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">6. Bagaimana cara Anda mencari / mendapatkan pekerjaan pertama?</label>
+                        <input type="text" name="metode_cari_kerja" class="form-control" value="{{ old('metode_cari_kerja') }}" placeholder="Contoh: Job Fair / LinkedIn / Relasi / Website Perusahaan">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">7. Berapa rata-rata gaji bersih Anda dalam sebulan?</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white font-weight-bold">Rp</span>
+                            </div>
+                            <input type="number" name="gaji" class="form-control" value="{{ old('gaji') }}" placeholder="Contoh: 4500000">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">8. Skala 1-5, seberapa sesuaikah bidang kerja dengan jurusan kuliah Anda?</label>
+                        <input type="number" name="tingkat_kesesuaian" min="1" max="5" class="form-control" value="{{ old('tingkat_kesesuaian') }}" placeholder="Masukkan angka skala 1 s.d 5">
+                    </div>
                 </div>
-            </div>
 
+                {{-- CONTAINER GRUP B: MELANJUTKAN PENDIDIKAN --}}
+                <div class="card p-3 border-0 bg-light mb-4">
+                    <div class="p-2 mb-3 bg-white rounded font-weight-bold text-info small shadow-sm">
+                        <i class="fas fa-university mr-1"></i> KUESIONER PENDIDIKAN LANJUT (S2/S3) <span class="text-muted font-weight-normal">(Diisi jika Anda melanjutkan studi)</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">9. Nama Program Studi Pendidikan Lanjut Anda:</label>
+                        <input type="text" name="program_studi_lanjut" class="form-control" value="{{ old('program_studi_lanjut') }}" placeholder="Contoh: Magister Sistem Informasi">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">10. Nama Universitas / Institusi Tempat Studi Lanjut:</label>
+                        <input type="text" name="institusi_studi_lanjut" class="form-control" value="{{ old('institusi_studi_lanjut') }}" placeholder="Contoh: Universitas Gadjah Mada">
+                    </div>
+
+                    {{-- [TAMBAHAN BARU]: Sumber Dana Studi --}}
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">11. Sumber Dana Pendidikan Lanjut Anda:</label>
+                        <select name="sumber_dana_studi" class="form-control">
+                            <option value="" selected disabled>-- Pilih Sumber Dana --</option>
+                            <option value="biaya_sendiri" {{ old('sumber_dana_studi') == 'biaya_sendiri' ? 'selected' : '' }}>Biaya Sendiri / Orang Tua</option>
+                            <option value="beasiswa" {{ old('sumber_dana_studi') == 'beasiswa' ? 'selected' : '' }}>Beasiswa</option>
+                        </select>
+                    </div>
+                </div>
+
+                {{-- [TAMBAHAN BARU]: Saran & Perbaikan --}}
+                <div class="mb-4">
+                    <label class="form-label font-weight-bold">12. Masukkan Saran & Masukan untuk Perbaikan Layanan / Kurikulum Kampus:</label>
+                    <textarea name="saran_perbaikan" class="form-control" rows="3" placeholder="Tuliskan masukan atau saran perbaikan di sini...">{{ old('saran_perbaikan') }}</textarea>
+                </div>
+
+                <hr class="mt-4 mb-4">
+
+                {{-- Tombol Kontrol Aksi --}}
+                <div class="d-flex justify-content-start mb-2">
+                    <button type="submit" class="btn btn-primary px-4 font-weight-bold mr-2 shadow-sm">
+                        <i class="fas fa-paper-plane mr-1"></i> Kirim Kuesioner
+                    </button>
+                    <a href="{{ route('home') }}" class="btn btn-secondary px-4 shadow-sm">Batal</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+<style>
+    @media (min-width: 768px) {
+        .border-end-md {
+            border-right: 1px solid #dee2e6 !important;
+        }
+    }
+</style>
 @endsection

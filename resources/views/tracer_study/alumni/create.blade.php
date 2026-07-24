@@ -2,12 +2,9 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    {{-- Header Judul & Breadcrumb --}}
+
     <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Tracer Study Alumni</h1>
-    <ol class="breadcrumb mb-4 bg-light p-2 rounded small">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Dashboard</a></li>
-        <li class="breadcrumb-item active">Pengisian Kuesioner</li>
-    </ol>
+
 
     {{-- Alert Validation Error Global --}}
     @if ($errors->any())
@@ -115,6 +112,23 @@
                         <label class="form-label font-weight-bold">6. Skala 1-5, seberapa sesuaikah bidang kerja dengan jurusan kuliah Anda?</label>
                         <input type="number" name="tingkat_kesesuaian" min="1" max="5" class="form-control" value="{{ old('tingkat_kesesuaian') }}" placeholder="Masukkan angka skala 1 s.d 5">
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">7. Saat ini Anda bekerja di sektor apa? </label>
+                        <select name="sektor_kerja" class="form-control">
+                            <option value="" selected disabled>-- Pilih Sektor Kerja --</option>
+                            <option value="instansi_pemerintah" {{ old('sektor_kerja') == 'instansi_pemerintah' ? 'selected' : '' }}>Instansi Pemerintah</option>
+                            <option value="bumn_bumd" {{ old('sektor_kerja') == 'bumn_bumd' ? 'selected' : '' }}>BUMN/BUMD</option>
+                            <option value="swasta" {{ old('sektor_kerja') == 'swasta' ? 'selected' : '' }}>Swasta</option>
+                            <option value="organisasi_multilateral" {{ old('sektor_kerja') == 'organisasi_multilateral' ? 'selected' : '' }}>Organisasi Multilateral</option>
+                            <option value="wirausaha" {{ old('sektor_usaha') == 'wirausaha' ? 'selected' : '' }}>Wirausaha</option>
+                            <option value="lainnya" {{ old('sektor_usaha') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">8. Bagaimana Anda mendapatkan informasi mengenai lowongan pekerjaan Anda?</label>
+                        <input type="text" name="metode_cari_kerja" class="form-control" value="{{ old('metode_cari_kerja') }}" placeholder="Contoh: media">
+                    </div>
                 </div>
 
                 {{-- CONTAINER GRUP B: MELANJUTKAN PENDIDIKAN --}}
@@ -124,13 +138,35 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label font-weight-bold">7. Nama Program Studi Pendidikan Lanjut Anda:</label>
+                        <label class="form-label font-weight-bold">9. Nama Program Studi Pendidikan Lanjut Anda:</label>
                         <input type="text" name="program_studi_lanjut" class="form-control" value="{{ old('program_studi_lanjut') }}" placeholder="Contoh: Magister Sistem Informasi">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label font-weight-bold">8. Nama Universitas / Institusi Tempat Studi Lanjut:</label>
+                        <label class="form-label font-weight-bold">10. Nama Universitas / Institusi Tempat Studi Lanjut:</label>
                         <input type="text" name="institusi_studi_lanjut" class="form-control" value="{{ old('institusi_studi_lanjut') }}" placeholder="Contoh: Universitas Gadjah Mada">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">11. Apa sumber dana utama yang membiayai studi lanjutan Anda?</label>
+                        <select name="sektor_kerja" class="form-control">
+                            <option value="" selected disabled>-- Pilih Sumber Dana Studi --</option>
+                            <option value="beasiswa" {{ old('sumber_dana_studi') == 'beasiswa' ? 'selected' : '' }}>Beasiswa</option>
+                            <option value="biaya_sendiri" {{ old('sumber_dana_studi') == 'biaya_sendiri' ? 'selected' : '' }}>Biaya Sendiri</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+
+
+                {{-- CONTAINER GRUP B: LAINNYA --}}
+                <div class="card p-3 border-0 bg-light mb-4">
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">9. Apa saran atau masukan yang dapat Anda berikan untuk pengembangan dan perbaikan program studi?</label>
+                        <textarea name="saran_perbaikan" id="form-control" class="form-control" rows="4" placeholder="Berikan pendapat Anda.."></textarea>
                     </div>
                 </div>
 

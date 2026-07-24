@@ -20,4 +20,9 @@ class Dosen extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function konseling()
+    {
+        return $this->hasMany(Konseling::class);
+    }
 }

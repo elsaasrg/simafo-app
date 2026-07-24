@@ -55,6 +55,11 @@ class User extends Authenticatable
 
     public function infoLomba()
     {
-        return $this->hasOne(InfoLomba::class, 'user_id');
+        return $this->hasMany(InfoLomba::class, 'user_id');
+    }
+
+    public function infoBeasiswa()
+    {
+        return $this->hasMany(InfoLomba::class, 'user_id');
     }
 }

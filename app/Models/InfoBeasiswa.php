@@ -22,7 +22,7 @@ class InfoBeasiswa extends Model
         'contact_person'
     ];
 
-    protected  $table = 'info_beasiswa';
+    protected $table = 'info_beasiswa';
 
 
     public function user()

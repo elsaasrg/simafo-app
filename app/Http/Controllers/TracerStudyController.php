@@ -104,27 +104,29 @@ class TracerStudyController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::user()->hasRole('Alumni')) abort(403);
+        if (!Auth::user()->hasRole('Alumni') && !Auth::user()->hasRole('Mahasiswa')) abort(403);
 
-        $request->validate([
+
+        $validatedData = $request->validate([
             'status_saat_ini'        => 'required|string',
-            'masa_tunggu'            => 'nullable|string',
-            'nama_pekerjaan'         => 'nullable|string',
-            'lokasi_kerja'           => 'nullable|string',
+            'masa_tunggu'             => 'nullable|string',
+            'nama_pekerjaan'         => 'nullable|string|max:255',
+            'lokasi_kerja'           => 'nullable|string|max:255',
+            'sektor_kerja'           => 'nullable|string|max:255',
+            'metode_cari_kerja'      => 'nullable|string|max:255',
             'gaji'                   => 'nullable|numeric',
             'tingkat_kesesuaian'     => 'nullable|integer|between:1,5',
-            'program_studi_lanjut'   => 'nullable|string',
-            'institusi_studi_lanjut' => 'nullable|string',
+            'program_studi_lanjut'   => 'nullable|string|max:255',
+            'institusi_studi_lanjut' => 'nullable|string|max:255',
+            'sumber_dana_studi'      => 'nullable|in:biaya_sendiri,beasiswa',
             'saran_perbaikan'        => 'nullable|string'
         ]);
 
-        $input = $request->all();
-        $input['mahasiswa_id'] = Auth::user()->mahasiswa->id;
+        $validatedData['mahasiswa_id'] = Auth::user()->mahasiswa->id;
 
-        TracerStudy::create($input);
+        TracerStudy::create($validatedData);
 
-        // PERBAIKAN: Dialihkan ke halaman sukses cetak beasiswa/tracer study
-        return redirect()->route('tracer-study.sukses');
+        return redirect()->route('tracer-study.sukses')->with('success', 'Kuesioner Tracer Study berhasil disimpan.');
     }
 
     /**
@@ -180,15 +182,39 @@ class TracerStudyController extends Controller
      */
     public function update(Request $request, TracerStudy $tracerStudy)
     {
-        if (!Auth::user()->hasRole('Alumni')) abort(403);
+        $user = Auth::user();
 
-        $request->validate([
-            'status_saat_ini' => 'required|string',
+        // 1. Cek Role Akses
+        if (!$user->hasRole('Alumni') && !$user->hasRole('Mahasiswa')) {
+            abort(403, 'Anda tidak memiliki akses untuk mengubah data ini.');
+        }
+
+        // 2. Proteksi Akses: Mencegah alumni mengubah data milik alumni lain
+        if ($tracerStudy->mahasiswa_id !== $user->mahasiswa->id) {
+            abort(403, 'Anda hanya dapat mengubah data milik Anda sendiri.');
+        }
+
+        // 3. Validasi Seluruh Field Sesuai Database
+        $validatedData = $request->validate([
+            'status_saat_ini'        => 'required|string',
+            'masa_tunggu'             => 'nullable|string',
+            'nama_pekerjaan'         => 'nullable|string|max:255',
+            'lokasi_kerja'           => 'nullable|string|max:255',
+            'sektor_kerja'           => 'nullable|string|max:255',
+            'metode_cari_kerja'      => 'nullable|string|max:255',
+            'gaji'                   => 'nullable|numeric',
+            'tingkat_kesesuaian'     => 'nullable|integer|between:1,5',
+            'program_studi_lanjut'   => 'nullable|string|max:255',
+            'institusi_studi_lanjut' => 'nullable|string|max:255',
+            'sumber_dana_studi'      => 'nullable|in:biaya_sendiri,beasiswa',
+            'saran_perbaikan'        => 'nullable|string'
         ]);
 
-        $tracerStudy->update($request->all());
+        // 4. Update Data Hanya Menggunakan Field yang Tervalidasi
+        $tracerStudy->update($validatedData);
 
-        return redirect()->route('tracer-study.index')->withSuccess('Tracer Study berhasil diubah');
+        // 5. Redirect Kembali ke Dashboard/Index Alumni
+        return redirect()->route('tracer-study.index')->with('success', 'Data Tracer Study berhasil diperbarui.');
     }
 
     /**

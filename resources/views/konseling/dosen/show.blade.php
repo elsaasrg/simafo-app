@@ -1,64 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-
-{{ $errors }}
 <div class="row justify-content-center">
-    <div class="col m-4">
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="float-start">Data Konseling</div>
-                    <div class="float-end"><a href="{{ route('konseling.index') }}" class="btn btn-primary btn-sm">&larr; Back</a></div>
-                </div>
+    <div class="col-md-10">
+        <div class="card shadow-sm border-0">
 
+            {{-- Header Card --}}
+            <div class="card-header bg-white border-bottom-0">
+                <h4 class="font-weight-bold text-center text-dark m-0">DATA KONSELING</h4>
             </div>
-            <div class="card-body">
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Nama Mahasiswa:</strong></div>
-                    <div class="col-md-6">{{ $konseling->mahasiswa->user->name }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Subjek:</strong></div>
-                    <div class="col-md-6">{{ $konseling->subjek }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Isi Konseling:</strong></div>
-                    <div class="col-md-6">{{ $konseling->isi_konseling }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col-md-4 text-md-end"><strong>Status:</strong></div>
-                    <div class="col-md-6"><span class="badge bg-primary">{{ $konseling->status }}</span></div>
-                </div>
-                <div class="mb-3 row">
+            <hr>
+            {{-- Body Card --}}
+            <div class="card-body px-4 py-3">
 
-                    <form action="{{ route('konseling.update', $konseling->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                {{-- Nama Mahasiswa --}}
+                <div class="row mb-3 align-items-center">
+                    <div class="col-md-3 font-weight-bold text-dark">Nama Mahasiswa</div>
+                    <div class="col-md-9 d-flex">
+                        <span class="mr-2">:</span>
+                        <span>{{ $konseling->mahasiswa->user->name ?? '-' }}</span>
+                    </div>
+                </div>
 
-                        <div class="mb-3 row">
-                            <div class="col-md-4 text-md-end">
-                                <label for="tanggapan_dosen" class="fw-bold">
-                                    Berikan Tanggapan / Solusi:
-                                </label>
-                            </div>
+                {{-- Subjek --}}
+                <div class="row mb-3 align-items-center">
+                    <div class="col-md-3 font-weight-bold text-dark">Subjek</div>
+                    <div class="col-md-9 d-flex">
+                        <span class="mr-2">:</span>
+                        <span>{{ $konseling->subjek }}</span>
+                    </div>
+                </div>
 
-                            <div class="col-md-6">
+                {{-- Isi Konseling --}}
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold text-dark">Isi Konseling</div>
+                    <div class="col-md-9 d-flex">
+                        <span class="mr-2">:</span>
+                        <div class="text-justify">{!! nl2br(e($konseling->isi_konseling)) !!}</div>
+                    </div>
+                </div>
 
+                {{-- Status --}}
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-3 font-weight-bold text-dark">Status</div>
+                    <div class="col-md-9 d-flex align-items-center">
+                        <span class="mr-2">:</span>
+                        <span class="badge badge-primary bg-primary px-2 font-weight-normal btn-radius">
+                            {{ $konseling->status }}
+                        </span>
+                    </div>
+                </div>
+
+
+
+                {{-- Form / Display Tanggapan Dosen --}}
+                <form action="{{ route('konseling.update', $konseling->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 font-weight-bold text-dark">
+                            <label for="tanggapan_dosen" class="m-0">Berikan Tanggapan / Solusi</label>
+                        </div>
+                        <div class="col-md-9 d-flex">
+                            <span class="mr-2">:</span>
+                            <div class="w-100">
                                 @if($konseling->tanggapan_dosen)
-
-                                <div class="border rounded p-3 bg-light">
-                                    {{ $konseling->tanggapan_dosen }}
+                                <div class="border rounded p-3 bg-light text-dark">
+                                    {!! nl2br(e($konseling->tanggapan_dosen)) !!}
                                 </div>
-
                                 @else
-
                                 <textarea
                                     name="tanggapan_dosen"
                                     id="tanggapan_dosen"
-                                    class="form-control @error('tanggapan_dosen') is-invalid @enderror"
-                                    rows="5"
-                                    placeholder="Tuliskan saran, solusi, atau jadwal pertemuan tatap muka di sini..."
+                                    class="form-control @error('tanggapan_dosen') is-invalid @enderror btn-radius"
+                                    rows="4"
                                     required>{{ old('tanggapan_dosen') }}</textarea>
 
                                 @error('tanggapan_dosen')
@@ -67,25 +83,24 @@
                                 </div>
                                 @enderror
 
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-success">
-                                        Kirim Tanggapan
-                                    </button>
-                                </div>
-
-                                @endif
-
+                                {{-- Tombol Kirim di Pojok Kanan Bawah --}}
                             </div>
-                        </div>
 
-                    </form>
-                </div>
+
+                        </div>
+                    </div>
+                    <div class="row mb-3 offset-md-3">
+                        <div class="col-md-9">
+                            <button type="submit" class="btn btn-success px-2 btn-radius btn-sm">
+                                Kirim Tanggapan
+                            </button>
+                        </div>
+                    </div>
+                    @endif
+                </form>
 
             </div>
-
         </div>
     </div>
 </div>
-</div>
-
 @endsection

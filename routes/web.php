@@ -17,6 +17,7 @@ use App\Http\Controllers\TempatKpController;
 use App\Http\Controllers\TracerStudyController;
 use App\Http\Controllers\ValidasiSuratController;
 use App\Models\MitraJurusan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,8 +31,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+
+    if (Auth::check()) {
+        return redirect('/home');
+    }
+    return redirect('/login');
 });
 
 Auth::routes();
@@ -44,6 +50,7 @@ Route::middleware(['auth', 'role:Admin|Kajur'])->group(function () {
     Route::get('/beasiswa/cetak', [BeasiswaController::class, 'cetakLaporan'])->name('beasiswa.cetak');
     Route::get('/organisasi/cetak', [OrganisasiController::class, 'cetakLaporan'])->name('organisasi.cetak');
     Route::get('/cetak', [AktivitasController::class, 'cetak'])->name('aktivitas.cetak');
+    Route::put('/aduan/{aduan}/update-status', [AduanController::class, 'updateStatus'])->name('aduan.updateStatus');
 });
 
 
@@ -71,15 +78,12 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('dosen', DosenController::class);
     Route::put('/organisasi/{organisasi}/update-status-validasi', [OrganisasiController::class, 'updateStatusValidasi'])->name('organisasi.updateStatusValidasi');
     Route::put('/beasiswa/{beasiswa}/update-status', [BeasiswaController::class, 'updateStatus'])->name('beasiswa.updateStatus');
-    Route::put('/pengajuan-surat/{id}/update-status', [ValidasiSuratController::class, 'updateStatus'])->name('pengajuan-surat.updateStatus');
-    Route::put('/pengajuan-surat/{id}/update-status', [ValidasiSuratController::class, 'updateStatus'])->name('pengajuan-surat.updateStatus');
+    Route::put('/pengajuan-surat/{id}/update-status', [PengajuanSuratController::class, 'updateStatus'])->name('pengajuan-surat.updateStatus');
+    Route::put('/pengajuan-surat/{id}/update-status', [PengajuanSuratController::class, 'updateStatus'])->name('pengajuan-surat.updateStatus');
 });
 
 
 // BLOK 4 : KAJUR
-Route::middleware(['auth', 'role:Kajur'])->group(function () {
-    Route::put('/aduan/{id}/update-status', [AduanController::class, 'updateStatus'])->name('aduan.updateStatus');
-});
 
 
 // BLOK 6 : DOSEN

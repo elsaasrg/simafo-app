@@ -15,7 +15,12 @@ class Aduan extends Model
         'mahasiswa_id',
         'subjek',
         'isi_aduan',
-        'status'
+        'status',
+        'kategori',
+        'lampiran',
+        'is_anonim',
+        'tanggapan'
+
     ];
 
     public function mahasiswa()

@@ -27,37 +27,98 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
 
     <style>
-        /* 1. Mengubah background sidebar & area logo menjadi Ungu Tua yang Elegan */
-        .main-sidebar,
-        .brand-link {
-            background-color: #4c1d95 !important;
-            /* Warna Ungu Tua (Telemagenta/Violet) */
+        /* Mengubah warna dasar latar belakang aplikasi sesuai desain */
+        body {
+            background-color: #EBEBEB !important;
         }
 
-        /* 2. Mengubah warna background area profil user agar sedikit lebih gelap */
-        .user-panel {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        /* border radius */
+        .btn-radius {
+            border-radius: 12px;
         }
 
-        /* 3. Mengubah warna teks menu mahasiswa menjadi putih abu-abu agar tidak silau */
-        .main-sidebar .nav-link {
-            color: #f3e8ff !important;
-            /* Ungu sangat muda hampir putih */
+        .btn-radius-2 {
+            border-radius: 15px !important;
         }
 
-        /* 4. Warna saat menu disorot (Hover) menjadi ungu medium */
-        .main-sidebar .nav-item:hover>.nav-link {
-            background-color: #6d28d9 !important;
-            color: #ffffff !important;
+        /* background */
+        .bg-kuning-1 {
+            background-color: #F9E98C;
         }
 
-        /* 5. Warna saat menu tersebut AKTIF / diklik (Ungu Terang) */
-        .main-sidebar .nav-pills .nav-link.active,
-        .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active {
-            background-color: #a855f7 !important;
-            /* Ungu terang cerah */
-            color: #ffffff !important;
-            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.4);
+        .bg-kuning-2 {
+            background-color: #E4FF8C;
+        }
+
+        .bg-kuning-3 {
+            background-color: #F8F8C9;
+        }
+
+        .bg-kuning-4 {
+            background-color: #CFE561;
+        }
+
+        .bg-abu-abu {
+            background-color: #5B5455;
+        }
+
+        .border-kuning {
+            border: 2px solid #CFE561;
+        }
+
+        /* Memposisikan Header Utama agar membentang 100% penuh di bagian atas */
+        .main-header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100% !important;
+            height: 140px !important;
+            margin-left: 0 !important;
+            z-index: 1035 !important;
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #e2e8f0 !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* Menyejajarkan Letak & Warna Dasar Sidebar Utama */
+        .main-sidebar {
+            position: fixed !important;
+            top: 140px !important;
+            height: calc(100vh - 140px) !important;
+            width: 290px !important;
+            background-color: #CFE561 !important;
+
+            border-right: 1px solid #d4e09b !important;
+            z-index: 1030 !important;
+        }
+
+        /* Menyejajarkan Area Konten Utama */
+        .content-wrapper {
+            margin-top: 140px !important;
+            margin-left: 280px !important;
+            min-height: calc(100vh - 140px) !important;
+            background-color: #EBEBEB !important;
+            /* Latar abu-abu kontras di sisi kanan */
+            padding: 30px !important;
+        }
+
+        /* Menyembunyikan elemen default AdminLTE */
+        .main-sidebar .brand-link,
+        .main-sidebar .user-panel {
+            display: none !important;
+        }
+
+        .modal-header-kuning {
+            background-color: #E4FF8C;
+        }
+
+        .modal-text-hitam {
+            color: #000;
+        }
+
+        .card-shadow-inset {
+            box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
@@ -74,13 +135,12 @@
             @yield('content')
         </div>
 
-        @include('layouts.component.footer')
-
         <aside class="control-sidebar control-sidebar-dark">
-
+            <!-- Control sidebar content goes here -->
         </aside>
 
     </div>
+
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -99,7 +159,6 @@
     <!-- jQuery Knob Chart -->
     <script src="{{asset('assets/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
 
-
     <script src="{{asset('assets/plugins/moment/moment.min.js')}}"></script>
     <script src="{{asset('assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
@@ -107,14 +166,9 @@
     <!-- Summernote -->
     <script src="{{asset('assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
     <!-- overlayScrollbars -->
-    <script
-        src="{{asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('assets/dist/js/adminlte.js')}}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <!-- <script src="{{asset('assets/dist/js/demo.js')}}"></script> -->
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <!-- <script src="{{asset('assets/dist/js/pages/dashboard.js')}}"></script> -->
 
     <script>
         // previous page should be reloaded when user navigate through browser navigation 
@@ -131,29 +185,54 @@
     <script>
         $(document).ready(function() {
             const url = window.location;
+
+            // 1. Menandai link yang aktif berdasarkan URL saat ini
             $('ul.nav-sidebar a').filter(function() {
                 return this.href == url;
-            }).parent().addClass('active');
+            }).addClass('active').parent().addClass('active');
+
+            // 2. Otomatis membuka menu induk (dropdown) jika halaman di dalamnya sedang aktif saat reload
             $('ul.nav-treeview a').filter(function() {
+                    return this.href == url;
+                }).addClass('active')
+                .closest('.has-treeview')
+                .addClass('menu-open')
+                .find('> .nav-treeview')
+                .show();
 
-                return this.href == url;
-            }).parentsUntil(".sidebar-menu > .nav-treeview").addClass('menu-open');
+            // 3. JQUERY DROPDOWN FALLBACK (Menjamin 100% dropdown terbuka saat diklik)
+            $(document).on('click', '.has-treeview > a', function(e) {
+                var hrefAttr = $(this).attr('href');
 
-            $('ul.nav-treeview a').filter(function() {
-                return this.href == url;
-            }).addClass('active');
+                // Jalankan toggler hanya jika link mengarah ke "#" atau kosong (link folder menu)
+                if (hrefAttr === '#' || hrefAttr === '' || hrefAttr === undefined) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation(); // PENGAMAN: Hentikan script AdminLTE agar tidak memantulkan menu!
 
-            $('li.has-treeview a').filter(function() {
-                return this.href == url;
-            }).addClass('active');
+                    var $parent = $(this).parent('.has-treeview');
+                    var $treeview = $parent.find('> .nav-treeview');
 
-            $('ul.nav-treeview a').filter(function() {
-                return this.href == url;
-            }).parentsUntil(".sidebar-menu > .nav-treeview").children(0).addClass('active');
+                    if ($parent.hasClass('menu-open')) {
+                        // Jika sedang terbuka, slide up lalu hapus class menu-open
+                        $treeview.slideUp(250, function() {
+                            $parent.removeClass('menu-open');
+                        });
+                    } else {
+                        // Tutup menu dropdown lain terlebih dahulu agar rapi (efek akordeon)
+                        $('.has-treeview.menu-open').not($parent).each(function() {
+                            $(this).find('> .nav-treeview').slideUp(200);
+                            $(this).removeClass('menu-open');
+                        });
 
+                        // Slide down menu yang diklik lalu tambahkan class menu-open
+                        $parent.addClass('menu-open');
+                        $treeview.slideDown(250);
+                    }
+                }
+            });
         });
     </script>
-
 
     @stack('js')
 </body>

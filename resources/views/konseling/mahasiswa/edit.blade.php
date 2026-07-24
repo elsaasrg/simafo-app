@@ -57,7 +57,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        Kirim Konseling
+                        Simpan
                     </button>
                 </form>
 

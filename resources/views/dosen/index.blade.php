@@ -5,7 +5,9 @@
 <div class="row justify-content-center">
     <div class="col m-4">
         <div class="card">
-            <div class="card-header">Daftar Dosen</div>
+            <div class="card-header text-center font-weight-bold">
+                <h3>DAFTAR DOSEN</h3>
+            </div>
             <div class="card-body">
                 <table class="table" style="table-layout: fixed; width:100%">
                     <thead>
@@ -20,7 +22,7 @@
                     </thead>
                     <tbody>
                         @can('create-dosen')
-                        <a href="{{ route('dosen.create') }}" class="btn btn-success btn-sm mb-2"><i class="fas fa-plus-circle"></i> Tambah dosen</a>
+                        <a href="{{ route('dosen.create') }}" class="btn btn-success btn-sm mb-2 btn-radius"><i class="fas fa-plus-circle"></i> Tambah dosen</a>
                         @endcan
 
                         @if(session('success'))
@@ -48,15 +50,17 @@
                             </td>
                             <td>
 
-                                <form action="{{ route('dosen.destroy', $item->id) }}" method="POST" class="btn-group">
+                                <form action="{{ route('dosen.destroy', $item->id) }}" method="POST" class="d-flex justify-content-center">
                                     @csrf
                                     @method("DELETE")
                                     @can('edit-dosen')
-                                    <a href="{{ route('dosen.edit',$item->id) }}" class="btn btn-warning btn-sm mx-1"><i class="fas fa-edit"></i></a>
+                                    <div class="btn-radius">
+                                        <a href="{{ route('dosen.edit',$item->id) }}" class="btn btn-warning btn-sm mx-1 bg-kuning-1 btn-radius"><i class="fas fa-edit"></i></a>
+                                    </div>
                                     @endcan
 
                                     @can('delete-dosen')
-                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm btn-radius"><i class="fas fa-trash"></i></button>
                                     @endcan
                                 </form>
                             </td>

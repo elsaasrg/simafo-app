@@ -17,11 +17,11 @@
         {{-- ==================== LOCK FILTER DAN CARI HANYA UNTUK ADMIN ==================== --}}
         @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Kajur'))
         <div class="card shadow-sm mb-4">
-            <div class="card-body bg-light">
+            <div class="card-body">
                 <form action="{{ route('organisasi.index') }}" method="GET" class="form-row align-items-end">
 
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <label class="font-weight-bold small text-muted">Cari Data Mahasiswa / Organisasi</label>
+                        <label class="font-weight-bold small">Cari Data Mahasiswa / Organisasi</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text bg-white border-right-0"><i class="fas fa-search text-muted"></i></span>
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <label class="font-weight-bold small text-muted">Kategori Status Validasi</label>
+                        <label class="font-weight-bold small">Kategori Status Validasi</label>
                         <select name="status" class="form-control">
                             <option value="semua" {{ request('status') == 'semua' ? 'selected' : '' }}>Semua Status</option>
                             <option value="menunggu" {{ request('status') == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <label class="font-weight-bold small text-muted">Kategori Tahun Mulai</label>
+                        <label class="font-weight-bold small">Kategori Tahun Mulai</label>
                         <select name="tahun" class="form-control">
                             <option value="semua" {{ request('tahun') == 'semua' ? 'selected' : '' }}>Semua Tahun</option>
                             @for($i = date('Y'); $i >= 2020; $i--)
@@ -51,13 +51,13 @@
                     </div>
 
                     <div class="col-md-3 text-right">
-                        <div class="d-flex align-items-center justify-content-end" style="gap: 5px;">
+                        <div class="d-flex align-items-center justify-content-center" style="gap: 5px;">
 
-                            <button type="submit" class="btn btn-primary px-3">
+                            <button type="submit" class="btn btn-sm btn-primary px-3 btn-radius">
                                 <i class="fas fa-search mr-1"></i> Cari
                             </button>
 
-                            <a href="{{ route('organisasi.index') }}" class="btn btn-secondary px-3">
+                            <a href="{{ route('organisasi.index') }}" class="btn btn-sm btn-secondary px-3 btn-radius">
                                 <i class="fas fa-sync-alt mr-1"></i> Reset
                             </a>
 
@@ -69,30 +69,34 @@
         </div>
         @endif
         {{-- ======================================================================================== --}}
-        <div class="card shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span class="font-weight-bold"><i class="fas fa-sitemap mr-1"></i> Data Organisasi</span>
+        <div class="card mb-4">
+            <div class="card-header text-center font-weight-bold">
+                <i class="fas fa-sitemap me-1 fa-2x mr-2"></i>
+                <h4 class="font-weight-bold" style="display:inline-block"> DATA ORGANISASI </h4>
 
-                @if(Auth::user()->hasRole('Mahasiswa'))
-                <a href="{{ route('organisasi.create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus-circle"></i> Tambah organisasi
-                </a>
+                @if(auth()->user()->hasRole('Mahasiswa'))
+                <div class="card-tools">
+                    <a href="{{ route('organisasi.create') }}" class="btn btn-success btn-sm btn-radius">
+                        <i class="fas fa-plus"></i> Tambah Organisasi
+                    </a>
+                </div>
                 @endif
             </div>
+
 
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" style="width:100%">
                         <thead>
-                            <a href="{{ route('organisasi.cetak', request()->all()) }}" target="_blank" class="btn btn-success btn-sm px-3 mb-3">
+                            @hasanyrole('Admin|Kajur')
+                            <a href="{{ route('organisasi.cetak', request()->all()) }}" target="_blank" class="btn btn-success btn-sm px-3 mb-3 btn-radius">
                                 <i class="fas fa-print mr-1"></i> Cetak Laporan Rekap
                             </a>
+                            @endhasanyrole
                             <tr class="text-center align-middle">
                                 <th style="width:5%;">No</th>
-                                @if(!Auth::user()->hasRole('Mahasiswa'))
                                 <th>Nama Mahasiswa</th>
                                 <th>NIM</th>
-                                @endif
                                 <th>Nama Organisasi</th>
                                 <th>Jabatan</th>
                                 <th>Tahun Mulai</th>
@@ -107,10 +111,10 @@
                             <tr class="text-center align-middle">
                                 <td class="align-middle font-weight-bold">{{ $loop->iteration }}</td>
 
-                                @if(!Auth::user()->hasRole('Mahasiswa'))
+
                                 <td class="align-middle text-left pl-3">{{ $item->mahasiswa->user->name }}</td>
                                 <td class="align-middle">{{ $item->mahasiswa->nim }}</td>
-                                @endif
+
 
                                 <td class="align-middle text-left pl-3">
                                     {{ $item->nama_organisasi }}
@@ -136,36 +140,36 @@
 
                                 <td class="align-middle">
                                     @if($item->status_validasi == 'diterima')
-                                    <span class="badge badge-success px-2 py-1">Diterima</span>
+                                    <span class="badge badge-success px-2 py-1 btn-radius">Diterima</span>
                                     @elseif($item->status_validasi == 'menunggu')
-                                    <span class="badge badge-warning text-dark px-2 py-1">Menunggu</span>
+                                    <span class="badge bg-kuning-1 text-dark px-2 py-1 btn-radius">Menunggu</span>
                                     @else
-                                    <span class="badge badge-danger px-2 py-1">Ditolak</span>
+                                    <span class="badge badge-danger px-2 py-1 btn-radius">Ditolak</span>
                                     @endif
                                 </td>
 
                                 <td class="align-middle">
-                                    <div class="btn-group" role="group">
+                                    <div>
                                         @if(Auth::user()->hasRole('Admin'))
-                                        <button type="button" class="btn btn-warning btn-sm mr-1 text-dark"
+                                        <button type="button" class="btn bg-kuning-1 btn-sm mr-1 text-dark btn-radius"
                                             data-toggle="modal" data-target="#modalValidasiOrganisasi"
                                             data-id="{{ $item->id }}"
                                             data-organisasi="{{ $item->nama_organisasi }}"
                                             data-mahasiswa="{{ $item->mahasiswa->user->name }}"
                                             data-status_validasi="{{ $item->status_validasi }}"
                                             data-catatan="{{ $item->catatan_admin }}">
-                                            <i class="fas fa-check-circle"></i>
+                                            <i class="fas fa-check-circle text-dark"></i>
                                         </button>
                                         @endif
 
-                                        @if(Auth::user()->hasRole('Mahasiswa'))
-                                        <a href="{{ route('organisasi.edit', $item->id) }}" class="btn btn-warning btn-sm text-white mr-1">
+                                        @if(Auth::user()->hasRole('Mahasiswa') && $item->status_validasi !== 'diterima')
+                                        <a href="{{ route('organisasi.edit', $item->id) }}" class="btn bg-kuning-1 btn-sm btn-radius">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('organisasi.destroy', $item->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm">
+                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm btn-radius">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -197,9 +201,9 @@
 <div class="modal fade" id="modalValidasiOrganisasi" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
+            <div class="modal-header bg-kuning-4">
                 <h5 class="modal-title"><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Organisasi</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -224,8 +228,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn bg-abu-abu btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
                 </div>
             </form>
         </div>

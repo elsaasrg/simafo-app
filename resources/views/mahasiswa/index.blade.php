@@ -14,15 +14,20 @@
         @endif
 
         <div class="card">
-            <div class="card-header font-weight-bold">Daftar Mahasiswa</div>
-            <div class="card-body">
+            <div class="card-header">
+                <div class="text-center font-weight-bold">
+                    <h3>DAFTAR MAHASISWA </h3>
+                </div>
+                <div class="P-2">
+                    @can('create-mahasiswa')
+                    <a href="{{ route('mahasiswa.create') }}" class="btn btn-success btn-sm btn-radius">
+                        <i class="fas fa-plus"></i> Tambah Mahasiswa
+                    </a>
+                    @endcan
+                </div>
 
-                {{-- Tombol Tambah diletakkan di atas tabel, bukan di dalam tbody --}}
-                @can('create-mahasiswa')
-                <a href="{{ route('mahasiswa.create') }}" class="btn btn-success btn-sm mb-3">
-                    <i class="fas fa-plus-circle"></i> Tambah Mahasiswa
-                </a>
-                @endcan
+            </div>
+            <div class="card-body">
 
                 <table class="table table-bordered table-striped" style="table-layout: fixed; width:100%">
                     <thead>
@@ -59,13 +64,13 @@
                                     @method("DELETE")
 
                                     @can('edit-mahasiswa')
-                                    <a href="{{ route('mahasiswa.edit', $item->id) }}" class="btn btn-warning btn-sm mx-1">
+                                    <a href="{{ route('mahasiswa.edit', $item->id) }}" class="btn bg-kuning-1 btn-radius-2 btn-sm mx-1">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     @endcan
 
                                     @can('delete-mahasiswa')
-                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus data ini beserta akun loginnya?');" class="btn btn-danger btn-sm">
+                                    <button type="submit" onclick="return confirm('Yakin ingin menghapus data ini beserta akun loginnya?');" class="btn btn-danger btn-sm btn-radius-2">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                     @endcan

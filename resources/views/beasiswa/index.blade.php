@@ -2,8 +2,6 @@
 
 @section('content')
 
-{{ $errors }}
-
 <div class="row justify-content-center">
     <div class="col m-4">
         {{-- Flash Message Berhasil --}}
@@ -20,21 +18,21 @@
         {{-- ==================== LOCK FILTER DAN CARI HANYA UNTUK ADMIN ==================== --}}
         @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Kajur'))
         <div class="card shadow-sm mb-4">
-            <div class="card-body bg-light">
+            <div class="card-body">
                 <form action="{{ route('beasiswa.index') }}" method="GET" class="form-row align-items-end">
 
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <label class="font-weight-bold small text-muted">Cari Data Beasiswa</label>
+                        <label class="font-weight-bold small ">Cari Data Beasiswa</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-white border-right-0"><i class="fas fa-search text-muted"></i></span>
+                                <span class="input-group-text bg-white border-right-0"><i class="fas fa-search"></i></span>
                             </div>
                             <input type="text" name="search" class="form-control border-left-0" value="{{ request('search') }}" placeholder="Nama, NIM, atau Penyelenggara...">
                         </div>
                     </div>
 
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <label class="font-weight-bold small text-muted">Kategori Status Validasi</label>
+                        <label class="font-weight-bold small">Kategori Status Validasi</label>
                         <select name="status" class="form-control">
                             <option value="semua" {{ request('status') == 'semua' ? 'selected' : '' }}>Semua Status</option>
                             <option value="menunggu" {{ request('status') == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
@@ -44,7 +42,7 @@
                     </div>
 
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <label class="font-weight-bold small text-muted">Kategori Tahun Mulai</label>
+                        <label class="font-weight-bold small">Kategori Tahun Mulai</label>
                         <select name="tahun" class="form-control">
                             <option value="semua" {{ request('tahun') == 'semua' ? 'selected' : '' }}>Semua Tahun</option>
                             @for($i = date('Y'); $i >= 2020; $i--)
@@ -56,11 +54,11 @@
                     <div class="col-md-3 text-right">
                         <div class="d-flex align-items-center justify-content-end" style="gap: 5px;">
 
-                            <button type="submit" class="btn btn-primary px-3">
+                            <button type="submit" class="btn btn-primary btn-sm btn-radius px-3">
                                 <i class="fas fa-search mr-1"></i> Cari
                             </button>
 
-                            <a href="{{ route('beasiswa.index') }}" class="btn btn-secondary px-3">
+                            <a href="{{ route('beasiswa.index') }}" class="btn btn-sm bg-abu-abu btn-radius px-3 text-white">
                                 <i class="fas fa-sync-alt mr-1"></i> Reset
                             </a>
 
@@ -73,13 +71,16 @@
         @endif
         {{-- ======================================================================================== --}}
         <div class="card shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span class="font-weight-bold"><i class="fas fa-sitemap mr-1"></i> Data Beasiswa</span>
+            <div class="card-header text-center">
+                <i class="fas fa-sitemap mr-2 fa-2x"></i>
+                <h3 style="display:inline-block" class="font-weight-bold"> DATA BEASISWA</h3>
 
                 @if(Auth::user()->hasRole('Mahasiswa'))
-                <a href="{{ route('beasiswa.create') }}" class="btn btn-success btn-sm">
-                    <i class="fas fa-plus-circle"></i> Tambah data beasiswa
-                </a>
+                <div class="card-tools">
+                    <a href="{{ route('beasiswa.create') }}" class="btn btn-success btn-sm btn-radius">
+                        <i class="fas fa-plus-circle "></i> Tambah data beasiswa
+                    </a>
+                </div>
                 @endif
             </div>
 
@@ -88,7 +89,7 @@
                     <table class="table table-bordered table-striped" style="width:100%">
                         <thead>
                             @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur'))
-                            <a href="{{ route('beasiswa.cetak', request()->all()) }}" class="btn btn-success btn-sm mb-3" target="_blank">
+                            <a href="{{ route('beasiswa.cetak', request()->all()) }}" class="btn btn-success btn-sm mb-3 btn-radius" target="_blank">
                                 <i class="fas fa-print"></i> Cetak Laporan Rekap
                             </a>
 
@@ -97,15 +98,14 @@
                             <tr class="text-center align-middle">
                                 <th style="width:5%;">No</th>
                                 @if(!Auth::user()->hasRole('Mahasiswa'))
-                                <th>Nama Mahasiswa</th>
-                                <th>NIM</th>
+                                <th style="width:10%;">Mahasiswa</th>
                                 @endif
-                                <th>Nama Beasiswa</th>
+                                <th style="width:25%">Nama Beasiswa</th>
                                 <th>Penyelenggara</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Tanggal Selesai</th>
-                                <th>Bukti Penerima</th>
-                                <th>Status Validasi</th>
+                                <th style="width:10%;">Nominal/Skema Pembayaran</th>
+                                <th style="width:15%;">Tanggal</th>
+                                <th style="width:10%;">Bukti Penerima</th>
+                                <th style="width:10%;">Status Validasi</th>
                                 <th style="width:15%;">Aksi</th>
                             </tr>
                         </thead>
@@ -115,8 +115,9 @@
                                 <td class="align-middle font-weight-bold">{{ $loop->iteration }}</td>
 
                                 @if(!Auth::user()->hasRole('Mahasiswa'))
-                                <td class="align-middle text-left pl-3">{{ $item->mahasiswa->user->name }}</td>
-                                <td class="align-middle">{{ $item->mahasiswa->nim }}</td>
+                                <td class="align-middle text-left pl-3">{{ $item->mahasiswa->user->name }}<br>
+                                    {{ $item->mahasiswa->nim }}
+                                </td>
                                 @endif
 
                                 <td class="align-middle text-left pl-3">
@@ -127,14 +128,21 @@
                                 </td>
 
                                 <td class="align-middle">{{ $item->penyelenggara }}</td>
+                                <td class="align-middle">
+                                    Rp{{ number_format($item->nominal, 0, ',', '.') }}<br>
+                                    <small>{{ $item->skema_pembayaran }}</small>
+                                </td>
 
-                                <td class="align-middle">{{ $item->tanggal_mulai }}</td>
-                                <td class="align-middle">{{ $item->tanggal_selesai }}</td>
+                                <td class="align-middle">
+                                    {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d M Y') }}
+                                    s/d
+                                    {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
+                                </td>
 
                                 <td class="align-middle">
                                     @if($item->bukti_penerima)
                                     <a href="{{ asset('storage/' . $item->bukti_penerima) }}" target="_blank" class="btn btn-link btn-sm p-0">
-                                        <i class="fas fa-file-download"></i> Lihat bukti penerima
+                                        <i class="fas fa-file-download"></i>
                                     </a>
                                     @else
                                     <span class="text-muted small">-</span>
@@ -143,18 +151,18 @@
 
                                 <td class="align-middle">
                                     @if($item->status_validasi == 'diterima')
-                                    <span class="badge badge-success px-2 py-1">Diterima</span>
+                                    <span class="badge badge-success px-2 py-1 btn-radius">Diterima</span>
                                     @elseif($item->status_validasi == 'menunggu')
-                                    <span class="badge badge-warning text-dark px-2 py-1">Menunggu</span>
+                                    <span class="badge bg-kuning-1 text-dark px-2 py-1 btn-radius">Menunggu</span>
                                     @else
-                                    <span class="badge badge-danger px-2 py-1">Ditolak</span>
+                                    <span class="badge badge-danger px-2 py-1 btn-radius">Ditolak</span>
                                     @endif
                                 </td>
 
                                 <td class="align-middle">
-                                    <div class="btn-group" role="group">
+                                    <div>
                                         @if(Auth::user()->hasRole('Admin'))
-                                        <button type="button" class="btn btn-warning btn-sm mr-1 text-dark"
+                                        <button type="button" class="btn bg-kuning-1 btn-sm mr-1 text-dark btn-radius"
                                             data-toggle="modal" data-target="#modalValidasiBeasiswa"
                                             data-id="{{ $item->id }}"
                                             data-beasiswa="{{ $item->nama_beasiswa }}"
@@ -165,14 +173,14 @@
                                         </button>
                                         @endif
 
-                                        @if(Auth::user()->hasRole('Mahasiswa'))
-                                        <a href="{{ route('beasiswa.edit', $item->id) }}" class="btn btn-warning btn-sm text-white mr-1">
+                                        @if(Auth::user()->hasRole('Mahasiswa') && $item->status_validasi !== 'diterima')
+                                        <a href="{{ route('beasiswa.edit', $item->id) }}" class="btn bg-kuning-1 btn-sm btn-radius">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('beasiswa.destroy', $item->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm">
+                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm px-2 btn-radius">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -204,9 +212,9 @@
 <div class="modal fade" id="modalValidasiBeasiswa" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
+            <div class="modal-header bg-kuning-4 text-center">
                 <h5 class="modal-title"><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Beasiswa</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -231,8 +239,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="button" class="btn bg-abu-abu btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
                 </div>
             </form>
         </div>

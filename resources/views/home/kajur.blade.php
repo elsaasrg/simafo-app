@@ -3,231 +3,195 @@
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
+
         <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-purple font-weight-bold"><i class="fas fa-th-large mr-2"></i>Dashboard Ketua Jurusan</h1>
+            <div class="col-12 text-center">
+                <h3 class="m-0 text-dark font-weight-bold text-uppercase tracking-wide">
+                    <i class="fas fa-th-large mr-2"></i>Dashboard Ketua Jurusan
+                </h3>
             </div>
         </div>
     </div>
 </div>
 
-<div class="content">
+<div class="content bg-content">
     <div class="container-fluid">
+        <div class="row justify-content-center">
 
+            <div class="col-12 ">
 
-        <div class="row mt-3">
-            <div class="col-lg-8">
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-body d-flex justify-content-between align-items-center py-3">
-                        <div>
-                            <p class="mb-0 font-weight-bold text-dark">
-                                Selamat datang kembali, {{ Auth::user()->name }}
+                <!-- Banner Selamat Datang -->
+                <div class="card shadow-sm welcome-banner mb-5 rounded-lg bg-white mt-3">
+                    <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                        <div class="flex-grow-1">
+                            <p class="mb-0 font-weight-bold text-dark" style="font-size: 15px;">
+                                Selamat datang kembali, <span class="text-lowercase">{{ Auth::user()->name ?? 'ketua jurusan' }}</span>
                             </p>
                         </div>
                         <div>
-                            <span class="badge bg-success px-3 py-2 font-weight-bold shadow-sm">
-                                Kajur
+                            <span class="badge badge-role badge-success rounded-pill px-3 py-2 text-sm" style="background-color: #2da44e !important; border-radius: 20px;">
+                                Ketua Jurusan Aktif
                             </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="row text-center">
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="{{ route('aktivitas.index') }}" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-purple">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-trophy fa-2x text-purple mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Aktivitas dan Prestasi</span>
+                <!-- Grid Menu Utama (2 Kolom) -->
+                <div class="row text-center mt-4">
+
+                    <!-- 1. Aktivitas dan Prestasi -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="{{ route('aktivitas.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-trophy fa-3x text-warning"></i>
                                 </div>
                             </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Aktivitas Dan Prestasi</span>
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="{{ route('konseling.index') }}" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-info">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-comments fa-2x text-info mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Konseling Mahasiswa</span>
+                    <!-- 2. Konseling Mahasiswa -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="{{ route('konseling.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-comments fa-3x text-primary"></i>
                                 </div>
                             </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Konseling Mahasiswa</span>
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="{{ route('aduan.index') }}" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-danger">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-exclamation-triangle fa-2x text-danger mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Aduan Mahasiswa</span>
+                    <!-- 3. Aduan Mahasiswa -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="{{ route('aduan.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
                                 </div>
                             </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Aduan Mahasiswa</span>
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="{{ route('organisasi.index') }}" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-success">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-graduation-cap fa-2x text-success mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Data Organisasi Mahasiswa</span>
+                    <!-- 4. Data Organisasi Mahasiswa -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="{{ route('organisasi.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-graduation-cap fa-3x text-dark"></i>
                                 </div>
                             </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Data Organisasi Mahasiswa</span>
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="{{ route('beasiswa.index') }}" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-success">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-graduation-cap fa-2x text-success mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Data Beasiswa Mahasiswa</span>
+                    <!-- 5. Data Beasiswa Mahasiswa -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="{{ route('beasiswa.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-graduation-cap fa-3x text-dark"></i>
                                 </div>
                             </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Data Beasiswa Mahasiswa</span>
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-6 mb-3">
-                        <a href="/tracer-study" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-warning">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-briefcase fa-2x text-warning mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Tracer Study</span>
+                    <!-- 6. Tracer Study -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="/tracer-study" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-briefcase fa-3x text-info"></i>
                                 </div>
                             </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Tracer Study</span>
                         </a>
                     </div>
-                    <!-- <div class="col-12 col-md-6 mb-3">
-                        <a href="/info-beasiswa" class="text-decoration-none action-card">
-                            <div class="card h-100 shadow-sm border-0 p-2 border-top-warning">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-briefcase fa-2x text-warning mb-2"></i>
-                                    <span class="d-block font-weight-bold text-dark text-sm">Informasi Beasiswa</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div> -->
+
                 </div>
             </div>
-
-            <!-- <div class="col-lg-4">
-                <div class="card card-purple card-outline shadow-sm mb-4">
-                    <div class="card-header bg-white">
-                        <h3 class="card-title text-purple font-weight-bold mb-0 text-sm">
-                            <i class="fas fa-bullhorn mr-2"></i> Pengumuman & Info Terbaru
-                        </h3>
-                    </div>
-                    <div class="card-body p-0">
-                        @forelse($pengumumanTerbaru as $item)
-                        <div class="p-3 border-bottom position-relative hover-light">
-                            <span class="badge {{ $item->warna_badge }} text-xs float-right px-2 py-1">
-                                {{ $item->kategori_info }}
-                            </span>
-
-                            <h6 class="font-weight-bold text-dark mb-1 text-sm" style="padding-right: 85px;">
-                                @if($item->kategori_info == 'Beasiswa')
-                                <a href="{{ route('info-beasiswa.index') }}" class="text-purple text-decoration-none">
-                                    {{ $item->posisi }}
-                                </a>
-                                @elseif($item->kategori_info == 'Lomba')
-                                <a href="" class="text-danger text-decoration-none">
-                                    {{ $item->nama_lomba }}
-                                </a>
-                                @endif
-                            </h6>
-
-                            <p class="text-muted mb-2 text-xs font-weight-semibold">
-                                <i class="fas fa-building mr-1"></i> {{ $item->nama_perusahaan ?? $item->penyelenggara ?? 'Jurusan SI' }}
-                            </p>
-
-                            <div class="d-flex justify-content-between text-muted" style="font-size: 11px;">
-                                <span><i class="far fa-clock mr-1"></i> Batas Akhir:</span>
-                                <span class="text-danger font-weight-bold">
-                                    {{ \Carbon\Carbon::parse($item->deadline)->format('d M Y') }}
-                                </span>
-                            </div>
-                        </div>
-                        @empty
-                        <div class="text-center p-4 text-muted text-sm">
-                            <i class="fas fa-info-circle fa-2x mb-2 text-secondary d-block"></i>
-                            Belum ada pengumuman terbaru saat ini.
-                        </div>
-                        @endforelse
-                    </div>
-                </div>
-
-                <div class="card shadow-sm">
-                    <div class="card-header bg-light">
-                        <h3 class="card-title font-weight-bold text-secondary text-sm"><i class="fas fa-external-link-alt mr-2"></i> Tautan Informasi Luar</h3>
-                    </div>
-                    <div class="card-body p-3">
-                        <div class="callout callout-info mb-3 bg-light elevation-1 border-left text-sm" style="border-left: 4px solid #17a2b8 !important;">
-                            <h6 class="font-weight-bold text-info mb-1"><i class="fas fa-graduation-cap mr-2"></i> Portal TA (SISFOTA)</h6>
-                            <p class="text-xs text-muted mb-2">Kelola pendaftaran proposal dan tugas akhir.</p>
-                            <a href="https://sisfota.fmipa-untan.id/" target="_blank" class="btn btn-xs btn-info btn-block text-white font-weight-bold">Buka Website SISFOTA <i class="fas fa-arrow-right ml-1"></i></a>
-                        </div>
-
-                        <a href="https://sisfo.untan.ac.id/fasilitas" target="_blank" class="btn btn-block btn-outline-secondary text-left text-sm font-weight-bold mb-0">
-                            <i class="fas fa-university mr-2 text-purple"></i> Lihat Fasilitas Prodi SI UNTAN
-                        </a>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
 
 <style>
-    .text-purple {
-        color: #6f42c1 !important;
+    .badge-role {
+        display: inline-block;
+        box-shadow: inset 2px 2px rgba(0, 0, 0, 0.3);
     }
 
-    .bg-purple {
-        background-color: #6f42c1 !important;
+    .bg-content {
+        background-color: #EBEBEB;
     }
 
-    .card-purple.card-outline {
-        border-top: 3px solid #6f42c1 !important;
+    .welcome-banner {
+        border-radius: 15px !important;
     }
 
-    .border-top-purple {
-        border-top: 3px solid #6f42c1 !important;
+    /* Tracking / Spacing Judul */
+    .tracking-wide {
+        letter-spacing: 0.5px;
     }
 
-    .border-top-danger {
-        border-top: 3px solid #dc3545 !important;
+    /* Style untuk membuat efek folder bertumpuk (Stacked Pastel Yellow Card) */
+    .folder-wrapper {
+        position: relative;
+        width: 210px;
+        height: 170px;
+        margin: 0 auto;
+        transition: transform 0.2s ease-in-out;
     }
 
-    .border-top-info {
-        border-top: 3px solid #17a2b8 !important;
+    /* Lapisan Belakang Folder */
+    .folder-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 195px;
+        height: 155px;
+        background-color: #fce896;
+        /* Warna kuning pastel layer belakang */
+        border-radius: 16px;
     }
 
-    .border-top-warning {
-        border-top: 3px solid #ffc107 !important;
+    /* Lapisan Depan Folder */
+    .folder-front {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 195px;
+        height: 155px;
+        background-color: #fff2b2;
+        /* Warna kuning pastel layer depan */
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
     }
 
-    .border-top-success {
-        border-top: 3px solid #28a745 !important;
+    /* Font Menu Title di bagian bawah folder */
+    .menu-title {
+        font-size: 16px;
+        color: #111111 !important;
     }
 
-    .action-card {
-        display: block;
+    /* Efek Hover smooth saat kursor mengarah ke menu */
+    .menu-item-link:hover .folder-wrapper {
+        transform: translateY(-5px);
     }
 
-    .action-card:hover .card {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1) !important;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .action-card .card {
-        transition: all 0.2s ease-in-out;
-    }
-
-    .hover-light:hover {
-        background-color: #f8f9fa;
-        transition: background 0.2s;
+    .menu-item-link:hover .folder-front {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     }
 </style>
 @endsection

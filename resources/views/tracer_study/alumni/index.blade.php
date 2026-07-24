@@ -15,7 +15,7 @@
 
                     @if(!$tracerstudy)
                     <div class="alert alert-warning border-0 shadow-sm mb-4" role="alert">
-                        Anda belum mengisi kuisioner Tracer Study tahun ini.
+                        Anda belum mengisi kuesioner Tracer Study.
                     </div>
                     <a href="{{ route('tracer-study.create') }}" class="btn btn-primary btn-lg px-4 shadow">
                         <i class="fas fa-edit me-2"></i> Isi Tracer Study Sekarang
@@ -35,12 +35,12 @@
 
                     <div class="d-flex justify-content-center gap-2">
                         <a href="{{ route('tracer-study.show', $tracerstudy->id) }}" class="btn btn-info text-white px-3">
-                            <i class="fas fa-eye me-1"></i> Lihat Detail
+                            <i class="fas fa-eye me-1"></i> Lihat Rincian
                         </a>
 
                         {{-- PERBAIKAN: Tombol menuju halaman cetak struk terima kasih --}}
                         <a href="{{ route('tracer-study.sukses') }}" class="btn btn-success text-white px-3">
-                            <i class="fas fa-print me-1"></i> Cetak Bukti Selesai
+                            <i class="fas fa-print me-1"></i> Cetak Bukti Pengisian
                         </a>
 
                         <a href="{{ route('tracer-study.edit', $tracerstudy->id) }}" class="btn btn-warning text-white px-3">

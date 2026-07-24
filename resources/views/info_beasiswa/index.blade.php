@@ -31,9 +31,9 @@
                                 <th style="width: 50px">No</th>
                                 <th>Nama Beasiswa</th>
                                 <th>Penyelenggara</th>
-                                <th>Pendaftaran</th>
+                                <th>Periode Pendaftaran</th>
                                 <th>Contact Person</th>
-                                <th>Diposting Oleh</th> {{-- TAMBAHAN: Judul Kolom Baru --}}
+                                <th>Diposting Oleh</th>
                                 <th style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
@@ -43,18 +43,13 @@
                                 <td class="text-center font-weight-bold">{{ $infoBeasiswa->firstItem() + $key }}</td>
                                 <td>{{ $item->nama_beasiswa }}</td>
                                 <td>{{ $item->penyelenggara }}</td>
-                                <td class="text-center small">
-                                    <span class="badge bg-primary text-white">{{ \Carbon\Carbon::parse($item->tanggal_mulai_pendaftaran)->format('d M Y') }}</span>
-                                    <br>sampai<br>
-                                    <span class="badge bg-danger text-white">{{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}</span>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($item->tanggal_mulai_pendaftaran)->format('d M Y') }}
+                                    <br>s/d<br>
+                                    {{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}
                                 </td>
                                 <td class="text-center">{{ $item->contact_person ?? '-' }}</td>
-
-                                {{-- TAMBAHAN: Menampilkan Nama User yang Posting --}}
-                                <td class="text-center">
-                                    {{ $item->user->name ?? 'Tidak Diketahui' }}
-                                </td>
-
+                                <td class="text-center">{{ $item->user->name ?? 'Tidak Diketahui' }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Aksi Data">
                                         <button type="button" class="btn btn-info btn-sm text-white"
@@ -80,38 +75,53 @@
                                 </td>
                             </tr>
 
+                            {{-- MODAL DETAIL UNTUK ADMIN/DOSEN --}}
                             <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header bg-warning">
                                             <h5 class="modal-title font-weight-bold text-dark">Detail Beasiswa: {{ $item->nama_beasiswa }}</h5>
                                             <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body text-start" style="text-align: left !important;">
-                                            <p><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
-                                            <p><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p> {{-- TAMBAHAN di dalam modal --}}
-                                            <p><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
-                                            <p><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
-                                            <p><strong>Benefit / Cakupan:</strong><br>{!! nl2br(e($item->benefit)) !!}</p>
-                                            <p><strong>Link Pendaftaran:</strong>
+                                            <div class="row mb-2">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
+                                                    <p class="mb-1"><strong>Contact Person:</strong> {{ $item->contact_person ?? '-' }}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1"><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p>
+                                                    <p class="mb-1"><strong>Tanggal Dibuat:</strong> {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y H:i') }} WIB</p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <p class="mb-2"><strong>Periode Pendaftaran:</strong><br>
+                                                {{ \Carbon\Carbon::parse($item->tanggal_mulai_pendaftaran)->format('d M Y') }}
+                                                s/d
+                                                {{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}
+                                            </p>
+                                            <p class="mb-2"><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
+                                            <p class="mb-2"><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
+                                            <p class="mb-2"><strong>Benefit / Cakupan:</strong><br>{!! nl2br(e($item->benefit)) !!}</p>
+                                            <p class="mb-0"><strong>Link Pendaftaran:</strong>
                                                 @if($item->link_pendaftaran)
-                                                <a href="{{ $item->link_pendaftaran }}" target="_blank">{{ $item->link_pendaftaran }}</a>
+                                                <a href="{{ $item->link_pendaftaran }}" target="_blank" class="text-primary">{{ $item->link_pendaftaran }}</a>
                                                 @else
                                                 -
                                                 @endif
                                             </p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" data-bs-dismiss="modal">Tutup</button>
+                                            <button type="button" class="btn btn-secondary btn-sm bg-abu-abu btn-radius" data-dismiss="modal" data-bs-dismiss="modal">Tutup</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @empty
                             <tr>
-                                <td colspan="7" class="text-center text-muted py-4">Belum ada informasi beasiswa yang diposting.</td> {{-- Diubah ke colspan="7" --}}
+                                <td colspan="7" class="text-center text-muted py-4">Belum ada informasi beasiswa yang diposting.</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -150,9 +160,8 @@
                             </span>
                             @endif
 
-                            {{-- TAMBAHAN: Keterangan pengunggah di card mahasiswa --}}
-                            <span class="text-muted d-block mt-2 small text-right italic">
-                                Diposting Oleh: {{ $item->user->name ?? 'tidak diketahui' }}
+                            <span class="text-muted d-block mt-2 small text-right font-italic">
+                                Diposting Oleh: {{ $item->user->name ?? 'Tidak Diketahui' }}
                             </span>
                         </div>
 
@@ -162,41 +171,44 @@
                                 data-bs-toggle="modal" data-bs-target="#detailModal{{ $item->id }}">
                                 <i class="fas fa-eye mr-1"></i> Lihat Detail
                             </button>
-
-                            <!-- @if($item->link_pendaftaran)
-                            <a href="{{ $item->link_pendaftaran }}" target="_blank" class="btn btn-primary btn-sm flex-fill ml-1 shadow-sm">
-                                <i class="fas fa-external-link-alt mr-1"></i> Daftar
-                            </a>
-                            @endif -->
                         </div>
                     </div>
                 </div>
             </div>
 
+            {{-- MODAL DETAIL UNTUK MAHASISWA --}}
             <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-kuning-2">
                             <h5 class="modal-title font-weight-bold text-dark">Detail Beasiswa: {{ $item->nama_beasiswa }}</h5>
                             <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body text-start" style="text-align: left !important;">
-                            <p><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
-                            <p><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p> {{-- TAMBAHAN di modal mahasiswa --}}
-                            <p><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
-                            <p><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
-                            <p><strong>Benefit / Cakupan:</strong><br>{!! nl2br(e($item->benefit)) !!}</p>
-                            <p><strong>Link Pendaftaran:</strong>
+                            <p class="mb-1"><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
+                            <p class="mb-1"><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p>
+                            <p class="mb-2"><strong>Contact Person:</strong> {{ $item->contact_person ?? '-' }}</p>
+                            <hr>
+                            <p class="mb-2"><strong>Periode Pendaftaran:</strong><br>
+                                {{ \Carbon\Carbon::parse($item->tanggal_mulai_pendaftaran)->format('d M Y') }}
+                                s/d
+                                {{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}
+                            </p>
+                            <p class="mb-2"><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
+                            <p class="mb-2"><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
+                            <p class="mb-2"><strong>Benefit </strong><br>{!! nl2br(e($item->benefit)) !!}</p>
+                            <p class="mb-0"><strong>Link Pendaftaran:</strong>
                                 @if($item->link_pendaftaran)
-                                <a href="{{ $item->link_pendaftaran }}" target="_blank">{{ $item->link_pendaftaran }}</a>
+                                <a href="{{ $item->link_pendaftaran }}" target="_blank" class="text-primary">{{ $item->link_pendaftaran }}</a>
                                 @else
                                 -
                                 @endif
                             </p>
                         </div>
                         <div class="modal-footer">
+
                             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </div>

@@ -6,8 +6,8 @@
     <div class="col m-4">
         <div class="card">
 
-            <div class="card-header font-weight-bold">
-                <div class="float-start">Tambah Mahasiswa</div>
+            <div class="card-header font-weight-bold text-center">
+                <h4>TAMBAH MAHASISWA</h4>
             </div>
 
             <div class="card-body">
@@ -86,8 +86,8 @@
                     {{-- Tombol --}}
                     <div class="row">
                         <div class="col-md-6 offset-md-4">
-                            <input type="submit" class="btn btn-primary" value="Tambah">
-                            <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary">Kembali</a>
+                            <input type="submit" class="btn btn-primary btn-sm btn-radius" value="Tambah">
+                            <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary btn-sm btn-radius bg-abu-abu">Batal</a>
                         </div>
                     </div>
 

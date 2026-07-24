@@ -2,105 +2,161 @@
 
 @section('content')
 
-<div class="container">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h5>Data aduan</h5>
+<div class="container-fluid pt-3">
 
-            <a href="{{ route('aduan.create') }}"
-                class="btn btn-primary btn-sm">
-                Tambah aduan
-            </a>
-        </div>
+    {{-- Flash Message Success --}}
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
-        <div class="card-body">
+    {{-- Flash Message Error --}}
+    @if(session('error') || $errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle mr-1"></i> {{ session('error') ?? $errors->first() }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+    <div class="card shadow-sm">
+        <div class="card-header text-center py-3">
+            <h4 class="font-weight-bold text-center" style="display:inline-block">
+                ADUAN
+            </h4>
+            <div class="card-tools">
+                <a href="{{ route('aduan.create') }}" class="btn btn-success btn-sm btn-radius">
+                    <i class="fas fa-plus mr-1"></i> Tambah Aduan
+                </a>
             </div>
-            @endif
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th>No</th>
-                        <th>Subjek</th>
-
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @forelse($aduan as $item)
-
-                    <tr>
-                        <td class="text-center">
-                            {{ $loop->iteration }}
-                        </td>
-
-                        <td>
-                            {{ $item->subjek }}
-                        </td>
-
-
-
-                        <td class="text-center">
-                            <div class="badge bg-primary">{{ $item->status }}</div>
-                        </td>
-                        <td class="text-center">
-                            <div class="d-flex justify-content-center align-items-center">
-                                {{-- Tombol Edit & Hapus HANYA muncul jika status aduan masih 'menunggu' --}}
-                                @if($item->status == 'menunggu')
-                                <a href="{{ route('aduan.edit', $item->id) }}"
-                                    class="btn btn-warning btn-sm mx-1"
-                                    style="padding: .25rem .4rem;"
-                                    title="Edit Aduan">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                <form action="{{ route('aduan.destroy', $item->id) }}" method="POST" class="d-inline m-0 mx-1">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus aduan ini?');"
-                                        class="btn btn-danger btn-sm"
-                                        style="padding: .25rem .4rem;"
-                                        title="Hapus Aduan">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                                @endif
-
-                                {{-- Tombol Detail selalu muncul untuk semua status --}}
-                                <a href="{{ route('aduan.show', $item->id) }}"
-                                    class="btn btn-primary btn-sm mx-1"
-                                    style="padding: .25rem .4rem;"
-                                    title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-
-                    @empty
-
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            Belum ada data aduan
-                        </td>
-                    </tr>
-
-                    @endforelse
-
-                </tbody>
-            </table>
-
-            {{ $aduan->links() }}
-
         </div>
+
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="text-center align-middle">
+                            <th style="width: 60px">No</th>
+                            <th>Subjek Pengaduan</th>
+                            <th>Kategori</th>
+                            <th style="width: 130px">Status</th>
+                            <th style="width: 150px">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @forelse($aduan as $item)
+                        <tr class="align-middle">
+                            {{-- Nomor Urut Terpaginasi --}}
+                            <td class="text-center">
+                                {{ $loop->iteration + ($aduan->currentPage() - 1) * $aduan->perPage() }}
+                            </td>
+
+                            {{-- Subjek & Meta Info --}}
+                            <td>
+                                <span class="d-block text-dark">{{ $item->subjek }}</span>
+                                <small class="text-muted">
+                                    <i class="far fa-clock mr-1"></i>{{ $item->created_at ? $item->created_at->diffForHumans() : '-' }}
+
+
+
+                                    @if($item->lampiran)
+                                    <span class="badge badge-light text-info ml-1">
+                                        <i class="fas fa-paperclip"></i> Lampiran
+                                    </span>
+                                    @endif
+
+                                    @if($item->tanggapan !== '-' )
+                                    <span class="badge badge-success ml-1">
+                                        <i class="fas fa-comment-dots"></i> Ada Balasan
+                                    </span>
+                                    @endif
+                                </small>
+                            </td>
+
+                            {{-- Kategori --}}
+                            <td class="text-center">
+
+                                {{ ucfirst(str_replace('_', ' ', $item->kategori ?? 'Lainnya')) }}
+
+                            </td>
+
+                            {{-- Badge Status --}}
+                            <td class="text-center">
+                                @if($item->status == 'menunggu')
+                                <span class="badge bg-kuning-1">Menunggu</span>
+                                @elseif($item->status == 'diproses')
+                                <span class="badge badge-sm bg-kuning-2">Diproses</span>
+                                @elseif($item->status == 'selesai')
+                                <span class="badge bg-kuning-3">Selesai</span>
+                                @elseif($item->status == 'ditolak')
+                                <span class="badge badge-danger">Ditolak</span>
+                                @else
+                                <span class="badge badge-secondary">{{ ucfirst($item->status) }}</span>
+                                @endif
+                            </td>
+
+                            {{-- Tombol Aksi --}}
+                            <td class="text-center">
+                                <div>
+                                    {{-- Edit & Hapus HANYA jika status masih 'menunggu' --}}
+                                    @if($item->status == 'menunggu')
+                                    <a href="{{ route('aduan.edit', $item->id) }}"
+                                        class="btn bg-kuning-1 btn-sm btn-radius"
+                                        title="Edit Aduan">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <form action="{{ route('aduan.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus aduan ini?');"
+                                            class="btn btn-danger btn-sm btn-radius"
+                                            title="Hapus Aduan">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    @endif
+
+                                    {{-- Detail Selalu Tampil --}}
+                                    <a href="{{ route('aduan.show', $item->id) }}"
+                                        class="btn bg-kuning-3 btn-sm btn-radius"
+                                        title="Lihat Detail & Balasan">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-muted text-center py-4">
+                                <i class="fas fa-inbox fa-2x mb-2 d-block text-secondary"></i>
+                                Anda belum pernah membuat aduan.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{-- Pagination Footer --}}
+        @if($aduan->hasPages())
+        <div class="card-footer clearfix">
+            <div class="float-right">
+                {{ $aduan->links('pagination::bootstrap-4') }}
+            </div>
+        </div>
+        @endif
+
     </div>
 </div>
 
