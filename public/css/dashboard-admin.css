@@ -1,0 +1,5 @@
+/* Lapisan Depan Folder */
+.folder-front {
+    align-items: start !important;
+    justify-content: end !important;
+}

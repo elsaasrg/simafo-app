@@ -52,9 +52,9 @@
                             </td>
                             <td>
                                 <span class=" d-block text-dark">{{ $item->subjek }}</span>
-                                <small class="text-muted">
+                                <!-- <small class="text-muted">
                                     <i class="far fa-clock mr-1"></i>{{ $item->created_at ? $item->created_at->diffForHumans() : '-' }}
-                                </small>
+                                </small> -->
                             </td>
 
                             {{-- Kategori --}}
@@ -75,11 +75,11 @@
                             {{-- Badge Status --}}
                             <td class="text-center">
                                 @if($item->status == 'menunggu')
-                                <span class="badge bg-kuning-1">Menunggu</span>
+                                <span class="badge bg-yellow-1">Menunggu</span>
                                 @elseif($item->status == 'diproses')
-                                <span class="badge badge-sm bg-kuning-2">Diproses</span>
+                                <span class="badge badge-sm bg-yellow-2">Diproses</span>
                                 @elseif($item->status == 'selesai')
-                                <span class="badge bg-kuning-3">Selesai</span>
+                                <span class="badge bg-yellow-3">Selesai</span>
                                 @elseif($item->status == 'ditolak')
                                 <span class="badge badge-danger">Ditolak</span>
                                 @else
@@ -89,7 +89,7 @@
 
                             {{-- Aksi --}}
                             <td class="text-center">
-                                <a href="{{ route('aduan.show', $item->id) }}" class="btn bg-kuning-1 btn-sm mr-1 btn-radius" title="Detail Aduan">
+                                <a href="{{ route('aduan.show', $item->id) }}" class="btn bg-yellow-1 btn-sm mr-1 btn-radius" title="Detail Aduan">
                                     <i class="fas fa-eye"></i>
                                 </a>
 

@@ -14,13 +14,11 @@
     </div>
     @endif
 
-    {{-- Main Card Form --}}
-    <div class="card mb-4 border-0 shadow-sm">
-        {{-- Header Card Hijau Khas SIMAFO --}}
-        <div class="card-header py-3 text-center">
-            <h4 class="font-weight-bold">EDIT DATA ORGANISASI</h4>
+    <h4 class="font-weight-bold text-center">EDIT DATA ORGANISASI </h4>
+    <div class="card mb-4 ">
+        <div class="card-header text-center bg-yellow-4 shadow-sm">
+            <i class="fas fa-edit"></i><strong> Form Edit Data Organisasi</strong>
         </div>
-
         <div class="card-body p-4 pb-2">
             <form action="{{ route('organisasi.update', $organisasi->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -70,48 +68,41 @@
                     @enderror
                 </div>
 
-
-                <div class="mb-4">
-                    <label for="dokumen" class="form-label font-weight-bold">Dokumen (Bukti)</label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input @error('dokumen') is-invalid @enderror"
-                                name="dokumen" id="dokumen" accept=".pdf,.jpg,.jpeg,.png">
-                            <label class="custom-file-label text-muted" for="dokumen" id="dokumen_label">Pilih file baru jika ingin mengubah...</label>
-                        </div>
+                {{-- 5. Dokumen (Sesuai Tampilan yang Diinginkan) --}}
+                <div class="form-group mb-4">
+                    <label for="dokumen" class="form-label font-weight-bold">
+                        Dokumen (Bukti mengikuti organisasi )
+                    </label>
+                    <div>
+                        <input type="file"
+                            name="dokumen"
+                            class="form-control @error('dokumen') is-invalid @enderror"
+                            id="customFile"
+                            accept=".pdf,.jpg,.jpeg,.png" placeholder="Pilih file baru jika ingin mengubah...">
                     </div>
+                    <small class="form-text text-muted mb-1">Pilih file baru jika ingin mengubah..</small>
+
+                    {{-- Menampilkan tautan file lama jika ada --}}
                     @if($organisasi->dokumen)
-                    <small class="form-text text-info mt-2">
-                        <i class="fas fa-file-alt me-1"></i> File saat ini:
-                        <a href="{{ asset('storage/' . $organisasi->dokumen) }}" target="_blank" class="text-decoration-underline font-weight-bold">Lihat Dokumen</a>
-                    </small>
+                    <a href="{{ asset('storage/' . $organisasi->dokumen) }}" target="_blank" class="btn btn-sm btn-outline-primary text-dark"> <i class="fas fa-file-download text-primary mr-1"></i>Buka File Saat Ini</a>
+
                     @endif
                     @error('dokumen')
-                    <span class="text-danger small d-block mt-1"><strong>{{ $message }}</strong></span>
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
 
-                <hr class="mt-4 mb-4">
-
                 {{-- Tombol Kontrol --}}
-                <div class="d-flex justify-content-start mb-2">
-                    <button type="submit" class="btn btn-sm btn-primary btn-sm px-2 mr-1 btn-radius">
+                <div class="d-flex justify-content-end mb-2">
+                    <button type="submit" class="btn btn-sm btn-primary px-2 mr-1 btn-radius">
                         Simpan
                     </button>
-                    <a href="{{ route('organisasi.index') }}" class="btn btn-sm bg-abu-abu px-2 btn-radius text-white">Batal</a>
+                    <a href="{{ route('organisasi.index') }}" class="btn btn-sm bg-dark px-3 btn-radius text-white">Batal</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-{{-- Script AdminLTE Custom File Real-time Text --}}
-<script>
-    document.getElementById('dokumen').addEventListener('change', function(e) {
-        var fileName = e.target.files[0] ? e.target.files[0].name : "Pilih file baru jika ingin mengubah...";
-        var label = document.getElementById('dokumen_label');
-        label.textContent = fileName;
-        label.classList.remove('text-muted');
-    });
-</script>
 @endsection

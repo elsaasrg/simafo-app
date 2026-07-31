@@ -5,9 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-10 m-4">
             <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 font-weight-bold">Tambah Informasi Beasiswa</h5>
-                    <a href="{{ route('info-beasiswa.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                <div class="card-header text-center py-3">
+                    <h4 class="mb-0 font-weight-bold ">TAMBAH INFORMASI BEASISWA</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('info-beasiswa.store') }}" method="POST">
@@ -86,14 +85,18 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <div class="col-md-8 offset-md-3">
-                                <button type="submit" class="btn btn-success btn-sm px-4">Buat Informasi Beasiswa</button>
+                            <div class="col-md-8 offset-md-8">
+                                <button type="submit" class="btn btn-primary btn-sm px-3 btn-radius">Tambah</button>
+                                <a href="{{ route('info-beasiswa.index') }}" class="btn btn-sm bg-dark btn-radius px-4">Batal</a>
                             </div>
+
+
                         </div>
-                    </form>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

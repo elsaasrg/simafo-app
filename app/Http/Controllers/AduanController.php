@@ -68,7 +68,7 @@ class AduanController extends Controller
             'subjek'       => $request->subjek,
             'isi_aduan'    => $request->isi_aduan,
             'lampiran'     => $lampiranPath,
-            'is_anonim'    => $request->boolean('is_anonim') ? 1 : 0, // Mengkonversi boolean ke 1 atau 0
+
             'status'       => 'menunggu',
         ]);
 

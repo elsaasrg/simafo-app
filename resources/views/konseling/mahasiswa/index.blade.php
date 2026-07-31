@@ -5,12 +5,22 @@
 <div class="container">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h5>Data Konseling</h5>
+            <div class="row w-100">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6 text-center">
+                    <h4 class="m-0"><strong>DATA KONSELING</strong></h4>
 
-            <a href="{{ route('konseling.create') }}"
-                class="btn btn-primary btn-sm">
-                Tambah Konseling
-            </a>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center justify-content-md-end">
+                    <a href="{{ route('konseling.create') }}"
+                        class="btn btn-sm btn-success btn-sm btn-radius">
+                        <i class="fas fa-plus"></i>Tambah Konseling
+                    </a>
+
+                </div>
+            </div>
+
         </div>
 
         <div class="card-body">
@@ -20,92 +30,90 @@
                 {{ session('success') }}
             </div>
             @endif
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th>No</th>
+                            <th>Subjek</th>
+                            <th>Nama Dosen</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th>No</th>
-                        <th>Subjek</th>
-                        <th>Nama Dosen</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
+                    <tbody>
 
-                <tbody>
+                        @forelse($konseling as $item)
 
-                    @forelse($konseling as $item)
+                        <tr>
+                            <td class="text-center">
+                                {{ $loop->iteration }}
+                            </td>
 
-                    <tr>
-                        <td class="text-center">
-                            {{ $loop->iteration }}
-                        </td>
+                            <td>
+                                {{ $item->subjek }}
+                            </td>
 
-                        <td>
-                            {{ $item->subjek }}
-                        </td>
+                            <td>
+                                {{ $item->dosen->user->name }}
+                            </td>
 
-                        <td>
-                            {{ $item->dosen->user->name }}
-                        </td>
-
-                        <td class="text-center">
-                            <div class="badge bg-primary">{{ $item->status }}</div>
-                        </td>
-                        <td class="text-center">
-                            <div class="d-flex justify-content-center align-items-center">
-                                {{-- Tombol Edit & Hapus HANYA muncul jika statusnya 'dikirim' --}}
-                                @if($item->status == 'dikirim')
-                                <a href="{{ route('konseling.edit', $item->id) }}"
-                                    class="btn btn-warning btn-sm mx-1"
-                                    style="padding: .25rem .4rem;"
-                                    title="Edit Pengajuan">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                <form action="{{ route('konseling.destroy', $item->id) }}" method="POST" class="d-inline m-0">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus pengajuan konseling ini?');"
-                                        class="btn btn-danger btn-sm"
+                            <td class="text-center">
+                                <div class="badge bg-green-2 btn-radius px-2">{{ $item->status }}</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    {{-- Tombol Detail selalu muncul di semua status --}}
+                                    <a href="{{ route('konseling.show', $item->id) }}"
+                                        class="btn bg-yellow-1 btn-sm mx-1 btn-radius"
                                         style="padding: .25rem .4rem;"
-                                        title="Hapus Pengajuan">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                                @endif
+                                        title="Lihat Detail">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    {{-- Tombol Edit & Hapus HANYA muncul jika statusnya 'dikirim' --}}
+                                    @if($item->status == 'dikirim')
+                                    <a href="{{ route('konseling.edit', $item->id) }}"
+                                        class="btn bg-yellow-1 btn-sm mx-1 btn-radius"
+                                        style="padding: .25rem .4rem;"
+                                        title="Edit Pengajuan">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
 
-                                {{-- Tombol Detail selalu muncul di semua status --}}
-                                <a href="{{ route('konseling.show', $item->id) }}"
-                                    class="btn btn-primary btn-sm mx-1"
-                                    style="padding: .25rem .4rem;"
-                                    title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                                    <form action="{{ route('konseling.destroy', $item->id) }}" method="POST" class="d-inline m-0">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit"
+                                            onclick="return confirm('Yakin ingin menghapus pengajuan konseling ini?');"
+                                            class="btn btn-danger btn-sm btn-radius"
+                                            style="padding: .25rem .4rem;"
+                                            title="Hapus Pengajuan">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    @endif
 
-                    @empty
 
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            Belum ada data konseling
-                        </td>
-                    </tr>
+                                </div>
+                            </td>
+                        </tr>
 
-                    @endforelse
+                        @empty
 
-                </tbody>
-            </table>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                Belum ada data konseling
+                            </td>
+                        </tr>
 
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             {{ $konseling->links() }}
 
         </div>
     </div>
 </div>
 
-@endsection<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
+@endsection

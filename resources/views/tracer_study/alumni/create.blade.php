@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="container-fluid px-4">
-
-    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Tracer Study Alumni</h1>
+    <h4 class="mt-4 font-weight-bold text-dark text-center mb-3">TAMBAH TRACER STUDY</h4>
 
 
     {{-- Alert Validation Error Global --}}
@@ -22,22 +21,22 @@
 
     {{-- 1. BAGIAN ATAS: BIODATA ALUMNI --}}
     <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-header bg-dark text-white py-2 font-weight-bold">
+        <div class="card-header bg-yellow-4 text-dark py-3 font-weight-bold text-center">
             <i class="fas fa-id-card mr-1"></i> Biodata Alumni
         </div>
         <div class="card-body p-4">
             <div class="row text-center text-md-left">
                 <div class="col-md-4 mb-3 mb-md-0 border-end-md">
-                    <small class="text-muted d-block font-weight-bold text-uppercase">Nama</small>
-                    <span class="h6 font-weight-bold text-dark mb-0">{{ $mahasiswa->user->name }}</span>
+                    <small class="d-block font-weight-bold text-uppercase">Nama</small>
+                    <span class="h6 text-muted  mb-0">{{ $mahasiswa->user->name }}</span>
                 </div>
                 <div class="col-md-4 mb-3 mb-md-0 border-end-md">
-                    <small class="text-muted d-block font-weight-bold text-uppercase">Nomor Induk Mahasiswa (NIM)</small>
-                    <span class="h6 font-weight-bold text-dark mb-0">{{ $mahasiswa->nim }}</span>
+                    <small class="d-block font-weight-bold text-uppercase">Nomor Induk Mahasiswa (NIM)</small>
+                    <span class="h6 text-muted  mb-0">{{ $mahasiswa->nim }}</span>
                 </div>
                 <div class="col-md-4">
-                    <small class="text-muted d-block font-weight-bold text-uppercase">Tahun Kelulusan</small>
-                    <span class="h6 font-weight-bold text-success mb-0">
+                    <small class=" d-block font-weight-bold text-uppercase">Tahun Kelulusan</small>
+                    <span class="h6 text-muted mb-0">
                         <i class="fas fa-graduation-cap mr-1"></i> Lulus Tahun {{ $mahasiswa->tahun_lulus }}
                     </span>
                 </div>
@@ -47,7 +46,7 @@
 
     {{-- 2. BAGIAN BAWAH: FORM KUESIONER TRACER STUDY --}}
     <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-header bg-success text-white py-2 font-weight-bold">
+        <div class="card-header bg-yellow-4 py-3 font-weight-bold text-center">
             <i class="fas fa-poll-h mr-1"></i> Pengisian Kuesioner Pelacakan Alumni
         </div>
 
@@ -174,10 +173,10 @@
 
                 {{-- Tombol Kontrol Aksi --}}
                 <div class="d-flex justify-content-start mb-2">
-                    <button type="submit" class="btn btn-primary px-4 font-weight-bold mr-2 shadow-sm">
-                        <i class="fas fa-paper-plane mr-1"></i> Kirim Kuesioner
+                    <button type="submit" class="btn btn-sm btn-primary  font-weight-bold mr-2 shadow-sm btn-radius">
+                        <i class="fas fa-paper-plane mr-1 text-dark"></i> Kirim Kuesioner
                     </button>
-                    <a href="{{ route('home') }}" class="btn btn-secondary px-4 shadow-sm">Batal</a>
+                    <a href="{{ route('home') }}" class="btn btn-sm btn-radius bg-grey-2 px-3 shadow-sm text-white">Batal</a>
                 </div>
             </form>
         </div>

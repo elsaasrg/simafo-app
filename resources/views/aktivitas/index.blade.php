@@ -102,18 +102,21 @@
     @endif
 
     <div class="card mb-4">
-        <div class="card-header text-center font-weight-bold">
-            <span>
+        <div class="card-header row align-items text-center font-weight-bold">
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8 text-center">
                 @if(auth()->user()->hasRole('Mahasiswa'))
-                <i class="fas fa-users me-1"></i> DATA AKTIVITAS
+                <h4 class=""> <i class="fas fa-users me-1"></i> <strong>DATA AKTIVITAS </strong></h4>
                 @else
-                <i class="fas fa-users me-1"></i> SELURUH AJUAN AKTIVITAS MAHASISWA
+                <h5><i class="fas fa-users me-1"></i> <strong> SELURUH AJUAN AKTIVITAS MAHASISWA </strong></h5>
                 @endif
-            </span>
+            </div>
+
 
             @if(auth()->user()->hasRole('Mahasiswa'))
-            <div class="card-tools float-right">
-                <a href="{{ route('aktivitas.create') }}" class="btn btn-success btn-sm">
+            <div class="col-md-2">
+                <a href="{{ route('aktivitas.create') }}" class="btn btn-success btn-sm btn-radius">
                     <i class="fas fa-plus"></i> Tambah Aktivitas
                 </a>
             </div>
@@ -132,12 +135,12 @@
                         <tr class="text-center align-middle">
                             <th>No</th>
                             <th>Nama Mahasiswa</th>
-                            <th>NIM</th>
+                            <th class="d-none d-md-table-cell">NIM</th>
                             <th>Nama Aktivitas</th>
                             <th>Tanggal</th>
                             <th>Poin Sistem</th>
                             <th>Status Validasi</th>
-                            <th style="width: 150px">Aksi</th>
+                            <th style="width: 120px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -145,25 +148,25 @@
                         <tr class="align-middle">
                             <td class="text-center font-weight-bold">{{ $index + 1 }}</td>
                             <td>{{ $row->mahasiswa->user->name }}</td>
-                            <td class="text-center">{{ $row->mahasiswa->nim }}</td>
+                            <td class="text-center d-none d-md-table-cell">{{ $row->mahasiswa->nim }}</td>
                             <td>{{ $row->nama_aktivitas }}</td>
                             <td class="text-center small">{{ \Carbon\Carbon::parse($row->tanggal_mulai)->translatedFormat('d M Y') }}</td>
                             <td class="text-center font-weight-bold">{{ number_format($row->poin, 2) }}</td>
                             <td class="text-center">
                                 @if($row->status_validasi == 'menunggu')
-                                <span class="badge badge-warning text-dark">Menunggu</span>
+                                <span class="badge bg-yellow-1 text-dark btn-radius px-3">Menunggu</span>
                                 @elseif($row->status_validasi == 'valid')
-                                <span class="badge badge-success">Valid</span>
+                                <span class="badge badge-success btn-radius px-3">Valid</span>
                                 @else
                                 <span class="badge badge-danger">Tidak Valid</span>
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
-                                <div class="btn-group" role="group">
+                                <div>
 
                                     {{-- Tombol Validasi (Khusus Admin) --}}
                                     @if(Auth::user()->hasRole('Admin'))
-                                    <button type="button" class="btn btn-sm bg-kuning-1 btn-radius mr-1"
+                                    <button type="button" class="btn btn-sm bg-yellow-1 btn-radius mr-1"
                                         title="Validasi Data"
                                         data-toggle="modal"
                                         data-target="#modalValidasi"
@@ -178,7 +181,7 @@
                                     @endif
 
                                     {{-- Tombol Detail --}}
-                                    <button type="button" class="btn bg-kuning-3 btn-sm btn-radius mr-1"
+                                    <button type="button" class="btn bg-yellow-1 btn-sm btn-radius"
                                         title="Lihat Detail"
                                         data-toggle="modal"
                                         data-target="#modalDetailAktivitas"
@@ -195,6 +198,7 @@
                                         data-penyelenggara="{{ $row->penyelenggara ?? '-' }}"
                                         data-lokasi-aktivitas="{{ $row->lokasi_aktivitas ?? '-' }}"
                                         data-tglmulai="{{ \Carbon\Carbon::parse($row->tanggal_mulai)->format('d M Y') }}"
+                                        data-tglselesai="{{ \Carbon\Carbon::parse($row->tanggal_selesai)->format('d M Y') }}"
                                         data-jenis-dokumen-pendukung="{{ $row->jenis_dokumen_pendukung }}"
                                         data-poin="{{ number_format($row->poin, 2) }}"
                                         data-status="{{ $row->status_validasi }}"
@@ -205,7 +209,7 @@
 
                                     {{-- Tombol Edit (Tampil jika Mahasiswa & belum Valid) --}}
                                     @if(Auth::user()->hasRole('Mahasiswa') && $row->status_validasi !== 'valid')
-                                    <a href="{{ route('aktivitas.edit', $row->id) }}" class="btn btn-sm btn-warning text-white btn-radius mr-1" title="Edit Data">
+                                    <a href="{{ route('aktivitas.edit', $row->id) }}" class="btn btn-sm bg-yellow-1 btn-radius" title="Edit Data">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     @endif
@@ -240,7 +244,7 @@
 <div class="modal fade" id="modalValidasi" tabindex="-1" role="dialog" aria-labelledby="modalValidasiLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-kuning-2">
+            <div class="modal-header bg-yellow-2">
                 <h5 class="modal-title font-weight-bold" id="modalValidasiLabel">Form Validasi Aktivitas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -274,8 +278,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bg-abu-abu btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary btn-sm btn-radius text-white">Simpan</button>
+                    <button type="button" class="btn bg-grey-2 btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                 </div>
             </form>
         </div>
@@ -286,11 +290,18 @@
 <div class="modal fade" id="modalDetailAktivitas" tabindex="-1" role="dialog" aria-labelledby="modalDetailLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg text-dark" role="document">
         <div class="modal-content">
-            <div class="modal-header modal-header-kuning modal-text-hitam">
-                <h5 class="modal-title font-weight-bold" id="modalDetailLabel"><i class="fas fa-info-circle"></i> Detail Lengkap Aktivitas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header bg-yellow-2 modal-text-hitam">
+                <div class="row w-100">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 text-center">
+                        <h5 class="font-weight-bold m-0" id="modalDetailLabel"><i class="fas fa-info-circle"></i> Detail Lengkap Aktivitas</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered m-0">
@@ -308,7 +319,7 @@
                     </tr>
                     <tr>
                         <th class="modal-text-hitam">Jenis Aktivitas</th>
-                        <td><span class="badge badge-secondary" id="det_jenis_aktivitas"></span></td>
+                        <td><span class="badge badge-dark px-2 btn-radius" id="det_jenis_aktivitas"></span></td>
                     </tr>
                     <tr>
                         <th class="modal-text-hitam">Kelompok Aktivitas</th>
@@ -347,12 +358,16 @@
                         <td><span id="det_tglmulai"></span></td>
                     </tr>
                     <tr>
+                        <th class="modal-text-hitam">Tanggal Selesai</th>
+                        <td><span id="det_tglselesai"></span></td>
+                    </tr>
+                    <tr>
                         <th class="modal-text-hitam">Jenis Dokumen Pendukung</th>
                         <td id="det_jenis_dokumen_pendukung"></td>
                     </tr>
                     <tr>
                         <th class="modal-text-hitam">Poin</th>
-                        <td class="text-primary font-weight-bold" id="det_poin"></td>
+                        <td class="" id="det_poin"></td>
                     </tr>
                     <tr>
                         <th class="modal-text-hitam">Status Validasi</th>
@@ -365,15 +380,12 @@
                     <tr>
                         <th class="modal-text-hitam">Dokumen Pendukung</th>
                         <td>
-                            <a href="" id="det_berkas" class="btn btn-sm btn-outline-primary" target="_blank">
-                                <i class="fas fa-file-download"></i> Buka Dokumen Pendukung
+                            <a href="" id="det_berkas" class="btn btn-sm btn-outline-primary text-dark" target="_blank">
+                                <i class="fas fa-file-download text-primary mr-1"></i>Buka Dokumen Pendukung
                             </a>
                         </td>
                     </tr>
                 </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm text-white bg-abu-abu btn-radius" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
@@ -430,6 +442,7 @@
             $('#det_penyelenggara').text(button.data('penyelenggara'));
             $('#det_lokasi_aktivitas').text(button.data('lokasi-aktivitas'));
             $('#det_tglmulai').text(button.data('tglmulai'));
+            $('#det_tglselesai').text(button.data('tglselesai'));
             $('#det_jenis_dokumen_pendukung').text(button.data('jenis-dokumen-pendukung'));
             $('#det_poin').text(button.data('poin'));
             $('#det_catatan').text(button.data('catatan'));
@@ -439,7 +452,7 @@
             if (status === 'valid') {
                 $('#det_status').html('<span class="badge badge-success">Valid</span>');
             } else if (status === 'menunggu') {
-                $('#det_status').html('<span class="badge bg-kuning-1 text-dark">Menunggu</span>');
+                $('#det_status').html('<span class="badge bg-yellow-1 text-dark">Menunggu</span>');
             } else {
                 $('#det_status').html('<span class="badge badge-danger">Tidak Valid</span>');
             }

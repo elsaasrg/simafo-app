@@ -3,12 +3,8 @@
 @section('content')
 
 <div class="container">
+    <h4 class="text-center mb-3"><strong>TAMBAH KONSELING</strong></h4>
     <div class="card">
-
-        <div class="card-header">
-            Tambah Konseling
-        </div>
-
         <div class="card-body">
 
             <form action="{{ route('konseling.store') }}"
@@ -56,9 +52,14 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                    Kirim
-                </button>
+                <div class="d-flex justify-content-end">
+
+                    <button type="submit" class="btn btn-primary btn-sm btn-radius px-3 mr-1">
+                        Kirim
+                    </button>
+                    <a href="{{ route('konseling.index') }}" class="btn btn-sm btn-dark text-white btn-radius">Batal</a>
+                </div>
+
             </form>
 
         </div>

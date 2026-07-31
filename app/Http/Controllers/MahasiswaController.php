@@ -34,6 +34,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:8',
             'nim' => 'required|string|unique:mahasiswa',
             'status' => 'required|in:aktif,lulus',
             'tahun_lulus' => 'required_if:status,lulus|nullable|numeric|digits:4',

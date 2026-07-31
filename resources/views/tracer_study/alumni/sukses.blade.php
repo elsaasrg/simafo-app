@@ -5,7 +5,6 @@
     /* CSS Khusus Cetak: Menyembunyikan komponen web yang tidak penting saat dicetak */
     @media print {
 
-        /* Sembunyikan navbar/sidebar bawaan layouts.app, tombol aksi, dan footer */
         nav,
         .navbar,
         .sidebar,
@@ -15,14 +14,6 @@
             display: none !important;
         }
 
-        /* Hilangkan background abu-abu sistem, buat warna dasar putih bersih */
-        body,
-        .main-panel,
-        .content-wrapper {
-            background: #fff !important;
-            margin: 0;
-            padding: 0;
-        }
 
         /* Hilangkan bayangan box card agar rapi di kertas */
         .card {
@@ -35,20 +26,18 @@
 
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-7">
+        <div class="col-md-8">
 
             <div class="card shadow border-0 p-4">
-                <div class="card-body text-center">
+                <div class="card-body text-center ">
 
                     <div class="mb-4">
                         <i class="fas fa-check-circle text-success fa-4x mb-3 no-print"></i>
-                        <h2 class="font-weight-bold text-success mb-1">TERIMA KASIH SUDAH MENGISI</h2>
-                        <p class="text-muted">Data Tracer Study Alumni Sistem Informasi UNTAN</p>
+                        <p class="font-weight-bold text-success mb-1">TERIMA KASIH SUDAH MENGISI</p>
+                        <p>Data Tracer Study Alumni Sistem Informasi UNTAN</p>
                     </div>
 
-                    <hr class="my-4">
-
-                    <div class="text-left bg-light p-4 rounded mb-4" style="text-align: left !important; background-color: #f8f9fa !important; border: 1px id #eee;">
+                    <div class="text-left p-4 rounded mb-4 text-left bg-grey-3 border-grey-2 btn-radius">
                         <h5 class="font-weight-bold text-dark mb-3 text-center">BUKTI PENGISIAN DATA</h5>
                         <table class="table table-borderless table-sm mb-0">
                             <tr>
@@ -75,15 +64,15 @@
                     </div>
 
                     <p class="small text-muted mb-4">
-                        *Simpan halaman ini dalam bentuk cetak kertas atau simpan sebagai PDF sebagai bukti bahwa Anda telah menyelesaikan kewajiban pengisian kuisioner.*
+                        Simpan halaman ini dalam bentuk cetak kertas atau simpan sebagai PDF sebagai bukti bahwa Anda telah menyelesaikan kewajiban pengisian kuisioner.
                     </p>
 
-                    <div class="d-flex justify-content-center gap-2 no-print">
-                        <button onclick="window.print();" class="btn btn-primary px-4 shadow-sm">
-                            <i class="fas fa-print mr-1"></i> Cetak Tampilan Ini
+                    <div class="d-flex justify-content-starat gap-2 no-print">
+                        <button onclick="window.print();" class="btn btn-sm text-dark btn-primary shadow-sm btn-radius mx-2">
+                            <i class="fas fa-print mr-1"></i> <span class="text-white">Cetak Tampilan Ini<span>
                         </button>
-                        <a href="{{ route('tracer-study.index') }}" class="btn btn-outline-secondary px-4">
-                            Kembali
+                        <a href="{{ route('tracer-study.index') }}" class="btn btn-sm btn-secondary text-dark btn-radius">
+                            <i class="fas fa-arrow-left mr-1"></i> <span class="text-white">Kembali</span>
                         </a>
                     </div>
 

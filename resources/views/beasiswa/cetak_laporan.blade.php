@@ -126,13 +126,13 @@
                         <td width="5%">:</td>
                         <td>
                             @if(request('status') == 'diterima')
-                            <span class="text-success font-weight-bold">Diterima</span>
+                            <span class="font-weight-bold">Diterima</span>
                             @elseif(request('status') == 'menunggu')
-                            <span class="text-warning font-weight-bold">Menunggu</span>
+                            <span class="font-weight-bold">Menunggu</span>
                             @elseif(request('status') == 'ditolak')
-                            <span class="text-danger font-weight-bold">Ditolak</span>
+                            <span class="font-weight-bold">Ditolak</span>
                             @else
-                            <span class="text-muted">Semua Status</span>
+                            <span class="">Semua Status</span>
                             @endif
                         </td>
                     </tr>

@@ -1,0 +1,229 @@
+@font-face {
+    font-family: "Rowdies";
+    src: url("/fonts/Rowdies-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Roboto-regular";
+    src: url("/fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Ramabhadra";
+    src: url("/fonts/Ramabhadra-Regular.ttf") format("truetype");
+}
+
+/* Border Radius & Utility Classes */
+.btn-radius {
+    border-radius: 12px;
+}
+
+.btn-radius-2 {
+    border-radius: 15px !important;
+}
+
+/* Colors */
+.bg-yellow-1 {
+    background-color: #f9e98c;
+}
+
+.bg-yellow-2 {
+    background-color: #e4ff8c;
+}
+
+.bg-yellow-3 {
+    background-color: #f8f8c9;
+}
+
+.bg-yellow-4 {
+    background-color: #cfe561;
+}
+
+.bg-yellow-6 {
+    background-color: #f3d31c;
+}
+
+.bg-grey {
+    background-color: #5b5455;
+}
+
+.bg-grey-2 {
+    background-color: #7d7779;
+}
+
+.bg-grey-3 {
+    background-color: #f6f6f6;
+}
+
+.bg-green-2 {
+    background-color: #46b95b;
+}
+
+.border-yellow {
+    border: 2px solid #cfe561;
+}
+
+.border-yellow-2 {
+    border: 2px solid #ffd900;
+}
+
+.border-grey-2 {
+    border: 2px solid #d9d9d9;
+}
+
+.color-yellow-1 {
+    color: #f9e98c;
+}
+
+.color-yellow-2 {
+    color: #e4ff8c;
+}
+
+.color-yellow-3 {
+    color: #f8f8c9;
+}
+
+.color-yellow-4 {
+    color: #cfe561;
+}
+
+body {
+    font-family: "Roboto-regular";
+}
+
+.card-outline-yellow {
+    border-top: 2px solid #cfe561;
+}
+
+/* Menyembunyikan elemen default AdminLTE */
+.main-sidebar .brand-link,
+.main-sidebar .user-panel {
+    display: none !important;
+}
+
+.modal-header-kuning {
+    background-color: #e4ff8c;
+}
+
+.modal-text-hitam {
+    color: #000;
+}
+
+.card-shadow-inset {
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================================= */
+/* LAYOUT DEKSTOP & MONITOR (Layar > 991px)                  */
+/* ========================================================= */
+@media (min-width: 992px) {
+    .main-header {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100% !important;
+        height: 140px !important;
+        margin-left: 0 !important;
+        z-index: 1035 !important;
+        background-color: #ffffff !important;
+        border-bottom: 2px solid #e2e8f0 !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .main-sidebar {
+        position: fixed !important;
+        top: 140px !important;
+        height: calc(100vh - 140px) !important;
+        width: 290px !important;
+        background-color: #cfe561 !important;
+        border-right: 1px solid #d4e09b !important;
+        z-index: 1030 !important;
+    }
+
+    .content-wrapper {
+        margin-top: 140px !important;
+        margin-left: 290px !important;
+        min-height: calc(100vh - 140px) !important;
+        background-color: #ebebeb !important;
+        padding: 30px !important;
+    }
+}
+
+/* ========================================================= */
+/* LAYOUT MOBILE & TABLET (Layar <= 991px)                   */
+/* PERBAIKAN RESPONSIF                                       */
+/* ========================================================= */
+@media (max-width: 991.98px) {
+    .main-header {
+        position: sticky !important;
+        top: 0;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 70px !important;
+        margin-left: 0 !important;
+        z-index: 1000 !important;
+        /* Header diturunkan agar berada di bawah sidebar */
+        background-color: #ffffff !important;
+    }
+
+    .main-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100vh !important;
+        width: 260px !important;
+        background-color: #cfe561 !important;
+        z-index: 1050 !important;
+        /* Sidebar berada paling atas */
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .content-wrapper {
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        padding: 15px !important;
+        min-height: calc(100vh - 70px) !important;
+        background-color: #ebebeb !important;
+    }
+
+    .sidebar {
+        height: 100vh !important;
+    }
+
+    /* BACKDROP OVERLAY: Menutup sidebar ketika area luar diklik */
+    #sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+        /* Tepat di bawah sidebar (1050) & di atas header (1000) */
+        display: none;
+    }
+
+    body.sidebar-open #sidebar-overlay {
+        display: block;
+    }
+}
+
+@media (max-width: 767.98px) {
+    /* Mengecilkan teks tabel di HP */
+    .table-responsive table {
+        font-size: 12px !important;
+    }
+
+    /* Mengurangi jarak/padding di dalam cell tabel */
+    .table-responsive th,
+    .table-responsive td {
+        padding: 6px 8px !important;
+        white-space: nowrap; /* Mencegah teks terpotong gantung ke bawah */
+    }
+
+    /* Memastikan nama kolom header tidak terpotong */
+    .table-responsive th {
+        white-space: nowrap;
+    }
+}

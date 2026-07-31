@@ -24,21 +24,28 @@
     </div>
     @endif
 
+    <h4 class="font-weight-bold text-center mb-3">
+        DAFTAR ADUAN
+    </h4>
     <div class="card shadow-sm">
         <div class="card-header text-center py-3">
-            <h4 class="font-weight-bold text-center" style="display:inline-block">
-                ADUAN
-            </h4>
-            <div class="card-tools">
-                <a href="{{ route('aduan.create') }}" class="btn btn-success btn-sm btn-radius">
-                    <i class="fas fa-plus mr-1"></i> Tambah Aduan
-                </a>
+            <div class="row w-100">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-3 d-flex justify-content-end">
+                    <a href="{{ route('aduan.create') }}" class="btn btn-success btn-sm btn-radius">
+                        <i class="fas fa-plus mr-1"></i> Tambah Aduan
+                    </a>
+                </div>
             </div>
+
         </div>
 
 
-        <div class="card-body p-0">
-            <div class="table-responsive">
+        <div class="card-body p-2">
+            <div class="table-responsive ">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="text-center align-middle">
@@ -61,23 +68,6 @@
                             {{-- Subjek & Meta Info --}}
                             <td>
                                 <span class="d-block text-dark">{{ $item->subjek }}</span>
-                                <small class="text-muted">
-                                    <i class="far fa-clock mr-1"></i>{{ $item->created_at ? $item->created_at->diffForHumans() : '-' }}
-
-
-
-                                    @if($item->lampiran)
-                                    <span class="badge badge-light text-info ml-1">
-                                        <i class="fas fa-paperclip"></i> Lampiran
-                                    </span>
-                                    @endif
-
-                                    @if($item->tanggapan !== '-' )
-                                    <span class="badge badge-success ml-1">
-                                        <i class="fas fa-comment-dots"></i> Ada Balasan
-                                    </span>
-                                    @endif
-                                </small>
                             </td>
 
                             {{-- Kategori --}}
@@ -90,15 +80,15 @@
                             {{-- Badge Status --}}
                             <td class="text-center">
                                 @if($item->status == 'menunggu')
-                                <span class="badge bg-kuning-1">Menunggu</span>
+                                <span class="badge bg-yellow-1 px-2 btn-radius">Menunggu</span>
                                 @elseif($item->status == 'diproses')
-                                <span class="badge badge-sm bg-kuning-2">Diproses</span>
+                                <span class="badge badge-sm bg-yellow-2 px-2 btn-radius">Diproses</span>
                                 @elseif($item->status == 'selesai')
-                                <span class="badge bg-kuning-3">Selesai</span>
+                                <span class="badge bg-yellow-3 px-2 btn-radius">Selesai</span>
                                 @elseif($item->status == 'ditolak')
-                                <span class="badge badge-danger">Ditolak</span>
+                                <span class="badge badge-danger px-2 btn-radius">Ditolak</span>
                                 @else
-                                <span class="badge badge-secondary">{{ ucfirst($item->status) }}</span>
+                                <span class="badge badge-secondary px-2 btn-radius">{{ ucfirst($item->status) }}</span>
                                 @endif
                             </td>
 
@@ -108,7 +98,7 @@
                                     {{-- Edit & Hapus HANYA jika status masih 'menunggu' --}}
                                     @if($item->status == 'menunggu')
                                     <a href="{{ route('aduan.edit', $item->id) }}"
-                                        class="btn bg-kuning-1 btn-sm btn-radius"
+                                        class="btn bg-yellow-1 btn-sm btn-radius"
                                         title="Edit Aduan">
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -127,7 +117,7 @@
 
                                     {{-- Detail Selalu Tampil --}}
                                     <a href="{{ route('aduan.show', $item->id) }}"
-                                        class="btn bg-kuning-3 btn-sm btn-radius"
+                                        class="btn bg-yellow-3 btn-sm btn-radius"
                                         title="Lihat Detail & Balasan">
                                         <i class="fas fa-eye"></i>
                                     </a>

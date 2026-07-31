@@ -26,110 +26,21 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
 
-    <style>
-        /* Mengubah warna dasar latar belakang aplikasi sesuai desain */
-        body {
-            background-color: #EBEBEB !important;
-        }
-
-        /* border radius */
-        .btn-radius {
-            border-radius: 12px;
-        }
-
-        .btn-radius-2 {
-            border-radius: 15px !important;
-        }
-
-        /* background */
-        .bg-kuning-1 {
-            background-color: #F9E98C;
-        }
-
-        .bg-kuning-2 {
-            background-color: #E4FF8C;
-        }
-
-        .bg-kuning-3 {
-            background-color: #F8F8C9;
-        }
-
-        .bg-kuning-4 {
-            background-color: #CFE561;
-        }
-
-        .bg-abu-abu {
-            background-color: #5B5455;
-        }
-
-        .border-kuning {
-            border: 2px solid #CFE561;
-        }
-
-        /* Memposisikan Header Utama agar membentang 100% penuh di bagian atas */
-        .main-header {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100% !important;
-            height: 140px !important;
-            margin-left: 0 !important;
-            z-index: 1035 !important;
-            background-color: #ffffff !important;
-            border-bottom: 2px solid #e2e8f0 !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
-        }
-
-        /* Menyejajarkan Letak & Warna Dasar Sidebar Utama */
-        .main-sidebar {
-            position: fixed !important;
-            top: 140px !important;
-            height: calc(100vh - 140px) !important;
-            width: 290px !important;
-            background-color: #CFE561 !important;
-
-            border-right: 1px solid #d4e09b !important;
-            z-index: 1030 !important;
-        }
-
-        /* Menyejajarkan Area Konten Utama */
-        .content-wrapper {
-            margin-top: 140px !important;
-            margin-left: 280px !important;
-            min-height: calc(100vh - 140px) !important;
-            background-color: #EBEBEB !important;
-            /* Latar abu-abu kontras di sisi kanan */
-            padding: 30px !important;
-        }
-
-        /* Menyembunyikan elemen default AdminLTE */
-        .main-sidebar .brand-link,
-        .main-sidebar .user-panel {
-            display: none !important;
-        }
-
-        .modal-header-kuning {
-            background-color: #E4FF8C;
-        }
-
-        .modal-text-hitam {
-            color: #000;
-        }
-
-        .card-shadow-inset {
-            box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/style-utama.css') }}">
+    @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+
         <!-- Navbar -->
         @include('layouts.component.navbar')
 
         <!-- Main Sidebar Container -->
         @include('layouts.component.aside_baru')
+
+        <!-- Overlay Layar Gelap Saat Sidebar Terbuka di HP -->
+        <div id="sidebar-overlay" data-widget="pushmenu"></div>
 
         <div class="content-wrapper">
             @yield('content')
@@ -229,6 +140,15 @@
                         $parent.addClass('menu-open');
                         $treeview.slideDown(250);
                     }
+                }
+            });
+
+            // 4. OTOMATIS TUTUP SIDEBAR SAAT LINK MENU DIKLIK PADA LAYAR MOBILE
+            $(document).on('click', '.main-sidebar .nav-link', function() {
+                var hrefAttr = $(this).attr('href');
+                // Hanya tutup jika link tersebut mengarahkan ke halaman baru (bukan dropdown folder)
+                if ($(window).width() <= 991 && hrefAttr !== '#' && hrefAttr !== '' && hrefAttr !== undefined) {
+                    $('body').removeClass('sidebar-open').addClass('sidebar-closed sidebar-collapse');
                 }
             });
         });

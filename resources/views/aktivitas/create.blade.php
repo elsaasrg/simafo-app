@@ -12,11 +12,10 @@
         </ul>
     </div>
     @endif
-
+    <h4 class="font-weight-bold text-center">TAMBAH DATA AKTIVITAS </h4>
     <div class="card mb-4 ">
-        <div class="card-header ">
-            <h4 class="font-weight-bold text-center">
-                TAMBAH DATA AKTIVITAS DAN PRESTASI </h4>
+        <div class="card-header text-center bg-yellow-4 shadow-sm">
+            <strong> Form Pengajuan Aktivitas/Sertifikat</strong>
         </div>
         <div class="card-body">
             <form action="{{ route('aktivitas.store') }}" method="POST" enctype="multipart/form-data">
@@ -206,10 +205,16 @@
                         <input type="file" name="dokumen_pendukung" class="form-control" required>
                     </div>
                 </div>
+                <div class="row">
+                    <div></div>
+                </div>
 
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-sm btn-primary btn-radius px-2">Tambah</button>
-                    <a href="{{ route('aktivitas.index') }}" class="btn btn-sm bg-abu-abu btn-radius px-2 text-white">Batal</a>
+                <div class="row">
+                    <div class="col-md-6 "></div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-sm btn-primary btn-radius px-3 mr-1">Tambah</button>
+                        <a href="{{ route('aktivitas.index') }}" class="btn btn-sm bg-dark btn-radius px-4 text-white">Batal</a>
+                    </div>
                 </div>
             </form>
         </div>

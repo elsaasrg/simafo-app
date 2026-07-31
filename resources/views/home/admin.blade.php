@@ -1,378 +1,352 @@
 @extends('layouts.app')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/dashboard-admin.css') }}">
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endpush
+
 @section('content')
-<div class="container-fluid py-4">
-
-    <!-- Header Dashboard -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h4 class="font-weight-bold text-purple">
-                <i class="fas fa-th-large mr-2"></i> Dashboard Admin
-            </h4>
-
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-12 text-center">
+                <h4 class="m-0 text-dark font-weight-bold text-uppercase tracking-wide">
+                    DASHBOARD ADMIN
+                </h4>
+            </div>
         </div>
     </div>
-
-    <!-- ================= SECTION 1: ANTRIAN VALIDASI (REKAM JEJAK KEGIATAN) ================= -->
-    <div class="row mb-4">
-
-        <!-- Aktivitas dan Prestasi -->
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm bg-danger text-white">
-                <div class="card-body">
-
-                    <h6>Total Aktivitas & Prestasi</h6>
-
-                    <h2>
-                        {{ $totalAktivitas }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Organisasi -->
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm bg-success text-white">
-                <div class="card-body">
-
-                    <h6>Total Data Organisasi</h6>
-
-                    <h2>
-                        {{ $totalOrganisasi }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Aduan -->
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm bg-secondary text-white">
-                <div class="card-body">
-
-                    <h6>Total Data Aduan</h6>
-
-                    <h2>
-                        {{ $totalAduan }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- D -->
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm bg-purple text-white">
-                <div class="card-body">
-
-                    <h6>Total Data Beasiswa </h6>
-
-                    <h2>
-                        {{ $totalBeasiswa }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <!-- Data Beasiswa -->
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm bg-warning text-white">
-                <div class="card-body">
-
-                    <h6>Total Tracer Study</h6>
-
-                    <h2>
-                        {{ $totalTracerStudy }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Pengajuan Surat -->
-        <div class="col-md-3 mb-3">
-            <div class="card shadow-sm bg-primary text-white">
-                <div class="card-body">
-
-                    <h6>Pengajuan Surat</h6>
-
-                    <h2>
-                        {{ $totalPengajuanSurat }}
-                    </h2>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-
-    <div class="row">
-
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    Status Aduan
-                </div>
-                <div class="card-body">
-                    <p>
-                        Menunggu :
-                        <span class="badge bg-secondary">
-                            {{ $aduanMenunggu }}
-                        </span>
-                    </p>
-                    <p>
-                        Diproses :
-                        <span class="badge bg-warning">
-                            {{ $aduanDiproses }}
-                        </span>
-                    </p>
-                    <p>
-                        Selesai :
-                        <span class="badge bg-success">
-                            {{ $aduanSelesai }}
-
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    Status Aktivitas dan Prestasi
-                </div>
-                <div class="card-body">
-                    <p>
-                        Menunggu :
-                        <span class="badge bg-secondary">
-                            {{ $aktivitasMenunggu }}
-                        </span>
-                    </p>
-                    <p>
-                        Diproses :
-                        <span class="badge bg-warning">
-                            {{ $aktivitasDiproses }}
-                        </span>
-                    </p>
-                    <p>
-                        Selesai :
-                        <span class="badge bg-success">
-                            {{ $aktivitasSelesai }}
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    Status Data Organisasi
-                </div>
-                <div class="card-body">
-                    <p>
-                        Menunggu :
-                        <span class="badge bg-secondary">
-                            {{ $organisasiMenunggu }}
-                        </span>
-                    </p>
-                    <p>
-                        Diproses :
-                        <span class="badge bg-warning">
-                            {{ $organisasiDiproses }}
-                        </span>
-                    </p>
-                    <p>
-                        Selesai :
-                        <span class="badge bg-success">
-                            {{ $organisasiSelesai }}
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    Status Data Beasiswa
-                </div>
-                <div class="card-body">
-                    <p>
-                        Menunggu :
-                        <span class="badge bg-secondary">
-                            {{ $beasiswaMenunggu }}
-                        </span>
-                    </p>
-                    <p>
-                        Diproses :
-                        <span class="badge bg-warning">
-                            {{ $beasiswaDiproses }}
-                        </span>
-                    </p>
-                    <p>
-                        Selesai :
-                        <span class="badge bg-success">
-                            {{ $beasiswaSelesai }}
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    Status Pengajuan Surat
-                </div>
-                <div class="card-body">
-                    <p>
-                        Menunggu :
-                        <span class="badge bg-secondary">
-                            {{ $pengajuanSuratMenunggu }}
-                        </span>
-                    </p>
-                    <p>
-                        Diproses :
-                        <span class="badge bg-warning">
-                            {{ $pengajuanSuratDiproses }}
-                        </span>
-                    </p>
-                    <p>
-                        Selesai :
-                        <span class="badge bg-success">
-                            {{ $pengajuanSuratSelesai }}
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-
-            <div class="card shadow-sm">
-
-                <div class="card-header">
-                    Pengajuan Surat Terbaru
-                </div>
-
-                <div class="card-body">
-
-                    <table class="table">
-
-                        <thead>
-                            <tr>
-                                <th>Jenis Surat</th>
-                                <th>Mahasiswa</th>
-                                <th>Keperluan</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            @forelse($pengajuanSuratTerbaru as $item)
-
-                            <tr>
-
-                                <td>
-                                    {{ $item->jenis_surat }}
-                                </td>
-                                <td>
-                                    {{ $item->mahasiswa->user->name }}
-                                </td>
-                                <td>
-                                    {{ $item->keperluan }}
-                                </td>
-                            </tr>
-
-                            @empty
-
-                            <tr>
-                                <td colspan="3"
-                                    class="text-center">
-
-                                    Belum ada aduan
-
-                                </td>
-                            </tr>
-
-                            @endforelse
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
 </div>
 
-<!-- Gaya Khusus CSS Pendukung agar Dashboard Mirip SIMAFO di image_c9267e.png -->
-<style>
-    .text-purple {
-        color: #6f42c1 !important;
-    }
+<div class="content bg-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center bg-white p-3">
+            <div class="col-12">
 
-    .bg-purple {
-        background-color: #6f42c1 !important;
-    }
+                <!-- Grid Menu Utama (4 Kolom per Baris di Desktop) -->
+                <div class="row text-center mt-4 ">
 
-    .card-purple.card-outline {
-        border-top: 3px solid #6f42c1 !important;
-    }
+                    <div class="col-12 col-md-6 col-lg-3 mb-5 ">
+                        <a href="{{ route('aktivitas.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <div class="folder-count">
+                                        <div class="d-flex justify-content-end w-100 p-2  mt-2 px-4">
+                                            <h4 class="border-yellow-2 px-3 py-2 btn-radius text-dark"><strong>{{ $totalAktivitas }}</strong></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Total Data Aktivitas Dan Prestasi</span>
+                        </a>
+                    </div>
 
-    .border-left-purple {
-        border-left: 4px solid #6f42c1 !important;
-    }
 
-    .border-left-info {
-        border-left: 4px solid #17a2b8 !important;
-    }
+                    <div class="col-12 col-md-6 col-lg-3 mb-5">
+                        <a href="{{ route('organisasi.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <div class="folder-count">
+                                        <div class="d-flex justify-content-end w-100 p-2  mt-2 px-4">
+                                            <h4 class="border-yellow-2 px-3 py-2 btn-radius text-dark"><strong>{{ $totalOrganisasi }}</strong></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Total Data Organisasi</span>
+                        </a>
+                    </div>
 
-    .border-left-success {
-        border-left: 4px solid #28a745 !important;
-    }
+                    <div class="col-12 col-md-6 col-lg-3 mb-5">
+                        <a href="{{ route('aduan.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <div class="folder-count">
+                                        <div class="d-flex justify-content-end w-100 p-2  mt-2 px-4">
+                                            <h4 class="border-yellow-2 px-3 py-2 btn-radius text-dark"><strong>{{ $totalAduan }}</strong></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Total Data Aduan</span>
+                        </a>
+                    </div>
 
-    .border-left-danger {
-        border-left: 4px solid #dc3545 !important;
-    }
 
-    .border-left-dark {
-        border-left: 4px solid #343a40 !important;
-    }
+                    <div class="col-12 col-md-6 col-lg-3 mb-5">
+                        <a href="{{ route('beasiswa.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <div class="folder-count">
+                                        <div class="d-flex justify-content-end w-100 p-2  mt-2 px-4">
+                                            <h4 class="border-yellow-2 px-3 py-2 btn-radius text-dark"><strong>{{ $totalBeasiswa }}</strong></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Total Data Beasiswa</span>
+                        </a>
+                    </div>
 
-    .action-card {
-        transition: all 0.2s ease-in-out;
-    }
+                    <div class="col-12 col-md-6 col-lg-3 mb-5">
+                        <a href="{{ route('tracer-study.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <div class="folder-count">
+                                        <div class="d-flex justify-content-end w-100 p-2  mt-2 px-4">
+                                            <h4 class="border-yellow-2 px-3 py-2 btn-radius text-dark"><strong>{{ $totalTracerStudy }}</strong></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Total Tracer Study</span>
+                        </a>
+                    </div>
 
-    .action-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12) !important;
-    }
+                    <div class="col-12 col-md-6 col-lg-3 mb-5">
+                        <a href="/pengajuan-surat" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <div class="folder-count">
+                                        <div class="d-flex justify-content-end w-100 p-2  mt-2 px-4">
+                                            <h4 class="border-yellow-2 px-3 py-2 btn-radius text-dark"><strong>{{ $totalPengajuanSurat }}</strong></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Pengajuan Surat</span>
+                        </a>
+                    </div>
 
-    .opacity-50 {
-        opacity: 0.5;
-    }
+                </div>
+            </div>
 
-    .opacity-75 {
-        opacity: 0.75;
-    }
-</style>
+            <div class="row">
+                <div class="col-md-4 mb-3 d-flex">
+                    <div class="card shadow-sm w-100 ">
+                        <div class="card-header">
+                            Status Aduan
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Menunggu :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aduanMenunggu }}
+                                </span>
+                            </p>
+                            <p>
+                                Diproses :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aduanDiproses }}
+                                </span>
+                            </p>
+                            <p>
+                                Selesai :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aduanSelesai }}
+                                </span>
+                            </p>
+                            <p>
+                                Ditolak :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aduanDitolak }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3 d-flex">
+                    <div class="card shadow-sm w-100">
+                        <div class="card-header">
+                            Status Aktivitas dan Prestasi
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Menunggu :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aktivitasMenunggu }}
+                                </span>
+                            </p>
+                            <p>
+                                Valid :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aktivitasValid }}
+                                </span>
+                            </p>
+                            <p>
+                                Tidak Valid :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $aktivitasTidakValid }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3 d-flex">
+                    <div class="card shadow-sm w-100">
+                        <div class="card-header">
+                            Status Data Organisasi
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Menunggu :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $organisasiMenunggu }}
+                                </span>
+                            </p>
+                            <p>
+                                Diterima :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $organisasiDiterima }}
+                                </span>
+                            </p>
+                            <p>
+                                Ditolak :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $organisasiDitolak }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3 d-flex">
+                    <div class="card shadow-sm w-100">
+                        <div class="card-header">
+                            Status Data Beasiswa
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Menunggu :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $beasiswaMenunggu }}
+                                </span>
+                            </p>
+                            <p>
+                                Diterima :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $beasiswaDiterima }}
+                                </span>
+                            </p>
+                            <p>
+                                Ditolak :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $beasiswaDitolak }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 mb-3 d-flex">
+                    <div class="card shadow-sm w-100">
+                        <div class="card-header">
+                            Status Pengajuan Surat
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Menunggu :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $pengajuanSuratMenunggu }}
+                                </span>
+                            </p>
+                            <p>
+                                Diproses :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $pengajuanSuratDiproses }}
+                                </span>
+                            </p>
+                            <p>
+                                Selesai :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $pengajuanSuratSelesai }}
+                                </span>
+                            </p>
+                            <p>
+                                Ditolak :
+                                <span class="badge bg-yellow-1 p-2 btn-radius">
+                                    {{ $pengajuanSuratDitolak }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-100 p-3">
+
+                <div class="card shadow-sm w-100">
+
+                    <div class="card-header text-center font-weight-bold">
+                        Pengajuan Surat Terbaru
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Jenis Surat</th>
+                                        <th>Mahasiswa</th>
+                                        <th>Keperluan</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    @forelse($pengajuanSuratTerbaru as $item)
+
+                                    <tr>
+
+                                        <td>
+                                            {{ $item->jenis_surat }}
+                                        </td>
+                                        <td>
+                                            {{ $item->mahasiswa->user->name }}
+                                        </td>
+                                        <td>
+                                            {{ $item->keperluan }}
+                                        </td>
+                                    </tr>
+
+                                    @empty
+
+                                    <tr>
+                                        <td colspan="3"
+                                            class="text-center">
+
+                                            Belum ada aduan
+
+                                        </td>
+                                    </tr>
+
+                                    @endforelse
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</div>
 @endsection

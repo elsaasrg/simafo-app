@@ -6,8 +6,8 @@
     <div class="col m-4">
         <div class="card">
 
-            <div class="card-header font-weight-bold text-center">
-                <h4>TAMBAH MAHASISWA</h4>
+            <div class="card-header text-center">
+                <h4><strong>TAMBAH MAHASISWA</strong></h4>
             </div>
 
             <div class="card-body">

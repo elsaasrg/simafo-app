@@ -3,17 +3,13 @@
 @section('content')
 
 <div class="container-fluid pt-3">
+    <h4 class="font-weight-bold text-center mb-3">
+        TAMBAH ADUAN
+    </h4>
     <div class="card shadow-sm">
-
-        <div class="card-header py-3">
-            <h4 class="font-weight-bold text-center">
-                TAMBAH ADUAN
-            </h4>
-        </div>
-
         <div class="card-body">
 
-            <!-- Wajib menggunakan enctype untuk upload file -->
+
             <form action="{{ route('aduan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -72,12 +68,11 @@
                 <!-- 4. Upload Lampiran / Bukti -->
                 <div class="form-group">
                     <label class="font-weight-bold">Lampiran Bukti (Opsional)</label>
-                    <div class="custom-file">
+                    <div>
                         <input type="file"
                             name="lampiran"
-                            class="custom-file-input @error('lampiran') is-invalid @enderror"
+                            class="form-control @error('lampiran') is-invalid @enderror"
                             id="customFile">
-                        <label class="custom-file-label" for="customFile">Pilih file...</label>
                     </div>
                     <small class="form-text text-muted">Format: JPG, PNG, PDF (Maks. 2MB)</small>
 
@@ -88,33 +83,15 @@
                     @enderror
                 </div>
 
-                <!-- 5. Opsi Anonim (Fix Checkbox) -->
-                <!-- <div class="form-group mt-4 p-3 bg-light rounded border">
-                    <div class="form-check">
-                        <input class="form-check-input"
-                            type="checkbox"
-                            name="is_anonim"
-                            value="1"
-                            id="anonimCheck"
-                            style="width: 18px; height: 18px; cursor: pointer;"
-                            {{ old('is_anonim') ? 'checked' : '' }}>
-                        <label class="form-check-label font-weight-bold ml-2 pt-1" for="anonimCheck" style="cursor: pointer;">
-                            Kirim sebagai Anonim
-                        </label>
-                    </div>
-
-                </div> -->
-
-                <hr>
 
                 <!-- Button Actions -->
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('aduan.index') }}" class="btn btn-sm btn-primary px-2 btn-radius mr-1">
+                    <button type="submit" class="btn btn-sm btn-primary btn-radius px-2 text-white mr-2">
                         Tambah
-                    </a>
-                    <button type="submit" class="btn btn-sm bg-abu-abu btn-radius px-2 text-white">
-                        Batal
                     </button>
+                    <a href="{{ route('aduan.index') }}" class="btn btn-sm bg-dark px-2 btn-radius ">
+                        Batal
+                    </a>
                 </div>
 
             </form>

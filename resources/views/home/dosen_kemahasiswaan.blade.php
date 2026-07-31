@@ -1,81 +1,80 @@
 @extends('layouts.app')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endpush
+
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
+
         <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-purple font-weight-bold"><i class="fas fa-th-large mr-2"></i>Dashboard Dosen Kemahasiswaan</h1>
+            <div class="col-12 text-center">
+                <h4 class="m-0 text-dark font-weight-bold text-uppercase tracking-wide">
+                    Dashboard Dosen Kemahasiswaan
+                </h4>
             </div>
         </div>
     </div>
 </div>
 
-<div class="m-4">
+<div class="content bg-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center bg-white p-2">
 
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <p class="mb-0">
-                    Selamat datang, {{ Auth::user()->name }}
-                </p>
-            </div>
+            <div class="col-12 ">
 
-            <div>
-                <span class="badge bg-success p-2">
-                    Dosen Kemahasiswaan
-                </span>
-            </div>
-        </div>
-    </div>
-
-    <div class="row text-center">
-
-        <div class="col-12 col-md-6 mb-3">
-            <a href="/info-lomba" class="text-decoration-none action-card">
-                <div class="card h-100 shadow-sm border-0 border-top-purple p-2">
-                    <div class="card-body p-3">
-                        <i class="fas fa-trophy fa-2x text-purple mb-2"></i>
-                        <span class="d-block font-weight-bold text-dark text-sm">Kelola Lomba</span>
+                <!-- Banner Selamat Datang -->
+                <div class="welcome-banner mb-5 rounded-lg bg-white mt-3">
+                    <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                        <div class="flex-grow-1">
+                            <p class="mb-0 font-weight-bold text-dark" style="font-size: 15px;">
+                                Selamat datang kembali, <span class="text-lowercase">{{ Auth::user()->name ?? 'dosen kemahasiswaan' }}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <span class="badge badge-role badge-success rounded-pill px-3 py-2 text-sm" style="background-color: #2da44e !important; border-radius: 20px;">
+                                Dosen Kemahasiswaan
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </a>
-        </div>
 
-        <div class="col-12 col-md-6 mb-3">
-            <a href="/info-beasiswa" class="text-decoration-none action-card">
-                <div class="card h-100 shadow-sm border-0 border-top-danger p-2">
-                    <div class="card-body p-3">
-                        <i class="fas fa-briefcase fa-2x text-danger mb-2"></i> <span class="d-block font-weight-bold text-dark text-sm">Kelola Beasiswa</span>
+                <!-- Grid Menu Utama  -->
+                <div class="row text-center mt-4">
+
+                    <!-- 1. info lomba -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="/info-lomba" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-trophy fa-2x text-purple mb-2"></i>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Kelola Informasi Lomba</span>
+                        </a>
                     </div>
-                </div>
-            </a>
-        </div>
 
+                    <!-- 2. infobeasiswa  -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="info-beasiswa" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-briefcase fa-2x text-danger mb-2"></i>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Kelola Informasi Beasiswa</span>
+                        </a>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<style>
-    .text-purple {
-        color: #6f42c1 !important;
-    }
-
-    .border-top-purple {
-        border-top: 3px solid #6f42c1 !important;
-    }
-
-    .border-top-danger {
-        border-top: 3px solid #dc3545 !important;
-    }
-
-    .action-card:hover .card {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1) !important;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .action-card .card {
-        transition: all 0.2s ease-in-out;
-    }
-</style>
 @endsection

@@ -3,10 +3,11 @@
 @section('content')
 <div class="container py-4">
     <div class="row justify-content-center">
+        <h4 class="text-center font-weight-bold">EDIT DATA AKTIVITAS</h4>
         <div class="col-md-11">
             <div class="card shadow-sm">
-                <div class="card-header text-dark py-3">
-                    <h4 class="text-center font-weight-bold">Edit Data Aktivitas dan Prestasi</h4>
+                <div class="card-header text-center bg-yellow-4 text-dark py-3">
+                    <h6 class="m-0"><strong><i class="fas fa-edit mr-1"></i>Form Edit Data Aktivitas</strong></h6>
                 </div>
 
                 <div class="card-body">
@@ -140,8 +141,8 @@
 
                                 @if($aktivitas->dokumen_pendukung)
                                 <div class="mt-2">
-                                    <a href="{{ asset('uploads/dokumen_aktivitas/' . $aktivitas->dokumen_pendukung) }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-file-alt"></i> Lihat Dokumen Saat Ini
+                                    <a href="{{ asset('uploads/dokumen_aktivitas/' . $aktivitas->dokumen_pendukung) }}" target="_blank" class="btn btn-sm btn-outline-primary text-dark">
+                                        <i class="fas fa-file-alt text-primary"></i> Lihat Dokumen Saat Ini
                                     </a>
                                 </div>
                                 @endif
@@ -156,7 +157,7 @@
                             <button type="submit" class="btn btn-primary btn-sm btn-radius px-2">
                                 Simpan
                             </button>
-                            <a href="{{ route('aktivitas.index') }}" class="btn btn-sm px-2 btn-radius bg-abu-abu text-white">
+                            <a href="{{ route('aktivitas.index') }}" class="btn btn-sm px-2 btn-radius bg-dark px-3 text-white">
                                 Batal
                             </a>
                         </div>

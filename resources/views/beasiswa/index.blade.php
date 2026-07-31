@@ -21,7 +21,7 @@
             <div class="card-body">
                 <form action="{{ route('beasiswa.index') }}" method="GET" class="form-row align-items-end">
 
-                    <div class="col-md-3 mb-2 mb-md-0">
+                    <div class="col-md-3 mb-2">
                         <label class="font-weight-bold small ">Cari Data Beasiswa</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -72,16 +72,20 @@
         {{-- ======================================================================================== --}}
         <div class="card shadow-sm">
             <div class="card-header text-center">
-                <i class="fas fa-sitemap mr-2 fa-2x"></i>
-                <h3 style="display:inline-block" class="font-weight-bold"> DATA BEASISWA</h3>
-
-                @if(Auth::user()->hasRole('Mahasiswa'))
-                <div class="card-tools">
-                    <a href="{{ route('beasiswa.create') }}" class="btn btn-success btn-sm btn-radius">
-                        <i class="fas fa-plus-circle "></i> Tambah data beasiswa
-                    </a>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <h4 class="font-weight-bold"> <i class="fas fa-sitemap mr-2"></i> DATA BEASISWA</h4>
+                    </div>
+                    <div class="col-md-3">
+                        @if(Auth::user()->hasRole('Mahasiswa'))
+                        <a href="{{ route('beasiswa.create') }}" class="btn btn-success btn-sm btn-radius">
+                            <i class="fas fa-plus-circle "></i> Tambah data beasiswa
+                        </a>
+                        @endif
+                    </div>
                 </div>
-                @endif
+
             </div>
 
             <div class="card-body">
@@ -100,13 +104,13 @@
                                 @if(!Auth::user()->hasRole('Mahasiswa'))
                                 <th style="width:10%;">Mahasiswa</th>
                                 @endif
-                                <th style="width:25%">Nama Beasiswa</th>
+                                <th>Nama Beasiswa</th>
                                 <th>Penyelenggara</th>
-                                <th style="width:10%;">Nominal/Skema Pembayaran</th>
-                                <th style="width:15%;">Tanggal</th>
-                                <th style="width:10%;">Bukti Penerima</th>
-                                <th style="width:10%;">Status Validasi</th>
-                                <th style="width:15%;">Aksi</th>
+                                <th>Nominal/Skema Pembayaran</th>
+                                <th>Tanggal</th>
+                                <th>Bukti Penerima</th>
+                                <th>Status Validasi</th>
+                                <th style="width:100px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,7 +157,7 @@
                                     @if($item->status_validasi == 'diterima')
                                     <span class="badge badge-success px-2 py-1 btn-radius">Diterima</span>
                                     @elseif($item->status_validasi == 'menunggu')
-                                    <span class="badge bg-kuning-1 text-dark px-2 py-1 btn-radius">Menunggu</span>
+                                    <span class="badge bg-yellow-1 text-dark px-2 py-1 btn-radius">Menunggu</span>
                                     @else
                                     <span class="badge badge-danger px-2 py-1 btn-radius">Ditolak</span>
                                     @endif
@@ -162,7 +166,7 @@
                                 <td class="align-middle">
                                     <div>
                                         @if(Auth::user()->hasRole('Admin'))
-                                        <button type="button" class="btn bg-kuning-1 btn-sm mr-1 text-dark btn-radius"
+                                        <button type="button" class="btn bg-yellow-1 btn-sm mr-1 text-dark btn-radius"
                                             data-toggle="modal" data-target="#modalValidasiBeasiswa"
                                             data-id="{{ $item->id }}"
                                             data-beasiswa="{{ $item->nama_beasiswa }}"
@@ -174,7 +178,7 @@
                                         @endif
 
                                         @if(Auth::user()->hasRole('Mahasiswa') && $item->status_validasi !== 'diterima')
-                                        <a href="{{ route('beasiswa.edit', $item->id) }}" class="btn bg-kuning-1 btn-sm btn-radius">
+                                        <a href="{{ route('beasiswa.edit', $item->id) }}" class="btn bg-yellow-1 btn-sm btn-radius">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('beasiswa.destroy', $item->id) }}" method="POST" class="d-inline">
@@ -212,7 +216,7 @@
 <div class="modal fade" id="modalValidasiBeasiswa" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-kuning-4 text-center">
+            <div class="modal-header bg-yellow-4 text-center">
                 <h5 class="modal-title"><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Beasiswa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -239,8 +243,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bg-abu-abu btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
+                    <button type="button" class="btn bg-dark btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                 </div>
             </form>
         </div>

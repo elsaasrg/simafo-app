@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
     <div class="col m-4">
         <div class="card shadow-sm">
-            <div class="card-header text-center">
+            <div class="card-header text-center py-3">
                 <h4 class="font-weight-bold m-0">EDIT INFORMASI LOMBA</h4>
             </div>
             <div class="card-body">
@@ -156,9 +156,9 @@
 
                     {{-- Tombol Aksi --}}
                     <div class="mb-3 row">
-                        <div class="col-md-6 offset-md-4">
+                        <div class=" offset-md-8 col-md-6">
                             <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
-                            <a href="{{ route('info-lomba.index') }}" class="btn bg-abu-abu btn-sm btn-radius text-white">Batal</a>
+                            <a href="{{ route('info-lomba.index') }}" class="btn bg-dark btn-sm btn-radius text-white">Batal</a>
                         </div>
                     </div>
                 </form>

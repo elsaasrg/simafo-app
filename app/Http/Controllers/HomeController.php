@@ -53,22 +53,24 @@ class HomeController extends Controller
                 'aduanMenunggu' => Aduan::where('status', 'menunggu')->count(),
                 'aduanDiproses' => Aduan::where('status', 'diproses')->count(),
                 'aduanSelesai' => Aduan::where('status', 'selesai')->count(),
+                'aduanDitolak' => Aduan::where('status', 'ditolak')->count(),
 
                 'organisasiMenunggu' => Organisasi::where('status_validasi', 'menunggu')->count(),
-                'organisasiDiproses' => Organisasi::where('status_validasi', 'diproses')->count(),
-                'organisasiSelesai' => Organisasi::where('status_validasi', 'selesai')->count(),
+                'organisasiDiterima' => Organisasi::where('status_validasi', 'diterima')->count(),
+                'organisasiDitolak' => Organisasi::where('status_validasi', 'ditolak')->count(),
 
                 'beasiswaMenunggu' => Beasiswa::where('status_validasi', 'menunggu')->count(),
-                'beasiswaDiproses' => Beasiswa::where('status_validasi', 'diproses')->count(),
-                'beasiswaSelesai' => Beasiswa::where('status_validasi', 'selesai')->count(),
+                'beasiswaDiterima' => Beasiswa::where('status_validasi', 'diterima')->count(),
+                'beasiswaDitolak' => Beasiswa::where('status_validasi', 'ditolak')->count(),
 
                 'aktivitasMenunggu' => Aktivitas::where('status_validasi', 'menunggu')->count(),
-                'aktivitasDiproses' => Aktivitas::where('status_validasi', 'diproses')->count(),
-                'aktivitasSelesai' => Aktivitas::where('status_validasi', 'selesai')->count(),
+                'aktivitasValid' => Aktivitas::where('status_validasi', 'valid')->count(),
+                'aktivitasTidakValid' => Aktivitas::where('status_validasi', 'tidak_valid')->count(),
 
                 'pengajuanSuratMenunggu' => PengajuanSurat::where('status', 'menunggu')->count(),
                 'pengajuanSuratDiproses' => PengajuanSurat::where('status', 'diproses')->count(),
                 'pengajuanSuratSelesai' => PengajuanSurat::where('status', 'selesai')->count(),
+                'pengajuanSuratDitolak' => PengajuanSurat::where('status', 'ditolak')->count(),
 
                 // Data terbaru
                 'pengajuanSuratTerbaru' => PengajuanSurat::where('status', 'menunggu')->latest()->take(5)->get(),
@@ -76,15 +78,12 @@ class HomeController extends Controller
         }
 
         if (Auth::user()->hasRole('Kajur')) {
-            // 1. Ambil data pengumuman (Lomba & Beasiswa bawaan kamu)
             $dataLomba = \App\Models\InfoLomba::latest()->get()->map(function ($item) {
                 $item->kategori_info = 'Lomba';
-                $item->warna_badge = 'bg-danger';
                 return $item;
             });
             $dataBeasiswa = \App\Models\InfoBeasiswa::latest()->get()->map(function ($item) {
                 $item->kategori_info = 'Beasiswa';
-                $item->warna_badge = 'bg-success';
                 return $item;
             });
 
@@ -94,13 +93,13 @@ class HomeController extends Controller
                 ->sortByDesc('created_at')
                 ->take(3);
 
-            // 2. Tambahan Statistik Aduan khusus untuk Dashboard Kajur
+
             $totalAduan    = \App\Models\Aduan::count();
             $aduanMenunggu = \App\Models\Aduan::where('status', 'menunggu')->count();
             $aduanDiproses = \App\Models\Aduan::where('status', 'diproses')->count();
             $aduanSelesai  = \App\Models\Aduan::where('status', 'selesai')->count();
 
-            // 3. Lempar semua data menggunakan compact() ke view
+
             return view('home.kajur', compact(
                 'pengumumanTerbaru',
                 'totalAduan',
@@ -115,14 +114,11 @@ class HomeController extends Controller
         if (Auth::user()->hasRole('Mahasiswa')) {
             $dataBeasiswa = \App\Models\InfoBeasiswa::latest()->get()->map(function ($item) {
                 $item->kategori_info = 'beasiswa';
-                $item->warna_badge = 'bg-purple';
                 return $item;
             });
 
-            // Ambil data lomba terbaru (Sesuaikan nama model Lomba Anda)
             $dataLomba = \App\Models\InfoLomba::latest()->get()->map(function ($item) {
                 $item->kategori_info = 'lomba';
-                $item->warna_badge = 'bg-danger';
                 return $item;
             });
 

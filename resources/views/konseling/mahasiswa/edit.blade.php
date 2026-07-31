@@ -3,13 +3,8 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col m-4">
+        <h4 class="text-center mb-3"><strong>EDIT KONSELING</strong></h4>
         <div class="card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="float-start">Edit Konseling</div>
-                    <div class="float-end"> <a href="{{ route('konseling.index') }}" class="btn btn-primary">&larr; Back</a></div>
-                </div>
-            </div>
             <div class="card-body">
 
                 <form action="{{ route('konseling.update', $konseling->id) }}" method="POST">
@@ -55,10 +50,12 @@
                         </div>
                         @enderror
                     </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        Simpan
-                    </button>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-sm btn-primary btn-radius px-2 mr-2">
+                            Simpan
+                        </button>
+                        <a href="{{ route('konseling.index') }}" class="btn btn-sm btn-dark text-white px-3 btn-radius">Batal</a>
+                    </div>
                 </form>
 
             </div>

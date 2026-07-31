@@ -1,15 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid px-4">
-    {{-- Header Judul & Breadcrumb --}}
-    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Edit Beasiswa</h1>
-    <ol class="breadcrumb mb-4 bg-light p-2 rounded small">
-        <li class="breadcrumb-item"><a href="{{ route('beasiswa.index') }}" class="text-decoration-none">Beasiswa Saya</a></li>
-        <li class="breadcrumb-item active">Edit Data</li>
-    </ol>
 
-    {{-- Alert Validation Error Global --}}
+
+
+<div class="container-fluid px-4">
+
     @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
         <ul class="mb-0 small">
@@ -23,14 +19,13 @@
     </div>
     @endif
 
-    {{-- Main Card Form --}}
-    <div class="card mb-4 border-0 shadow-sm">
-        {{-- Header Card Hijau Khas SIMAFO --}}
-        <div class="card-header bg-success text-white py-2 font-weight-bold">
-            <i class="fas fa-edit me-1"></i> Form Edit Riwayat Beasiswa
+    <h4 class="font-weight-bold text-center mb-2">EDIT DATA BEASISWA</h4>
+    <div class="card mb-4 ">
+        <div class="card-header text-center bg-yellow-4 shadow-sm">
+            <strong> <i class="fas fa-edit mr-1"></i> Form Edit Data Beasiswa</strong>
         </div>
 
-        {{-- Padding bawah diperkecil (pb-2) agar tidak menyisakan ruang putih kosong --}}
+
         <div class="card-body p-4 pb-2">
             <form action="{{ route('beasiswa.update', $beasiswa->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -101,14 +96,11 @@
                     @enderror
                 </div>
 
-                <hr class="mt-4 mb-4">
-
-                {{-- Tombol Kontrol --}}
-                <div class="d-flex justify-content-start mb-2">
-                    <button type="submit" class="btn btn-primary px-4 font-weight-bold me-2 shadow-sm">
-                        <i class="fas fa-save me-1"></i> Perbarui Data
+                <div class="d-flex justify-content-end mt-2">
+                    <button type="submit" class="btn btn-sm btn-primary px-2 mr-1 shadow-sm btn-radius">
+                        Simpan
                     </button>
-                    <a href="{{ route('beasiswa.index') }}" class="btn btn-secondary px-4 shadow-sm">Batal</a>
+                    <a href="{{ route('beasiswa.index') }}" class="btn btn-sm btn-dark px-3 shadow-sm btn-radius">Batal</a>
                 </div>
             </form>
         </div>

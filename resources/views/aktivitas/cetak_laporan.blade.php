@@ -119,13 +119,13 @@
                         <td>:</td>
                         <td>
                             @if($status == 'valid')
-                            <span class="text-success font-weight-bold">Valid</span>
+                            <span class="font-weight-bold">Valid</span>
                             @elseif($status == 'menunggu')
-                            <span class="text-warning font-weight-bold">Menunggu</span>
+                            <span class="font-weight-bold">Menunggu</span>
                             @elseif($status == 'tidak_valid')
-                            <span class="text-danger font-weight-bold">Tidak Valid</span>
+                            <span class="font-weight-bold">Tidak Valid</span>
                             @else
-                            <span class="text-muted">Semua Status</span>
+                            <span class="font-weight-bold">Semua Status</span>
                             @endif
                         </td>
                     </tr>

@@ -1,63 +1,94 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col m-4">
-        <div class="card">
-            <div class="card-header ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="font-weight-bold">DETAIL TRACER STUDY</div>
-                    <div><a href="{{ route('tracer-study.index') }}" class="btn btn-primary btn-sm">Kembali</a></div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Nama Alumni</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->mahasiswa->user->name }}</div>
-                </div>
+<div class="container-fluid px-4 mt-4">
+    {{-- Header --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 font-weight-bold mb-1">Detail Tracer Study Alumni</h1>
 
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>NIM</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->mahasiswa->nim }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Tahun Lulus</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->mahasiswa->tahun_lulus }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Status Saat Ini</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->status_saat_ini }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Masa Tunggu</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->masa_tunggu }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Nama Pekerjaan</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->nama_pekerjaan }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Lokasi Kerja</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->lokasi_kerja }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Gaji</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->gaji }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Tingkat Kesesuaian</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->tingkat_kesesuaian }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Program Studi Lanjut</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->program_studi_lanjut }}</div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="name" class="col-md-4 text-md-end text-start"><strong>Institusi Studi Lanjut</strong></label>
-                    <div class="col-md-6">{{ $tracerStudy->institusi_studi_lanjut }}</div>
-                </div>
-            </div>
+        </div>
 
+    </div>
+
+    {{-- BIODATA ALUMNI --}}
+    <div class="card mb-4">
+        <div class="card-header font-weight-bold">
+            Biodata Alumni
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Nama Alumni</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->mahasiswa->user->name ?? ($tracerStudy->mahasiswa->nama ?? '-') }}</dd>
+
+                <dt class="col-sm-4">NIM</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->mahasiswa->nim ?? '-' }}</dd>
+
+                <dt class="col-sm-4">Tahun Kelulusan</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->mahasiswa->tahun_lulus ?? '-' }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    {{-- DETAIL KUESIONER --}}
+    <div class="card mb-4">
+        <div class="card-header font-weight-bold">
+            Hasil Kuesioner
+        </div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                {{-- Status Utama --}}
+                <dt class="col-sm-4">1. Status Kegiatan Utama Saat Ini</dt>
+                <dd class="col-sm-8">: {{ str_replace('_', ' ', $tracerStudy->status_saat_ini ?? 'Belum Diisi') }}</dd>
+
+                <dt class="col-12">
+                    <hr>
+                </dt>
+
+                {{-- Riwayat Pekerjaan / Wirausaha --}}
+                <dt class="col-sm-4">2. Masa Tunggu Kerja</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->masa_tunggu ?? '-' }}</dd>
+
+                <dt class="col-sm-4">3. Nama Pekerjaan / Jabatan</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->nama_pekerjaan ?? '-' }}</dd>
+
+                <dt class="col-sm-4">4. Lokasi Kerja</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->lokasi_kerja ?? '-' }}</dd>
+
+                <dt class="col-sm-4">5. Rata-rata Gaji Per Bulan</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->gaji ? 'Rp ' . number_format($tracerStudy->gaji, 0, ',', '.') : '-' }}</dd>
+
+                <dt class="col-sm-4">6. Tingkat Kesesuaian Prodi</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->tingkat_kesesuaian ? 'Skala ' . $tracerStudy->tingkat_kesesuaian . ' / 5' : '-' }}</dd>
+
+                <dt class="col-sm-4">7. Sektor Tempat Kerja</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->sektor_kerja ? ucwords(str_replace('_', ' ', $tracerStudy->sektor_kerja)) : '-' }}</dd>
+
+                <dt class="col-sm-4">8. Metode Cari Kerja</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->metode_cari_kerja ?? '-' }}</dd>
+
+                <dt class="col-12">
+                    <hr>
+                </dt>
+
+                {{-- Pendidikan Lanjut --}}
+                <dt class="col-sm-4">9. Program Studi Lanjut</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->program_studi_lanjut ?? '-' }}</dd>
+
+                <dt class="col-sm-4">10. Universitas / Institusi</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->institusi_studi_lanjut ?? '-' }}</dd>
+
+                <dt class="col-sm-4">11. Sumber Dana Studi</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->sumber_dana_studi ? ucwords(str_replace('_', ' ', $tracerStudy->sumber_dana_studi)) : '-' }}</dd>
+
+                <dt class="col-12">
+                    <hr>
+                </dt>
+
+                {{-- Masukan --}}
+                <dt class="col-sm-4">12. Masukan untuk Prodi</dt>
+                <dd class="col-sm-8">: {{ $tracerStudy->saran_perbaikan ?? '-' }}</dd>
+            </dl>
         </div>
     </div>
 </div>

@@ -1,15 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Content Header (Page header) -->
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-purple"><i class="fas fa-paper-plane"></i> Pengajuan Surat Mahasiswa</h1>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid mb-3">
+    <h4 class="font-weight-bold text-center "> TAMBAH PENGAJUAN SURAT</h4>
+
 </div>
 
 <!-- Main content -->
@@ -29,9 +23,9 @@
         @endif
 
         <!-- Card Khas AdminLTE (Warna Ungu) -->
-        <div class="card card-purple card-outline shadow">
-            <div class="card-header">
-                <h3 class="card-title text-purple font-weight-bold">Formulir Permohonan Dokumen</h3>
+        <div class="card  shadow">
+            <div class="card-header bg-yellow-4 text-center">
+                <h6 class="font-weight-bold m-0"><i class="fas fa-edit mr-1"></i>Formulir Permohonan Dokumen</h6>
             </div>
 
             <!-- /.card-header -->
@@ -82,15 +76,13 @@
                 </div>
                 <!-- /.card-body -->
 
-                <!-- Card Footer (Tombol Aksi) -->
                 <div class="card-footer bg-white d-flex justify-content-end">
-                    <a href="{{ route('pengajuan-surat.index') }}" class="btn btn-default mr-2">
-                        <i class="fas fa-arrow-left"></i> Kembali
-                    </a>
-                    <button type="submit" class="btn bg-purple text-white shadow-sm">
-                        <!-- <i class="fas fa-paper-plane"></i>  -->
-                        Buat Pengajuan
+                    <button type="submit" class="btn btn-sm btn-primary text-white shadow-sm btn-radius px-2 mr-1">
+                        Tambah
                     </button>
+                    <a href="{{ route('pengajuan-surat.index') }}" class="btn btn-sm btn-dark btn-radius px-3 text-white">
+                        <span class="text-white">Batal</span>
+                    </a>
                 </div>
             </form>
         </div>

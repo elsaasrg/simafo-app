@@ -18,10 +18,10 @@
     @endif
 
     {{-- Main Card Form --}}
-    <div class="card mb-4 border-0 shadow-sm">
-
-        <div class="card-header py-3">
-            <h4 class="text-center font-weight-bold">TAMBAH DATA BEASISWA</h4>
+    <h4 class="font-weight-bold text-center">TAMBAH DATA BEASISWA</h4>
+    <div class="card mb-4 ">
+        <div class="card-header text-center bg-yellow-4 shadow-sm">
+            <strong> <i class="fas fa-edit mr-1"></i> Form Pengajuan Data Beasiswa</strong>
         </div>
 
         {{-- Padding bawah diperkecil (pb-2) agar merapat ke tombol kontrol --}}
@@ -90,12 +90,12 @@
 
                 <hr class="mt-4 mb-4">
 
-                {{-- Tombol Kontrol pas sebelum penutup form (menghilangkan sisa ruang putih) --}}
-                <div class="d-flex justify-content-start mb-2">
+
+                <div class="d-flex justify-content-end mb-2">
                     <button type="submit" class="btn btn-sm btn-primary px-2 btn-radius mr-1">
                         Tambah
                     </button>
-                    <a href="{{ route('beasiswa.index') }}" class="btn btn-sm bg-abu-abu px-2 btn-radius text-white">Batal</a>
+                    <a href="{{ route('beasiswa.index') }}" class="btn btn-sm bg-dark px-3 btn-radius text-white">Batal</a>
                 </div>
             </form>
         </div>

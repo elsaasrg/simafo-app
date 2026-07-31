@@ -89,7 +89,7 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
-                            <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary btn-sm btn-radius bg-abu-abu">Kembali</a>
+                            <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary btn-sm btn-radius bg-abu-abu">Batal</a>
                         </div>
                     </div>
 

@@ -1,14 +1,8 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="content-header">
-    <div class="container-fluid bg-white text-center py-3 ">
-
-        <h4 class="font-weight-bold">PENGAJUAN SURAT</h4>
 
 
-    </div>
-</div>
+<h4 class="font-weight-bold text-center mb-3"><i class="fas fa-envelope mr-1"></i>PENGAJUAN SURAT</h4>
 
 <div class="content">
     <div class="container-fluid">
@@ -21,13 +15,21 @@
         @endif
 
         <div class="card shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title font-weight-bold">Daftar Riwayat Pengajuan</h3>
-                @if(auth()->user()->hasRole('Mahasiswa'))
-                <a href="{{ route('pengajuan-surat.create') }}" class="btn bg-purple text-white btn-sm ml-auto shadow-sm">
-                    <i class="fas fa-plus"></i> Ajukan Surat Baru
-                </a>
-                @endif
+            <div class="card-header card-outline-yellow">
+                <div class="row w-100">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h5 class="font-weight-bold m-0"><i class="fas fa-edit mr-1"></i>Daftar Riwayat Pengajuan</h5>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center justify-content-md-end">
+                        @if(auth()->user()->hasRole('Mahasiswa'))
+                        <a href="{{ route('pengajuan-surat.create') }}" class="btn text-white btn-sm shadow-sm btn-success btn-radius m-0">
+                            <i class="fas fa-plus"></i> Ajukan Surat Baru
+                        </a>
+                        @endif
+                    </div>
+                </div>
             </div>
 
             <div class="card-body p-0 table-responsive">
@@ -55,7 +57,7 @@
                             @if(!auth()->user()->hasRole('Mahasiswa'))
                             <td>
                                 {{ $item->mahasiswa->user->name ?? 'Nama Tidak Ada' }}<br>
-                                <span class="badge badge-secondary">{{ $item->mahasiswa->nim ?? 'NIM' }}</span>
+                                <span class="badge badge-dark">{{ $item->mahasiswa->nim ?? 'NIM' }}</span>
                             </td>
                             @endif
                             <td>{{ $item->jenis_surat }}</td>
@@ -71,13 +73,13 @@
                             </td>
                             <td>
                                 @if($item->status == 'menunggu')
-                                <span class="badge badge-warning text-dark px-2 py-1">Menunggu Validasi</span>
+                                <span class="badge badge-warning text-dark px-2 py-1 btn-radius">Menunggu Validasi</span>
                                 @elseif($item->status == 'diproses')
-                                <span class="badge badge-info px-2 py-1">Sedang Diproses</span>
+                                <span class="badge bg-yellow-1 px-2 py-1 btn-radius">Sedang Diproses</span>
                                 @elseif($item->status == 'selesai')
-                                <span class="badge badge-success px-2 py-1">Selesai</span>
+                                <span class="badge btn-success px-2 py-1 btn-radius">Selesai</span>
                                 @else
-                                <span class="badge badge-danger px-2 py-1">Ditolak</span>
+                                <span class="badge badge-danger px-2 py-1 btn-radius">Ditolak</span>
                                 @endif
 
                                 @if($item->keterangan_admin)
@@ -86,8 +88,8 @@
                             </td>
                             <td>
                                 @if($item->file_surat_keluar && $item->status == 'selesai')
-                                <a href="{{ asset('uploads/surat_keluar/' . $item->file_surat_keluar) }}" target="_blank" class="btn btn-sm bg-success shadow-sm">
-                                    <i class="fas fa-download"></i> Unduh Surat
+                                <a href="{{ asset('uploads/surat_keluar/' . $item->file_surat_keluar) }}" target="_blank" class="btn btn-sm bg-success shadow-sm btn-radius">
+                                    <span class="text-nowrap"><i class="fas fa-download"></i> Unduh Surat</span>
                                 </a>
                                 @else
                                 <span class="text-muted small"><em>Belum diterbitkan</em></span>
@@ -105,7 +107,7 @@
                                             <form action="{{ route('pengajuan-surat.updateStatus', $item->id) }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="modal-header bg-kuning-2">
+                                                <div class="modal-header bg-yellow-2">
                                                     <h5 class="modal-title"><i class="fas fa-tasks"></i> Proses Surat Mahasiswa</h5>
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
@@ -129,8 +131,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default btn-sm btn-radius bg-abu-abu text-white" data-dismiss="modal">Batal</button>
                                                     <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
+                                                    <button type="button" class="btn btn-default btn-sm btn-radius bg-dark text-white" data-dismiss="modal">Batal</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -150,6 +152,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

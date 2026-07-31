@@ -3,15 +3,12 @@
 @section('content')
 <div class="container-fluid px-4">
     {{-- Header Judul & Breadcrumb --}}
-    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Tracer Study Alumni</h1>
-    <ol class="breadcrumb mb-4 bg-light p-2 rounded small">
-        <li class="breadcrumb-item"><a href="{{ route('tracer-study.index') }}" class="text-decoration-none">Dashboard</a></li>
-        <li class="breadcrumb-item active">Edit Kuesioner</li>
-    </ol>
+    <h4 class="mt-4 font-weight-bold text-dark text-center mb-3">EDIT TRACER STUDY</h4>
+
 
     {{-- Alert Validation Error Global --}}
     @if ($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+    <div class=" alert alert-danger alert-dismissible fade show mb-4" role="alert">
         <ul class="mb-0 small">
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
@@ -25,7 +22,7 @@
 
     {{-- 1. BAGIAN ATAS: BIODATA ALUMNI --}}
     <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-header bg-dark text-white py-2 font-weight-bold">
+        <div class="card-header bg-yellow-4 py-3 font-weight-bold text-center text-dark">
             <i class="fas fa-id-card mr-1"></i> Biodata Alumni
         </div>
         <div class="card-body p-4">
@@ -50,7 +47,7 @@
 
     {{-- 2. BAGIAN BAWAH: FORM EDIT KUESIONER TRACER STUDY --}}
     <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-header bg-warning text-white py-2 font-weight-bold">
+        <div class="card-header bg-yellow-4 py-3 font-weight-bold text-center">
             <i class="fas fa-edit mr-1"></i> Edit Kuesioner Pelacakan Alumni
         </div>
 
@@ -173,10 +170,10 @@
 
                 {{-- Tombol Kontrol Aksi --}}
                 <div class="d-flex justify-content-start mb-2">
-                    <button type="submit" class="btn btn-warning text-white px-4 font-weight-bold mr-2 shadow-sm">
-                        <i class="fas fa-save mr-1"></i> Perbarui Kuesioner
+                    <button type="submit" class="btn btn-sm btn-primary text-white mr-2 shadow-sm btn-radius">
+                        Perbarui Kuesioner
                     </button>
-                    <a href="{{ route('tracer-study.index') }}" class="btn btn-secondary px-4 shadow-sm">Batal</a>
+                    <a href="{{ route('tracer-study.index') }}" class="btn btn-sm text-white bg-grey-2 px-3 shadow-sm btn-radius">Batal</a>
                 </div>
             </form>
         </div>

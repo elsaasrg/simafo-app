@@ -16,13 +16,12 @@
     </div>
     @endif
 
-    {{-- Main Card Form --}}
-    <div class="card mb-4 border-0 shadow-sm">
-        {{-- Header Card Hijau Khas SIMAFO --}}
-        <div class="card-header text-center py-3 ">
-            <h4 class="font-weight-bold">TAMBAH ORGANISASI</h4>
-        </div>
 
+    <h4 class="font-weight-bold text-center">TAMBAH DATA ORGANISASI </h4>
+    <div class="card mb-4 ">
+        <div class="card-header text-center bg-yellow-4 shadow-sm">
+            <i class="fas fa-edit"></i><strong> Form Pengajuan Riwayat Organisasi</strong>
+        </div>
         <div class="card-body p-4 pb-2">
             <form action="{{ route('organisasi.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -72,29 +71,31 @@
                 </div>
 
 
-                <div class="mb-4">
+                <div class="form-group">
                     <label for="dokumen" class="form-label font-weight-bold">Dokumen (Bukti mengikuti organisasi )<span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input @error('dokumen') is-invalid @enderror"
-                                name="dokumen" id="dokumen" accept=".pdf,.jpg,.jpeg,.png">
-                            <label class="custom-file-label text-muted" for="dokumen" id="dokumen_label">Pilih dokumen bukti (PDF, JPG, PNG maks 2MB)...</label>
-                        </div>
+                    <div>
+                        <input type="file"
+                            name="dokumen"
+                            class="form-control @error('dokumen') is-invalid @enderror"
+                            id="customFile">
                     </div>
+                    <small class="form-text text-muted">Pilih dokumen bukti (PDF, JPG, PNG maks 2MB)...</small>
+
                     @error('dokumen')
-                    <span class="text-danger small d-block mt-1"><strong>{{ $message }}</strong></span>
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
+                    </div>
                     @enderror
                 </div>
 
-                <hr class="mt-4 mb-4">
 
-                {{-- Tombol Kontrol --}}
-                <div class="d-flex justify-content-start mb-2">
+                <div class="d-flex justify-content-end mb-2">
                     <button type="submit" class="btn btn-sm btn-primary px-2 me-2 btn-radius mr-1">
                         Tambah
                     </button>
-                    <a href="{{ route('organisasi.index') }}" class="btn btn-sm btn-radius px-2 bg-abu-abu text-white">Batal</a>
+                    <a href="{{ route('organisasi.index') }}" class="btn btn-sm btn-radius px-3 bg-dark text-white">Batal</a>
                 </div>
+
             </form>
         </div>
     </div>
@@ -110,3 +111,15 @@
     });
 </script>
 @endsection
+
+
+
+@push('js')
+<!-- Script agar nama file yang dipilih muncul di input file Bootstrap 4 -->
+<script>
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+</script>
+@endpush

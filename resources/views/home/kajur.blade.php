@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endpush
+
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -16,12 +20,12 @@
 
 <div class="content bg-content">
     <div class="container-fluid">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center bg-white p-2">
 
             <div class="col-12 ">
 
                 <!-- Banner Selamat Datang -->
-                <div class="card shadow-sm welcome-banner mb-5 rounded-lg bg-white mt-3">
+                <div class="welcome-banner mb-5 rounded-lg bg-white mt-3">
                     <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
                         <div class="flex-grow-1">
                             <p class="mb-0 font-weight-bold text-dark" style="font-size: 15px;">
@@ -122,76 +126,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .badge-role {
-        display: inline-block;
-        box-shadow: inset 2px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    .bg-content {
-        background-color: #EBEBEB;
-    }
-
-    .welcome-banner {
-        border-radius: 15px !important;
-    }
-
-    /* Tracking / Spacing Judul */
-    .tracking-wide {
-        letter-spacing: 0.5px;
-    }
-
-    /* Style untuk membuat efek folder bertumpuk (Stacked Pastel Yellow Card) */
-    .folder-wrapper {
-        position: relative;
-        width: 210px;
-        height: 170px;
-        margin: 0 auto;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    /* Lapisan Belakang Folder */
-    .folder-back {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 195px;
-        height: 155px;
-        background-color: #fce896;
-        /* Warna kuning pastel layer belakang */
-        border-radius: 16px;
-    }
-
-    /* Lapisan Depan Folder */
-    .folder-front {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 195px;
-        height: 155px;
-        background-color: #fff2b2;
-        /* Warna kuning pastel layer depan */
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
-    }
-
-    /* Font Menu Title di bagian bawah folder */
-    .menu-title {
-        font-size: 16px;
-        color: #111111 !important;
-    }
-
-    /* Efek Hover smooth saat kursor mengarah ke menu */
-    .menu-item-link:hover .folder-wrapper {
-        transform: translateY(-5px);
-    }
-
-    .menu-item-link:hover .folder-front {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-    }
-</style>
 @endsection

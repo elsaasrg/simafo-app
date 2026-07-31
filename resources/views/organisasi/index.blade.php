@@ -71,16 +71,23 @@
         {{-- ======================================================================================== --}}
         <div class="card mb-4">
             <div class="card-header text-center font-weight-bold">
-                <i class="fas fa-sitemap me-1 fa-2x mr-2"></i>
-                <h4 class="font-weight-bold" style="display:inline-block"> DATA ORGANISASI </h4>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <i class="fas fa-sitemap me-1 fa-2x mr-2"></i>
+                        <h4 class="font-weight-bold" style="display:inline-block"> DATA ORGANISASI </h4>
+                    </div>
+                    <div class="col-md-3">
+                        @if(auth()->user()->hasRole('Mahasiswa'))
 
-                @if(auth()->user()->hasRole('Mahasiswa'))
-                <div class="card-tools">
-                    <a href="{{ route('organisasi.create') }}" class="btn btn-success btn-sm btn-radius">
-                        <i class="fas fa-plus"></i> Tambah Organisasi
-                    </a>
+                        <a href="{{ route('organisasi.create') }}" class="btn btn-success btn-sm btn-radius">
+                            <i class="fas fa-plus"></i> Tambah Organisasi
+                        </a>
+
+                        @endif
+                    </div>
                 </div>
-                @endif
+
             </div>
 
 
@@ -130,8 +137,8 @@
 
                                 <td class="align-middle">
                                     @if($item->dokumen)
-                                    <a href="{{ asset('storage/' . $item->dokumen) }}" target="_blank" class="btn btn-link btn-sm p-0">
-                                        <i class="fas fa-file-download"></i> Lihat Dokumen
+                                    <a href="{{ asset('storage/' . $item->dokumen) }}" target="_blank" class="btn btn-link btn-sm p-0 text-dark">
+                                        <i class="fas fa-file-download d-block text-primary"></i> Lihat Dokumen
                                     </a>
                                     @else
                                     <span class="text-muted small">-</span>
@@ -142,7 +149,7 @@
                                     @if($item->status_validasi == 'diterima')
                                     <span class="badge badge-success px-2 py-1 btn-radius">Diterima</span>
                                     @elseif($item->status_validasi == 'menunggu')
-                                    <span class="badge bg-kuning-1 text-dark px-2 py-1 btn-radius">Menunggu</span>
+                                    <span class="badge bg-yellow-1 text-dark px-2 py-1 btn-radius">Menunggu</span>
                                     @else
                                     <span class="badge badge-danger px-2 py-1 btn-radius">Ditolak</span>
                                     @endif
@@ -151,7 +158,7 @@
                                 <td class="align-middle">
                                     <div>
                                         @if(Auth::user()->hasRole('Admin'))
-                                        <button type="button" class="btn bg-kuning-1 btn-sm mr-1 text-dark btn-radius"
+                                        <button type="button" class="btn bg-yellow-1 btn-sm mr-1 text-dark btn-radius"
                                             data-toggle="modal" data-target="#modalValidasiOrganisasi"
                                             data-id="{{ $item->id }}"
                                             data-organisasi="{{ $item->nama_organisasi }}"
@@ -163,7 +170,7 @@
                                         @endif
 
                                         @if(Auth::user()->hasRole('Mahasiswa') && $item->status_validasi !== 'diterima')
-                                        <a href="{{ route('organisasi.edit', $item->id) }}" class="btn bg-kuning-1 btn-sm btn-radius">
+                                        <a href="{{ route('organisasi.edit', $item->id) }}" class="btn bg-yellow-1 btn-sm btn-radius">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('organisasi.destroy', $item->id) }}" method="POST" class="d-inline">
@@ -179,7 +186,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="{{ Auth::user()->hasRole('Mahasiswa') ? 8 : 10 }}" class="text-center text-muted py-4">
+                                <td colspan="{{ Auth::user()->hasRole('Mahasiswa') ? 10 : 10 }}" class="text-center text-muted py-4">
                                     Tidak ada data organisasi yang tersedia.
                                 </td>
                             </tr>
@@ -201,7 +208,7 @@
 <div class="modal fade" id="modalValidasiOrganisasi" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-kuning-4">
+            <div class="modal-header bg-yellow-4">
                 <h5 class="modal-title"><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Organisasi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -228,8 +235,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bg-abu-abu btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary btn-sm btn-radius">Simpan</button>
+                    <button type="button" class="btn bg-dark btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                 </div>
             </form>
         </div>

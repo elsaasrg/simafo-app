@@ -1,61 +1,64 @@
 @extends('layouts.app')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endpush
+
 @section('content')
-<div class="container py-4">
-    <div class="row">
-        <!-- KANAN UTAMA: Dashboard Selamat Datang -->
-        <div class="col-md-8 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white font-weight-bold text-dark border-bottom-0 pt-3">
-                    <i class="fas fa-graduation-cap mr-2 text-primary"></i>{{ __('Halaman Alumni') }}
-                </div>
+<div class="content-header">
+    <div class="container-fluid">
 
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success shadow-sm" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-
-                    @if (session('success'))
-                    <div class="alert alert-success shadow-sm" role="alert">
-                        <i class="fas fa-check-circle mr-1"></i> {{ session('success') }}
-                    </div>
-                    @endif
-
-                    <h5 class="font-weight-bold text-dark mb-1">Selamat datang kembali, {{ Auth::user()->name }}!</h5>
-                    <p class="text-muted text-sm">Di Halaman Alumni Sistem Informasi Universitas Tanjungpura</p>
-
-                    <hr class="my-3">
-
-                    <div class="d-flex flex-wrap gap-2">
-                        <a class="btn btn-primary btn-sm rounded-pill px-3 font-weight-bold shadow-sm" href="{{ route('tracer-study.index') }}">
-                            <i class="fas fa-poll-h mr-1"></i> Tracer Study
-                        </a>
-
-                    </div>
-                </div>
+        <div class="row mb-2">
+            <div class="col-12 text-center">
+                <h3 class="m-0 text-dark font-weight-bold text-uppercase tracking-wide">
+                    <i class="fas fa-th-large mr-2"></i>Dashboard Alumni
+                </h3>
             </div>
         </div>
-
-
-
     </div>
 </div>
 
-<style>
-    .text-indigo {
-        color: #3f51b5 !important;
-    }
+<div class="content bg-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center bg-white p-2">
 
-    .btn-indigo:hover {
-        background-color: #2c3b8c !important;
-    }
+            <div class="col-12 ">
 
-    .hover-light:hover {
-        background-color: #f8f9fa;
-        border-radius: 4px;
-        transition: background 0.2s;
-    }
-</style>
+                <!-- Banner Selamat Datang -->
+                <div class="welcome-banner mb-5 rounded-lg bg-white mt-3">
+                    <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                        <div class="flex-grow-1">
+                            <p class="mb-0 font-weight-bold text-dark" style="font-size: 15px;">
+                                Selamat datang kembali, <span class="text-lowercase">{{ Auth::user()->name ?? 'Alumni'}}</span>
+                            </p>
+                        </div>
+                        <div>
+                            <span class="badge badge-role badge-success rounded-pill px-3 py-2 text-sm" style="background-color: #2da44e !important; border-radius: 20px;">
+                                Alumni
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid Menu Utama (2 Kolom) -->
+                <div class="row text-center mt-4">
+
+                    <!-- Tracer Study -->
+                    <div class="col-12 col-md-6 mb-5">
+                        <a href="{{ route('tracer-study.index') }}" class="text-decoration-none menu-item-link">
+                            <div class="folder-wrapper">
+                                <div class="folder-back"></div>
+                                <div class="folder-front">
+                                    <i class="fas fa-briefcase fa-3x text-info"></i>
+                                </div>
+                            </div>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Tracer Study</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

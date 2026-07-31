@@ -2,16 +2,13 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    {{-- Header Judul & Breadcrumb --}}
-    <h1 class="mt-4 font-weight-bold text-dark" style="font-size: 1.8rem;">Detail Tracer Study Alumni</h1>
-    <ol class="breadcrumb mb-4 bg-light p-2 rounded small">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Dashboard</a></li>
-        <li class="breadcrumb-item active">Detail Kuesioner</li>
-    </ol>
+
+    <h4 class="mt-4 font-weight-bold text-dark text-center mb-3">DETAIL TRACER STUDY</h4>
+
 
     {{-- 1. BAGIAN ATAS: BIODATA ALUMNI --}}
     <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-header bg-dark text-white py-2 font-weight-bold">
+        <div class="card-header py-2 font-weight-bold text-center bg-yellow-4 py-3">
             <i class="fas fa-id-card mr-1"></i> Biodata Alumni
         </div>
         <div class="card-body p-4">
@@ -36,16 +33,16 @@
 
     {{-- 2. BAGIAN BAWAH: DATA JAWABAN KUESIONER --}}
     <div class="card mb-4 border-0 shadow-sm">
-        <div class="card-header bg-info text-white py-2 font-weight-bold">
-            <i class="fas fa-file-alt mr-1"></i> Rincian Jawaban Kuesioner Anda
+        <div class="card-header bg-yellow-4 py-3 font-weight-bold text-center">
+            <i class="fas fa-file-alt mr-1"></i> Detail Jawaban Kuesioner Anda
         </div>
 
         <div class="card-body p-4">
             {{-- Status Utama --}}
             <div class="mb-4 pb-3 border-bottom">
-                <h6 class="font-weight-bold text-muted mb-1">1. Status Kegiatan Utama Saat Ini:</h6>
-                <p class="h5 font-weight-bold text-capitalize text-dark">
-                    <span class="badge badge-primary px-3 py-2 shadow-sm">
+                <h6 class="font-weight-bold mb-2">Status Kegiatan Utama Saat Ini:</h6>
+                <p class="h5 text-capitalize text-white">
+                    <span class="badge badge-primary px-3 py-2 shadow-sm btn-radius">
                         {{ str_replace('_', ' ', $tracerStudy->status_saat_ini) }}
                     </span>
                 </p>
@@ -121,15 +118,11 @@
                 </p>
             </div>
 
-            <hr class="mt-4 mb-4">
 
             {{-- Tombol Kontrol Kembali dan Edit --}}
             <div class="d-flex justify-content-start">
-                <a href="{{ route('home') }}" class="btn btn-secondary px-4 shadow-sm mr-2">
+                <a href="{{ route('home') }}" class="btn btn-sm btn-primary px-4 shadow-sm mr-2 btn-radius">
                     <i class="fas fa-arrow-left mr-1"></i> Kembali ke Dashboard
-                </a>
-                <a href="{{ route('tracer-study.edit', $tracerStudy->id) }}" class="btn btn-warning text-white px-4 shadow-sm">
-                    <i class="fas fa-pencil-alt mr-1"></i> Edit Jawaban Kuesioner
                 </a>
             </div>
         </div>
