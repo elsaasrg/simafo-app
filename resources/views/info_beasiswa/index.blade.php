@@ -28,7 +28,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" style="width:100%">
+                    <table class="table " style="width:100%">
                         <thead>
                             <tr class="text-center align-middle">
                                 <th style="width: 50px">No</th>
@@ -83,38 +83,91 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header bg-yellow-2">
-                                            <h5 class="modal-title font-weight-bold text-dark">Detail Beasiswa: {{ $item->nama_beasiswa }}</h5>
-                                            <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body text-start" style="text-align: left !important;">
-                                            <div class="row mb-2">
-                                                <div class="col-md-6">
-                                                    <p class="mb-1"><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>
-                                                    <p class="mb-1"><strong>Contact Person:</strong> {{ $item->contact_person ?? '-' }}</p>
+                                            <div class="row d-flex justify-content-center align-items-center w-100">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8 text-center">
+                                                    <h5 class="modal-title font-weight-bold text-dark">Detail Beasiswa: {{ $item->nama_beasiswa }}</h5>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <p class="mb-1"><strong>Diposting Oleh:</strong> {{ $item->user->name ?? 'Tidak Diketahui' }}</p>
-                                                    <p class="mb-1"><strong>Tanggal Dibuat:</strong> {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y H:i') }} WIB</p>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <hr>
-                                            <p class="mb-2"><strong>Periode Pendaftaran:</strong><br>
-                                                {{ \Carbon\Carbon::parse($item->tanggal_mulai_pendaftaran)->format('d M Y') }}
-                                                s/d
-                                                {{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}
-                                            </p>
-                                            <p class="mb-2"><strong>Deskripsi:</strong><br>{!! nl2br(e($item->deskripsi)) !!}</p>
-                                            <p class="mb-2"><strong>Syarat & Kriteria:</strong><br>{!! nl2br(e($item->syarat)) !!}</p>
-                                            <p class="mb-2"><strong>Benefit / Cakupan:</strong><br>{!! nl2br(e($item->benefit)) !!}</p>
-                                            <p class="mb-0"><strong>Link Pendaftaran:</strong>
-                                                @if($item->link_pendaftaran)
-                                                <a href="{{ $item->link_pendaftaran }}" target="_blank" class="text-primary">{{ $item->link_pendaftaran }}</a>
-                                                @else
-                                                -
-                                                @endif
-                                            </p>
+                                        </div>
+                                        <div class="modal-body text-start" style="text-align: left !important;">
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Penyelenggara</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {{ $item->penyelenggara }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Contact Person:</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {{ $item->contact_person ?? '-' }}
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Tanggal Pendaftaran</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {{ \Carbon\Carbon::parse($item->tanggal_mulai_pendaftaran)->format('d M Y') }}
+                                                    s/d
+                                                    {{ \Carbon\Carbon::parse($item->tanggal_selesai_pendaftaran)->format('d M Y') }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Deskripsi</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {!! nl2br(e($item->deskripsi)) !!}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Syarat & Kriteria</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {!! nl2br(e($item->syarat)) !!}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Benefit / Cakupan</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {!! nl2br(e($item->benefit)) !!}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Link Pendaftaran</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : @if($item->link_pendaftaran)
+                                                    <a href="{{ $item->link_pendaftaran }}" target="_blank" class="text-primary">{{ $item->link_pendaftaran }}</a>
+                                                    @else
+                                                    -
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <strong>Diposting Oleh</strong>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    : {{ $item->user->name ?? 'Tidak Diketahui' }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

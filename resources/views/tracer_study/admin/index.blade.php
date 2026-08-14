@@ -79,6 +79,7 @@
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-white  text-center">
                     <h5 class="m-0 font-weight-bold text-dark ">
+                        <i class="fas fa-sitemap me-1 mr-2"></i>
                         Tracer Study
                     </h5>
                 </div>
@@ -146,7 +147,7 @@
                                             </a>
 
                                             {{-- Tombol Hapus --}}
-                                            @can('delete-tracerstudy')
+
                                             <form action="{{ route('tracer-study.destroy', $item->id) }}" method="POST" class="d-inline m-0 mx-1">
                                                 @csrf
                                                 @method("DELETE")
@@ -158,7 +159,7 @@
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
-                                            @endcan
+
                                         </div>
                                     </td>
                                 </tr>

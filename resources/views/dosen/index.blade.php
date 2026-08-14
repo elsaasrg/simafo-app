@@ -16,18 +16,17 @@
         <div class="card">
             <div class="card-header">
                 <div class="row align-items-center">
-                    <div class="col-md-3 d-none d-md-block"></div>
-                    <div class="col-md-6 text-center">
-                        <h4 class="m-0"><strong>DAFTAR DOSEN</strong></h4>
-                    </div>
-                    <!-- Tombol Tambah Dosen dipindah ke Header Card -->
-                    <div class="col-md-3 d-flex justify-content-center justify-content-md-end mt-2 mt-md-0">
+                    <div class="col-md-3 d-flex justify-content-center justify-content-md-start mt-2 mt-md-0">
                         @can('create-dosen')
                         <a href="{{ route('dosen.create') }}" class="btn btn-success btn-sm btn-radius">
                             <i class="fas fa-plus-circle"></i> Tambah Dosen
                         </a>
                         @endcan
                     </div>
+                    <div class="col-md-6 text-center">
+                        <h4 class="m-0"><strong>DAFTAR DOSEN</strong></h4>
+                    </div>
+                    <div class="col-md-3 d-none d-md-block"></div>
                 </div>
             </div>
 

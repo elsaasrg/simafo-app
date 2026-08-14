@@ -101,17 +101,26 @@
                         </div>
                     </div>
 
-                    {{-- Password --}}
+                    {{-- Password Baru --}}
                     <div class="mb-3 row">
                         <label for="password" class="col-form-label col-md-4 text-md-end">
                             Password Baru
                         </label>
                         <div class="col-md-6">
-                            <input
-                                type="password"
-                                class="form-control @error('password') is-invalid @enderror"
-                                name="password"
-                                id="password">
+                            <div class="position-relative">
+                                <input
+                                    type="password"
+                                    class="form-control pe-5 @error('password') is-invalid @enderror"
+                                    name="password"
+                                    id="password">
+
+                                <button class="btn p-0 border-0 text-secondary position-absolute"
+                                    type="button"
+                                    id="togglePassword"
+                                    style="right: 12px; top: 50%; transform: translateY(-50%); z-index: 5; background: transparent;">
+                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
 
                             <small class="text-muted d-block mt-1">
                                 Kosongkan jika tidak ingin mengubah password akun dosen ini.
@@ -141,5 +150,24 @@
         </div>
     </div>
 </div>
+
+{{-- Script Toggle Intip Password --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+                toggleIcon.classList.toggle('fa-eye');
+                toggleIcon.classList.toggle('fa-eye-slash');
+            });
+        }
+    });
+</script>
 
 @endsection

@@ -51,6 +51,7 @@ Route::middleware(['auth', 'role:Admin|Kajur'])->group(function () {
     Route::get('/organisasi/cetak', [OrganisasiController::class, 'cetakLaporan'])->name('organisasi.cetak');
     Route::get('/cetak', [AktivitasController::class, 'cetak'])->name('aktivitas.cetak');
     Route::put('/aduan/{aduan}/update-status', [AduanController::class, 'updateStatus'])->name('aduan.updateStatus');
+    Route::put('/aktivitas/{aktivita}/update-status', [AktivitasController::class, 'updateStatus'])->name('aktivitas.updateStatus');
 });
 
 
@@ -71,11 +72,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tracer-study', TracerStudyController::class);
 });
 
-// BLOK 3: ADMIN
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('dosen', DosenController::class);
+});
+
+// BLOK 3: ADMIN
+Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::put('/organisasi/{organisasi}/update-status-validasi', [OrganisasiController::class, 'updateStatusValidasi'])->name('organisasi.updateStatusValidasi');
     Route::put('/beasiswa/{beasiswa}/update-status', [BeasiswaController::class, 'updateStatus'])->name('beasiswa.updateStatus');
     Route::put('/pengajuan-surat/{id}/update-status', [PengajuanSuratController::class, 'updateStatus'])->name('pengajuan-surat.updateStatus');

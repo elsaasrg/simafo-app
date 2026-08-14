@@ -108,8 +108,15 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-header bg-yellow-2">
-                                                    <h5 class="modal-title"><i class="fas fa-tasks"></i> Proses Surat Mahasiswa</h5>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <div class="row d-flex justify-content-center align-items-center w-100">
+                                                        <div class="col-md-2"></div>
+                                                        <div class="col-md-8">
+                                                            <h5 class=""><i class="fas fa-tasks"></i> Proses Surat Mahasiswa</h5>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-body text-left">
                                                     <div class="form-group">

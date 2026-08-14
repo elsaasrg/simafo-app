@@ -33,7 +33,7 @@ class MahasiswaController extends Controller
         // 1. Validasi Input termasuk aturan kondisional tahun lulus jika status = lulus
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users',
+            'email' => 'required|string|email:rfc,dns|unique:users',
             'password' => 'required|string|min:8',
             'nim' => 'required|string|unique:mahasiswa',
             'status' => 'required|in:aktif,lulus',

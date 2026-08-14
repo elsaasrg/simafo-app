@@ -326,7 +326,7 @@
                 <li class="nav-item">
                     <a href="{{ url('/aduan') }}" class="nav-link {{ request()->is('aduan*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle"></i>
-                        <p>Kelola Aduan</p>
+                        <p>Aduan</p>
                     </a>
                 </li>
                 <li class="nav-item">

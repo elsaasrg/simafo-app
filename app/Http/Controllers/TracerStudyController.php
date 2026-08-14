@@ -233,18 +233,18 @@ class TracerStudyController extends Controller
      * Fitur Cetak Bukti untuk syarat Wisuda
      */
 
-    public function cetakBukti($id)
-    {
-        $user = Auth::user();
-        $tracerStudy = TracerStudy::with('mahasiswa.user')->findOrFail($id);
+    // public function cetakBukti(int $id)
+    // {
+    //     $user = Auth::user();
+    //     $tracerStudy = TracerStudy::with('mahasiswa.user')->findOrFail($id);
 
-        // Validasi keamanan: Pastikan yang mencetak adalah pemilik data asli atau pihak Admin/Kajur
-        if ($user->hasRole('Alumni') || $user->hasRole('Mahasiswa')) {
-            if ($tracerStudy->mahasiswa_id !== $user->mahasiswa->id) {
-                abort(403, 'Anda tidak berhak mengakses dokumen ini.');
-            }
-        }
 
-        return view('tracer_study.alumni.cetak', compact('tracerStudy'));
-    }
+    //     if ($user->hasRole('Alumni') || $user->hasRole('Mahasiswa')) {
+    //         if ($tracerStudy->mahasiswa_id !== $user->mahasiswa->id) {
+    //             abort(403, 'Anda tidak berhak mengakses dokumen ini.');
+    //         }
+    //     }
+
+    //     return view('tracer_study.alumni.cetak', compact('tracerStudy'));
+    // }
 }

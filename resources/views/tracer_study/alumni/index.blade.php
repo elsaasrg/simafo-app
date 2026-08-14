@@ -36,7 +36,7 @@
                             <i class="fas fa-eye me-1"></i> Lihat Detail
                         </a>
 
-                        {{-- PERBAIKAN: Tombol menuju halaman cetak struk terima kasih --}}
+
                         <a href="{{ route('tracer-study.sukses') }}" class="btn bg-green-2 text-white px-3 btn-radius mx-1">
                             <i class="fas fa-print me-1"></i> Cetak Bukti Pengisian
                         </a>

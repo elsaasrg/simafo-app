@@ -13,6 +13,10 @@
     src: url("/fonts/Ramabhadra-Regular.ttf") format("truetype");
 }
 
+.badge.text-dark {
+    color: #000 !important;
+}
+
 /* Border Radius & Utility Classes */
 .btn-radius {
     border-radius: 12px;

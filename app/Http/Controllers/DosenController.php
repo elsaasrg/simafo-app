@@ -84,7 +84,7 @@ class DosenController extends Controller
     public function edit(Dosen $dosen)
     {
 
-        $roles = Role::all();
+        $roles = Role::whereIn('name', ['Kajur', 'Dosen', 'DosenKemahasiswaan'])->get();
         return view('dosen.edit', compact('dosen', 'roles'));
     }
 

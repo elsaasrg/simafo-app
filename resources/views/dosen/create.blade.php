@@ -71,15 +71,12 @@
                             Role
                         </label>
                         <div class="col-md-6">
-                            {{-- 1. name diubah menjadi format array 'roles[]' --}}
-                            {{-- 2. Menambahkan atribut 'multiple' dan style tinggi baris --}}
                             <select name="roles[]"
                                 class="form-control @error('roles') is-invalid @enderror"
                                 multiple
                                 style="height: 120px;">
 
                                 @foreach ($roles as $role)
-                                {{-- 3. Menggunakan in_array() untuk mengecek data yang sebelumnya dipilih saat gagal validasi --}}
                                 <option value="{{ $role->name }}"
                                     {{ is_array(old('roles')) && in_array($role->name, old('roles')) ? 'selected' : '' }}>
                                     {{ ucfirst($role->name) }}
@@ -101,9 +98,19 @@
                             Password
                         </label>
                         <div class="col-md-6">
-                            <input type="password"
-                                name="password"
-                                class="form-control @error('password') is-invalid @enderror">
+                            <div class="position-relative">
+                                <input type="password"
+                                    name="password"
+                                    id="password"
+                                    class="form-control pe-5 @error('password') is-invalid @enderror">
+
+                                <button class="btn p-0 border-0 text-secondary position-absolute"
+                                    type="button"
+                                    id="togglePassword"
+                                    style="right: 12px; top: 50%; transform: translateY(-50%); z-index: 5; background: transparent;">
+                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
 
                             @error('password')
                             <span class="text-danger">{{ $message }}</span>
@@ -131,5 +138,24 @@
         </div>
     </div>
 </div>
+
+{{-- Script Intip Password --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+                toggleIcon.classList.toggle('fa-eye');
+                toggleIcon.classList.toggle('fa-eye-slash');
+            });
+        }
+    });
+</script>
 
 @endsection

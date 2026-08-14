@@ -25,15 +25,10 @@
     @endif
 
     <div class="card shadow-sm">
-        <div class="card-header">
-            <h4 class="font-weight-bold" style="display: inline;">
-                Detail Aduan
+        <div class="card-header text-center">
+            <h4 class="font-weight-bold  m-0">
+                DETAIL ADUAN
             </h4>
-            <div class="card-tools">
-                <a href="{{ route('aduan.index') }}" class="btn bg-abu-abu btn-sm btn-radius px-2 text-white">
-                    Kembali
-                </a>
-            </div>
         </div>
 
         <div class="card-body">
@@ -139,15 +134,14 @@
                     <!-- Input Tanggapan / Balasan -->
                     <div class="form-group row">
                         <label class="col-md-2 col-form-label font-weight-bold">
-                            Tanggapan / Solusi <span class="text-danger">*</span>
+                            Tanggapan / Solusi
                         </label>
                         <div class="col-md-10">
                             <textarea
                                 name="tanggapan"
                                 rows="5"
                                 class="form-control @error('tanggapan') is-invalid @enderror"
-                                placeholder=""
-                                required>{{ old('tanggapan', $aduan->tanggapan) }}</textarea>
+                                placeholder="">{{ old('tanggapan', $aduan->tanggapan) }}</textarea>
 
                             @error('tanggapan')
                             <div class="invalid-feedback d-block">{{ $message }}</div>

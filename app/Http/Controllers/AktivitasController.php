@@ -118,10 +118,81 @@ class AktivitasController extends Controller
         ]);
 
         // Kembalikan ke halaman index dengan notifikasi sukses
-        return redirect()->route('aktivitas.index')->with('success', 'Data aktivitas SKCPAM berhasil diajukan untuk validasi!');
+        return redirect()->route('aktivitas.index')->with('success', 'Data aktivitas berhasil diubah!');
     }
 
-    public function update(Request $request, int $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Aktivitas $aktivita)
+    {
+        // Route Model Binding otomatis mencari data.
+        // Kita simpan ke variabel $aktivitas agar konsisten dengan sintaks Anda yang lain.
+        $aktivitas = $aktivita;
+
+        // Validasi Otorisasi: Memastikan mahasiswa hanya bisa mengedit datanya sendiri
+        if (Auth::user()->hasRole('Mahasiswa') && $aktivitas->mahasiswa_id !== Auth::user()->mahasiswa->id) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mengubah data ini.');
+        }
+
+        // Validasi input
+        $request->validate([
+            'periode_akademik'        => 'required|string',
+            'jenis_aktivitas'         => 'required',
+            'kelompok_aktivitas'      => 'required|string',
+            'nama_aktivitas'          => 'required|string|max:255',
+            'tingkat_prestasi'        => 'required|string',
+            'tanggal_mulai'           => 'required|date',
+            'tanggal_selesai'         => 'required|date|after_or_equal:tanggal_mulai',
+            'jenis_dokumen_pendukung' => 'required|string',
+            'dokumen_pendukung'       => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // Nullable saat update
+            'jenis_kegiatan'          => 'required|in:Akademik,Non Akademik',
+        ]);
+
+        $namaFile = $aktivitas->dokumen_pendukung;
+
+        // Jika user mengunggah file dokumen pendukung baru
+        if ($request->hasFile('dokumen_pendukung')) {
+            $mahasiswaId = $aktivitas->mahasiswa_id;
+
+            // Hapus file lama jika ada di direktori public
+            $oldFilePath = public_path('uploads/dokumen_aktivitas/' . $aktivitas->dokumen_pendukung);
+            if (\Illuminate\Support\Facades\File::exists($oldFilePath) && !empty($aktivitas->dokumen_pendukung)) {
+                \Illuminate\Support\Facades\File::delete($oldFilePath);
+            }
+
+            // Simpan file baru
+            $file = $request->file('dokumen_pendukung');
+            $namaFile = time() . '_skcpam_' . $mahasiswaId . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/dokumen_aktivitas'), $namaFile);
+        }
+
+        // Update data aktivitas
+        $aktivitas->update([
+            'periode_akademik'        => $request->periode_akademik,
+            'jenis_aktivitas'         => $request->jenis_aktivitas,
+            'kelompok_aktivitas'      => $request->kelompok_aktivitas,
+            'nama_aktivitas'          => $request->nama_aktivitas,
+            'tingkat_prestasi'        => $request->tingkat_prestasi,
+            'peringkat'               => $request->peringkat,
+            'jenis_prestasi'          => $request->jenis_prestasi,
+            'jabatan'                 => $request->jabatan,
+            'penyelenggara'           => $request->penyelenggara,
+            'lokasi_aktivitas'        => $request->lokasi_aktivitas,
+            'tanggal_mulai'           => $request->tanggal_mulai,
+            'tanggal_selesai'         => $request->tanggal_selesai,
+            'jenis_dokumen_pendukung' => $request->jenis_dokumen_pendukung,
+            'dokumen_pendukung'       => $namaFile,
+            'jenis_kegiatan'          => $request->jenis_kegiatan,
+            // Jika diedit oleh mahasiswa, kembalikan status validasi ke 'menunggu' dan poin ke 0.00
+            'status_validasi'         => 'menunggu',
+            'poin'                    => 0.00,
+        ]);
+
+        return redirect()->route('aktivitas.index')->with('success', 'Data aktivitas berhasil diperbarui!');
+    }
+
+    public function updateStatus(Request $request, int $id)
     {
         // Pastikan hanya Admin yang bisa mengeksekusi ini
         if (!Auth::user()->hasRole('Admin')) {

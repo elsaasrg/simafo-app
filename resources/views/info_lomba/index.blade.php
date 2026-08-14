@@ -76,10 +76,17 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header bg-yellow-2">
-                                            <h5 class="modal-title font-weight-bold text-dark">Detail Lomba: {{ $item->nama_lomba }}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                            <div class="row w-100 d-flex justify-content-center align-items-center">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8 text-center">
+                                                    <h5 class="modal-title font-weight-bold text-dark">Detail Lomba: {{ $item->nama_lomba }}</h5>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-body text-left">
                                             <p><strong>Penyelenggara:</strong> {{ $item->penyelenggara }}</p>

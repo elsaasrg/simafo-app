@@ -94,7 +94,7 @@
                         <thead>
                             @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur'))
                             <a href="{{ route('beasiswa.cetak', request()->all()) }}" class="btn btn-success btn-sm mb-3 btn-radius" target="_blank">
-                                <i class="fas fa-print"></i> Cetak Laporan Rekap
+                                <i class="fas fa-print"></i> Cetak Laporan Terfilter
                             </a>
 
                             @endif
@@ -139,7 +139,7 @@
 
                                 <td class="align-middle">
                                     {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d M Y') }}
-                                    s/d
+                                    -
                                     {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
                                 </td>
 
@@ -148,6 +148,8 @@
                                     <a href="{{ asset('storage/' . $item->bukti_penerima) }}" target="_blank" class="btn btn-link btn-sm p-0">
                                         <i class="fas fa-file-download"></i>
                                     </a>
+                                    <br>
+                                    <span class="small">Lihat bukti penerima</span>
                                     @else
                                     <span class="text-muted small">-</span>
                                     @endif
@@ -217,10 +219,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-yellow-4 text-center">
-                <h5 class="modal-title"><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Beasiswa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="row justify-content-center align-items-center w-100">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h5 class=""><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Beasiswa</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                </div>
             </div>
             <form id="formValidasi" method="POST">
                 @csrf

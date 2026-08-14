@@ -93,11 +93,11 @@
     <!-- SISI KANAN HEADER: Logo SIMAFO -->
     <div class="d-flex flex-column align-items-end justify-content-center text-right pr-2">
         <div class="d-flex align-items-center mb-1">
-            <img src="{{ asset('images/logo-simafo.png') }}"
+            <img src="{{ asset('images/logo-sisfo.png') }}"
                 onerror="this.onerror=null; this.src='https://placehold.co/120x45/ffffff/000000?text=Simafo+Logo';"
                 alt="Simafo Logo"
                 class="img-fluid"
-                style="height: 60px; width: auto; object-fit: contain;">
+                style=" width: auto; object-fit: contain;">
         </div>
     </div>
 

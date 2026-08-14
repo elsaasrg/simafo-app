@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="row justify-content-center">
-    <!-- Di HP pakai margin p-2, di laptop m-4 agar tidak makan tempat -->
     <div class="col p-2 p-md-4">
 
         {{-- Alert Sukses --}}
@@ -17,25 +16,26 @@
         <div class="card">
             <div class="card-header">
                 <div class="row align-items-center">
-                    <div class="col-md-3 d-none d-md-block"></div>
-                    <div class="col-md-6 text-center">
-                        <h4 class="m-0"><strong>DAFTAR MAHASISWA</strong></h4>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center justify-content-md-end mt-2 mt-md-0">
+
+                    <div class="col-md-3 d-flex justify-content-center justify-content-md-start mt-2 mt-md-0">
                         @can('create-mahasiswa')
                         <a href="{{ route('mahasiswa.create') }}" class="btn btn-success btn-sm btn-radius">
                             <i class="fas fa-plus"></i> Tambah Mahasiswa
                         </a>
                         @endcan
                     </div>
+                    <div class="col-md-6 text-center">
+                        <h4 class="m-0"><strong>DAFTAR MAHASISWA</strong></h4>
+                    </div>
+                    <div class="col-md-3 d-none d-md-block"></div>
                 </div>
             </div>
 
             <div class="card-body p-2 p-md-3">
-                <!-- WRAPPER UNTUK SCROLLING HORIZONTAL -->
+
                 <div class="table-responsive">
 
-                    <!-- HAPUS table-layout: fixed DAN TAMBAHKAN text-nowrap -->
+
                     <table class="table table-bordered table-striped text-nowrap w-100 align-middle">
                         <thead>
                             <tr class="text-center">
@@ -53,11 +53,11 @@
                                 <th>{{ $loop->iteration }}</th>
                                 <td class="text-start">{{ $item->user->name }}</td>
                                 <td>{{ $item->nim }}</td>
-                                <td>
+                                <td class="">
                                     @if($item->status === 'lulus')
-                                    <span class="badge bg-yellow-1 px-3 btn-radius">Lulus (Alumni)</span>
+                                    <span class="badge bg-yellow-1 px-3 btn-radius text-dark">Lulus (Alumni)</span>
                                     @else
-                                    <span class="badge bg-primary px-3 btn-radius">Aktif</span>
+                                    <span class="badge bg-primary px-3 btn-radius text-dark">Aktif</span>
                                     @endif
                                 </td>
                                 <td>

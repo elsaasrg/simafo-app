@@ -97,7 +97,7 @@
                         <thead>
                             @hasanyrole('Admin|Kajur')
                             <a href="{{ route('organisasi.cetak', request()->all()) }}" target="_blank" class="btn btn-success btn-sm px-3 mb-3 btn-radius">
-                                <i class="fas fa-print mr-1"></i> Cetak Laporan Rekap
+                                <i class="fas fa-print mr-1"></i> Cetak Laporan Terfilter
                             </a>
                             @endhasanyrole
                             <tr class="text-center align-middle">
@@ -209,10 +209,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-yellow-4">
-                <h5 class="modal-title"><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Organisasi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="row w-100 justify-content-center align-items-center">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 text-center">
+                        <h5><i class="fas fa-check-circle text-warning mr-1"></i> Form Validasi Organisasi</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
             </div>
             <form id="formValidasi" method="POST">
                 @csrf

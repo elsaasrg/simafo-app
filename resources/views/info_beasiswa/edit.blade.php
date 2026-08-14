@@ -89,7 +89,7 @@
                         <div class="mb-3 row">
                             <div class="col-md-8 offset-md-8">
                                 <button type="submit" class="btn btn-primary text-white btn-sm px-3 btn-radius">Simpan</button>
-                                <a href="{{ route('info-beasiswa.index') }}" class="btn bg-abu-abu btn-sm btn-radius px-4 text-white">Batal</a>
+                                <a href="{{ route('info-beasiswa.index') }}" class="btn btn-dark btn-sm btn-radius px-4 text-white">Batal</a>
                             </div>
                         </div>
                     </form>

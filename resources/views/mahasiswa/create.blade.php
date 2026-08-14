@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    {{-- TAMBAHAN BARU: Status Mahasiswa --}}
+                    {{-- Status Mahasiswa --}}
                     <div class="mb-3 row">
                         <label for="status" class="col-form-label col-md-4 text-md-end text-start">Status Akademik</label>
                         <div class="col-md-6">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    {{-- TAMBAHAN BARU: Tahun Lulus (Otomatis muncul/sembunyi via JavaScript di bawah) --}}
+                    {{-- Tahun Lulus --}}
                     <div class="mb-3 row" id="row_tahun_lulus" style="display: none;">
                         <label for="tahun_lulus" class="col-form-label col-md-4 text-md-end text-start">Tahun Lulus</label>
                         <div class="col-md-6">
@@ -76,7 +76,12 @@
                     <div class="mb-3 row">
                         <label for="password" class="col-form-label col-md-4 text-md-end text-start">Password</label>
                         <div class="col-md-6">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
+                            <div class="position-relative">
+                                <input type="password" class="form-control pe-5 @error('password') is-invalid @enderror" name="password" id="password">
+                                <button class="btn p-0 border-0 text-secondary position-absolute" type="button" id="togglePassword" style="right: 12px; top: 50%; transform: translateY(-50%); z-index: 5; background: transparent;">
+                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
                             @if($errors->has('password'))
                             <span class="text-danger small">{{ $errors->first('password') }}</span>
                             @endif
@@ -98,23 +103,36 @@
     </div>
 </div>
 
-{{-- Fitur Interaktif Tambahan: Otomatis memunculkan input Tahun Lulus hanya jika statusnya "Lulus" --}}
 <script>
     function toggleTahunLulus() {
         const statusSelect = document.getElementById('status');
         const rowTahunLulus = document.getElementById('row_tahun_lulus');
 
         if (statusSelect.value === 'lulus') {
-            rowTahunLulus.style.display = 'flex'; // Gunakan flex agar sejalan dengan class 'row' Bootstrap
+            rowTahunLulus.style.display = 'flex';
         } else {
             rowTahunLulus.style.display = 'none';
-            document.getElementById('tahun_lulus').value = ''; // Kosongkan nilai jika status diubah kembali ke aktif
+            document.getElementById('tahun_lulus').value = '';
         }
     }
 
-    // Jalankan fungsi saat halaman pertama kali dimuat (untuk mempertahankan old value jika validasi gagal)
     document.addEventListener("DOMContentLoaded", function() {
         toggleTahunLulus();
+
+        // Fitur Intip Password
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+                toggleIcon.classList.toggle('fa-eye');
+                toggleIcon.classList.toggle('fa-eye-slash');
+            });
+        }
     });
 </script>
 

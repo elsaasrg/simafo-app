@@ -102,16 +102,13 @@ class InfoLombaController extends Controller
             'penyelenggara'               => 'required|string|max:255',
             'hadiah'                      => 'nullable|string|max:255',
             'tanggal_mulai_pendaftaran'   => 'required|date',
-            // Validasi logis: tanggal selesai pendaftaran harus sama atau setelah tanggal mulai pendaftaran
             'tanggal_selesai_pendaftaran' => 'required|date|after_or_equal:tanggal_mulai_pendaftaran',
             'tanggal_mulai_pelaksanaan'   => 'nullable|date',
-            // Validasi logis: tanggal selesai pelaksanaan harus sama atau setelah tanggal mulai pelaksanaan (jika diisi)
             'tanggal_selesai_pelaksanaan' => 'nullable|date|after_or_equal:tanggal_mulai_pelaksanaan',
             'tempat_pelaksanaan'          => 'nullable|string|max:255',
             'link_pendaftaran'            => 'nullable|url|max:255', // Memastikan format URL jika diisi
             'contact_person'              => 'nullable|string|max:255',
         ], [
-            // Custom pesan error bahasa Indonesia agar informatif
             'nama_lomba.required'                        => 'Nama lomba wajib diisi.',
             'deskripsi.required'                         => 'Deskripsi lomba wajib diisi.',
             'penyelenggara.required'                     => 'Penyelenggara wajib diisi.',

@@ -125,7 +125,7 @@
         <div class="card-body">
             @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Kajur'))
             <a href="{{ route('aktivitas.cetak', request()->all()) }}" class="btn btn-success btn-sm mb-3 btn-radius" target="_blank">
-                <i class="fas fa-print"></i> Cetak Laporan Rekap
+                <i class="fas fa-print"></i> Cetak Laporan Terfilter
             </a>
             @endif
 
@@ -245,10 +245,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-yellow-2">
-                <h5 class="modal-title font-weight-bold" id="modalValidasiLabel">Form Validasi Aktivitas</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="row d-flex justify-content-center align-items-center w-100">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 text-center">
+                        <h5 class="font-weight-bold" id="modalValidasiLabel"><i class="fas fa-check-circle text-warning mr-1"></i>Form Validasi Aktivitas</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
             </div>
             <form id="formValidasi" method="POST">
                 @csrf
@@ -279,7 +286,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm btn-radius text-white">Simpan</button>
-                    <button type="button" class="btn bg-grey-2 btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-dark btn-sm btn-radius text-white" data-dismiss="modal">Batal</button>
                 </div>
             </form>
         </div>
@@ -375,7 +382,7 @@
                     </tr>
                     <tr>
                         <th class="modal-text-hitam">Catatan Admin</th>
-                        <td id="det_catatan" class="text-danger"></td>
+                        <td id="det_catatan"></td>
                     </tr>
                     <tr>
                         <th class="modal-text-hitam">Dokumen Pendukung</th>
@@ -409,8 +416,7 @@
             $('#input_poin').val(poin);
             $('#input_status').val(status === 'menunggu' ? 'valid' : status);
             $('#input_catatan').val(catatan);
-
-            $('#formValidasi').attr('action', '/aktivitas/' + id);
+            $('#formValidasi').attr('action', '/aktivitas/' + id + '/update-status');
         });
 
         // Logika Modal View Detail

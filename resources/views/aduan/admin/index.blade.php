@@ -33,7 +33,7 @@
 
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table">
                     <thead>
                         <tr class="text-center align-middle">
                             <th style="width: 60px">No</th>

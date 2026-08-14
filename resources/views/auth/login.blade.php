@@ -213,10 +213,10 @@
 
                     <!-- Username / Email Field -->
                     <div class="mb-4">
-                        <label for="email" class="field-label">Username</label>
+                        <label for="email" class="field-label">Email</label>
                         <div class="input-group-custom">
                             <i class="bi bi-person-fill"></i>
-                            <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Masukan username anda di sini..." autofocus>
+                            <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Masukan email anda di sini..." autofocus>
                         </div>
                         @error('email')
                         <span class="text-danger small mt-1 d-block" role="alert">

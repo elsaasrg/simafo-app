@@ -61,9 +61,9 @@
                         </div>
                     </div>
 
-                    {{-- Hadiah / Total Prize (NULLABLE) --}}
+
                     <div class="mb-3 row">
-                        <label for="hadiah" class="col-form-label col-md-4 text-md-end text-start">Hadiah / Total Prize</label>
+                        <label for="hadiah" class="col-form-label col-md-4 text-md-end text-start">Hadiah</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control @error('hadiah') is-invalid @enderror" name="hadiah" value="{{ old('hadiah') }}" id="hadiah" placeholder="Contoh: Rp 10.000.000 + Sertifikat">
                             @error('hadiah')
@@ -157,7 +157,7 @@
                     <div class="mb-3 row">
                         <div class="offset-md-8 col-md-6">
                             <button type="submit" class="btn btn-sm btn-primary btn-radius">Tambah</button>
-                            <a href="{{ route('info-lomba.index') }}" class="btn btn-sm bg-abu-abu text-white btn-radius">Batal</a>
+                            <a href="{{ route('info-lomba.index') }}" class="btn btn-sm btn-dark text-white btn-radius px-3">Batal</a>
                         </div>
                     </div>
                 </form>

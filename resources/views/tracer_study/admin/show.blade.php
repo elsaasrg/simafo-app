@@ -2,13 +2,8 @@
 
 @section('content')
 <div class="container-fluid px-4 mt-4">
-    {{-- Header --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 class="h3 font-weight-bold mb-1">Detail Tracer Study Alumni</h1>
-
-        </div>
-
+    <div>
+        <h1 class="h3 font-weight-bold mb-4 text-center">DETAIL TRACER STUDY</h1>
     </div>
 
     {{-- BIODATA ALUMNI --}}
