@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class OrganisasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         if (auth()->user()->hasRole('Mahasiswa')) {
@@ -55,9 +52,6 @@ class OrganisasiController extends Controller
         return view('organisasi.index', compact('organisasi'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('organisasi.create');
@@ -78,7 +72,7 @@ class OrganisasiController extends Controller
             'dokumen'         => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // Maksimal 2MB
         ]);
 
-        // 2. Hubungkan dengan ID mahasiswa yang sedang login
+
         $validatedData['mahasiswa_id'] = auth()->user()->mahasiswa->id;
 
         // 3. Proses penyimpanan file ke dalam storage (folder: public/dokumen)
@@ -91,15 +85,12 @@ class OrganisasiController extends Controller
             $validatedData['dokumen'] = $path;
         }
 
-        // 4. Masukkan data yang sudah tervalidasi dan aman ke database
+        // Masukkan data yang sudah tervalidasi ke database
         Organisasi::create($validatedData);
 
         return redirect()->route('organisasi.index')->with('success', 'Data organisasi berhasil ditambahkan');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Organisasi $organisasi)
     {
         return view(
@@ -108,12 +99,9 @@ class OrganisasiController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Organisasi $organisasi)
     {
-        // 1. Validasi data (dokumen dibuat nullable karena sifatnya opsional saat edit)
+        // Validasi data
         $validatedData = $request->validate([
             'nama_organisasi' => 'required|string|max:255',
             'jabatan'         => 'required|string|max:255',
@@ -122,7 +110,7 @@ class OrganisasiController extends Controller
             'dokumen'         => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
-        // 2. Jika user mengunggah file SK baru
+        // Jika user mengunggah file baru
         if ($request->hasFile('dokumen')) {
             // Hapus file lama dari storage jika datanya ada
             if ($organisasi->dokumen && Storage::disk('public')->exists($organisasi->dokumen)) {
@@ -135,15 +123,12 @@ class OrganisasiController extends Controller
             $validatedData['dokumen'] = $path;
         }
 
-        // 3. Perbarui baris data di database
+        //  Perbarui baris data di database
         $organisasi->update($validatedData);
 
         return redirect()->route('organisasi.index')->with('success', 'Data organisasi berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Organisasi $organisasi)
     {
         $organisasi->delete();

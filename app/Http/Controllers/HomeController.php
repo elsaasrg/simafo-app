@@ -93,12 +93,10 @@ class HomeController extends Controller
                 ->sortByDesc('created_at')
                 ->take(3);
 
-
             $totalAduan    = \App\Models\Aduan::count();
             $aduanMenunggu = \App\Models\Aduan::where('status', 'menunggu')->count();
             $aduanDiproses = \App\Models\Aduan::where('status', 'diproses')->count();
             $aduanSelesai  = \App\Models\Aduan::where('status', 'selesai')->count();
-
 
             return view('home.kajur', compact(
                 'pengumumanTerbaru',
@@ -127,8 +125,6 @@ class HomeController extends Controller
                 ->merge($dataLomba)
                 ->sortByDesc('created_at')
                 ->take(3);
-
-
 
             return view('home.mahasiswa', compact('pengumumanTerbaru'));
         }
