@@ -41,9 +41,8 @@
                             <option value="" disabled selected>-- Pilih Jenis Surat --</option>
                             <option value="Surat Keterangan Aktif Kuliah">Surat Keterangan Aktif Kuliah</option>
                             <option value="Surat Pengantar Penelitian/Skripsi">Surat Pengantar Penelitian / Ambil Data Skripsi</option>
-                            <option value="Surat Izin Cuti Akademik">Surat Izin Cuti Akademik</option>
                             <option value="Surat Pengantar Kerja Praktik / Magang">Surat Pengantar Kerja Praktik / Magang</option>
-                            <option value="Surat Pengajuan Ruangan">Surat Pengajuan Ruangan</option>
+                            <option value="Surat Pengantar Peminjaman Ruangan">Surat Pengantar Peminjaman Ruangan</option>
                             <option value="Surat Permohonan Kegaitan">Surat Permohonan Kegiatan</option>
                             <option value="Lainnya">-- Surat Lainnya (Ketik Manual) --</option>
                         </select>
