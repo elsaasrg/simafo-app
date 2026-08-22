@@ -342,13 +342,13 @@
                 <li class="nav-item">
                     <a href="{{ url('/info-lomba') }}" class="nav-link {{ request()->is('info-lomba*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle"></i>
-                        <p>Kelola Info Lomba</p>
+                        <p>Kelola Informasi Lomba</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/info-beasiswa') }}" class="nav-link {{ request()->is('info-beasiswa*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle"></i>
-                        <p>Kelola Info Beasiswa</p>
+                        <p>Kelola Informasi Beasiswa</p>
                     </a>
                 </li>
                 @endrole
