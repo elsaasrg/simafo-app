@@ -63,7 +63,7 @@ class InfoBeasiswaController extends Controller
     public function edit(InfoBeasiswa $infoBeasiswa)
     {
         if ($infoBeasiswa->user_id !== Auth::id()) {
-            abort(403, 'Anda tidak berhak mengubah informasi beasiswa ini.');
+            abort(403, 'Hanya pembuat informasi beasiswa ini yang memiliki akses untuk mengubahnya');
         }
 
         return view('info_beasiswa.edit', [

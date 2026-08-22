@@ -84,6 +84,9 @@ class InfoLombaController extends Controller
      */
     public function edit(InfoLomba $infoLomba)
     {
+        if ($infoLomba->user_id !== Auth::id()) {
+            abort(403, 'Hanya pembuat informasi lomba ini yang memiliki akses untuk mengubahnya');
+        }
         return view('info_lomba.edit', [
             'infoLomba' => $infoLomba
         ]);
