@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Rekap Beasiswa Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -87,7 +86,7 @@
     {{-- Navigasi Tombol Kembali & Cetak --}}
     <div class="container mt-3 no-print">
         <div class="d-flex justify-content-between align-items-center p-2 bg-white rounded shadow-sm mb-3">
-            <a href="javascript:history.back()" class="btn btn-sm btn-dark">
+            <a href="{{ route('beasiswa.index') }}" class="btn btn-sm btn-dark">
                 <i class="fas fa-arrow-left mr-1"></i> Kembali ke Daftar
             </a>
             <button onclick="window.print()" class="btn btn-sm btn-primary">

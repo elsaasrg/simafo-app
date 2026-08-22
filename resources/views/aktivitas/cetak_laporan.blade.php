@@ -79,7 +79,7 @@
 
     <div class="container mt-3 no-print">
         <div class="d-flex justify-content-between align-items-center p-2 bg-white rounded shadow-sm mb-3">
-            <a href="javascript:history.back()" class="btn btn-sm btn-dark">
+            <a href="{{ route('aktivitas.index') }}" class="btn btn-sm btn-dark">
                 <i class="fas fa-arrow-left"></i> Kembali
             </a>
             <button onclick="window.print()" class="btn btn-sm btn-primary">
@@ -103,7 +103,7 @@
         </div>
 
         <div class="text-center my-3">
-            <h5 class="judul-laporan" style="font-size: 15px;">LAPORAN REKAP PRESTASI MAHASISWA</h5>
+            <h5 class="judul-laporan" style="font-size: 15px;">LAPORAN REKAP AKTIVITAS DAN PRESTASI MAHASISWA</h5>
         </div>
 
         <div class="row small mb-3">
