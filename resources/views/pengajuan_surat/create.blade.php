@@ -62,7 +62,7 @@
 
                     <!-- 4. Upload Berkas Banyak (Multi-Upload) -->
                     <div class="form-group">
-                        <label class="font-weight-bold">Unggah Dokumen Lampiran (Bisa Pilih Banyak File) <span class="text-danger">*</span></label>
+                        <label class="font-weight-bold">Unggah Dokumen Lampiran (Bisa Pilih Banyak File)</label>
                         <p class="text-muted small mb-2">
                             *Silakan pilih satu atau beberapa berkas persyaratan sekaligus (Format PDF/Gambar maksimal 2MB per file).<br>
                             <strong>Tips:</strong> Tekan tombol <code>Ctrl</code> (Windows) atau <code>Cmd</code> (Mac) sambil klik file-file yang ingin diunggah bersamaan.
