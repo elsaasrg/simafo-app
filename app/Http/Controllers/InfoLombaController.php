@@ -94,6 +94,9 @@ class InfoLombaController extends Controller
      */
     public function update(Request $request, InfoLomba $infoLomba)
     {
+        if ($infoLomba->user_id !== Auth::id()) {
+            abort(403, 'Hanya pembuat informasi lomba ini yang memiliki akses untuk mengubahnya');
+        }
         // 1. Validasi input secara ketat
         $validatedData = $request->validate([
             'nama_lomba'                  => 'required|string|max:255',

@@ -78,7 +78,7 @@ class InfoBeasiswaController extends Controller
     {
         // PROTEKSI: Mencegah bypass update data milik orang lain via API/Postman
         if ($infoBeasiswa->user_id !== Auth::id()) {
-            abort(403, 'Anda tidak berhak mengubah informasi beasiswa ini.');
+            abort(403, 'Hanya pembuat informasi beasiswa ini yang memiliki akses untuk mengubahnya');
         }
 
         $validatedData = $request->validate([
