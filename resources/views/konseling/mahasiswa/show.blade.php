@@ -10,9 +10,9 @@
                     <div class="col-md-6 text-center">
                         <h4 class="m-0 font-weight-bold">DATA KONSELING</h4>
                     </div>
-                    <div class="col-md-3 d-flex justify-content-end">
+                    <!-- <div class="col-md-3 d-flex justify-content-end">
                         <a href="{{ route('konseling.index') }}" class="btn btn-dark btn-sm bg-grey-2 text-white btn-radius">&larr; Kembali</a>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>

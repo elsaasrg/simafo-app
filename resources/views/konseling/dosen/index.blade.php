@@ -27,7 +27,7 @@
                             <tr class="text-center align-middle">
                                 <th style="width: 50px">No</th>
                                 <th>Subjek</th>
-                                <th style="">Isi</th>
+                                <th>Isi</th>
                                 <th>Nama Mahasiswa</th>
                                 <th style="width:100px">Status</th>
                                 <th>Aksi</th>
@@ -39,9 +39,9 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $item->subjek }}</td>
                                 <td>
-                                    <div style="max-width: 500px;">
-                                        {{ $item->isi_konseling }}
-                                    </div>
+                                    <span class="d-inline-block text-truncate align-middle" style="max-width: 450px;" title="{{ $item->isi_konseling }}">
+                                        {{ Str::limit($item->isi_konseling, 60, '...') }}
+                                    </span>
                                 </td>
                                 <td>{{ $item->mahasiswa->user->name }}</td>
                                 <td>

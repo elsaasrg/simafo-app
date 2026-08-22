@@ -34,7 +34,7 @@
                 <div class="col-md-6">
 
                 </div>
-                <div class="col-md-3 d-flex justify-content-end">
+                <div class="col-md-3 d-flex justify-content-center justify-content-md-end">
                     <a href="{{ route('aduan.create') }}" class="btn btn-success btn-sm btn-radius">
                         <i class="fas fa-plus mr-1"></i> Tambah Aduan
                     </a>

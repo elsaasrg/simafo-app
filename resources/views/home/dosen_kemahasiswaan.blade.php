@@ -26,7 +26,7 @@
 
                 <!-- Banner Selamat Datang -->
                 <div class="welcome-banner mb-5 rounded-lg bg-white mt-3">
-                    <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                    <div class="card-body flex-column flex-sm-row d-flex justify-content-between align-items-center py-2 px-3">
                         <div class="flex-grow-1">
                             <p class="mb-0 font-weight-bold text-dark" style="font-size: 15px;">
                                 Selamat datang kembali, <span class="text-lowercase">{{ Auth::user()->name ?? 'dosen kemahasiswaan' }}</span>

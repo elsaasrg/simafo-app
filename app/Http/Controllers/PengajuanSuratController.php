@@ -48,7 +48,7 @@ class PengajuanSuratController extends Controller
         $request->validate([
             'jenis_surat'     => 'required|string',
             'keperluan'       => 'required|string',
-            'file_lampiran'   => 'required|array|min:1',
+            'file_lampiran'   => 'nullable|array|min:1',
             'file_lampiran.*' => 'file|mimes:pdf,jpg,jpeg,png|max:2048',
         ], [
             'jenis_surat.required'   => 'Silakan pilih jenis surat.',

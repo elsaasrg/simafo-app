@@ -19,7 +19,7 @@
                     <select name="kategori" class="form-control @error('kategori') is-invalid @enderror">
                         <option value="" disabled selected>-- Pilih Kategori --</option>
                         <option value="kemahasiswaan" {{ old('kategori') == 'kemahasiswaan' ? 'selected' : '' }}>Kemahasiswaan</option>
-                        <option value="perundungan_dan_etika" {{ old('kategori') == 'perundungan_dan_etika' ? 'selected' : '' }}>Perundungan, Pungli & Etika</option>
+                        <option value="perundungan_dan_etika" {{ old('kategori') == 'perundungan_dan_etika' ? 'selected' : '' }}>Perundungan, Pungli, dan Etika</option>
                         <option value="akademik" {{ old('kategori') == 'akademik' ? 'selected' : '' }}>Akademik</option>
                         <option value="fasilitas" {{ old('kategori') == 'fasilitas' ? 'selected' : '' }}>Fasilitas</option>
                         <option value="layanan_administrasi" {{ old('kategori') == 'layanan_administrasi' ? 'selected' : '' }}>Layanan Administrasi / Staf</option>

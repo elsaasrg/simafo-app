@@ -68,7 +68,7 @@
                             <strong>Tips:</strong> Tekan tombol <code>Ctrl</code> (Windows) atau <code>Cmd</code> (Mac) sambil klik file-file yang ingin diunggah bersamaan.
                         </p>
                         <div class="custom-file">
-                            <input type="file" name="file_lampiran[]" class="form-control-file" accept="application/pdf,image/*" multiple required>
+                            <input type="file" name="file_lampiran[]" class="form-control-file" accept="application/pdf,image/*" multiple>
                         </div>
                     </div>
 
