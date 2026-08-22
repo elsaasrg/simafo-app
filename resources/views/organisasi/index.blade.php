@@ -173,10 +173,10 @@
                                         <a href="{{ route('organisasi.edit', $item->id) }}" class="btn bg-yellow-1 btn-sm btn-radius">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('organisasi.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('organisasi.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm btn-radius">
+                                            <button type="button" class="btn btn-danger btn-sm btn-radius btn-delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -225,7 +225,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
-                    <p class="mb-1"><strong>Mahasiswa:</strong> <span id="text_mahasiswa"></span></p>
+                    <p class="mb-1"><strong>Nama:</strong> <span id="text_mahasiswa"></span></p>
                     <p class="mb-3"><strong>Organisasi:</strong> <span id="text_organisasi"></span></p>
                     <hr>
                     <div class="form-group mb-3">
@@ -250,31 +250,32 @@
     </div>
 </div>
 
-{{-- JAVASCRIPT JQUERY UNTUK PASOK DATA KE FORM MODAL --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+@endsection
+
+@push('js')
 <script>
-    $(document).ready(function() {
-        $('#modalValidasiOrganisasi').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var mahasiswa = button.data('mahasiswa');
-            var organisasi = button.data('organisasi');
-            var status_validasi = button.data('status_validasi');
-            var catatan = button.data('catatan');
+    // Konfirmasi Hapus Data
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
 
-            // Set tulisan info di modal
-            $('#text_mahasiswa').text(mahasiswa);
-            $('#text_organisasi').text(organisasi);
-
-            // Set default value form input
-            $('#input_status_validasi').val(status_validasi === 'menunggu' ? 'diterima' : status_validasi);
-            $('#input_catatan').val(catatan);
-
-            // Tembak URL action form ke update status validasi secara dinamis
-            $('#formValidasi').attr('action', '/organisasi/' + id + '/update-status-validasi');
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data aktivitas ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         });
     });
 </script>
-{{-- ============================================================================== --}}
-
-@endsection
+@endpush

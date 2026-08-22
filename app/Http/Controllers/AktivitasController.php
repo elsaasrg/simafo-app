@@ -233,7 +233,15 @@ class AktivitasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $aktivitas = Aktivitas::findOrFail($id);
+
+        // Hapus berkas dari storage jika ada
+        if ($aktivitas->dokumen_pendukung && file_exists(public_path('uploads/dokumen_aktivitas/' . $aktivitas->dokumen_pendukung))) {
+            unlink(public_path('uploads/dokumen_aktivitas/' . $aktivitas->dokumen_pendukung));
+        }
+
+        $aktivitas->delete();
+        return redirect()->route('aktivitas.index')->with('success', 'Data aktivitas berhasil dihapus.');
     }
 
     public function cetak(Request $request)

@@ -70,7 +70,7 @@
                                     <div class="folder-wrapper">
                                         <div class="folder-back"></div>
                                         <div class="folder-front">
-                                            <i class="fas fa-comments fa-3x text-primary"></i>
+                                            <i class="fas fa-users fa-3x text-dark"></i>
                                         </div>
                                     </div>
                                     <span class="d-block font-weight-bold text-dark menu-title mt-2">Data Organisasi</span>
@@ -79,11 +79,11 @@
 
                             <!-- 3. Aduan Mahasiswa -->
                             <div class="col-12 col-md-6 mb-5">
-                                <a href="{{ route('aduan.index') }}" class="text-decoration-none menu-item-link">
+                                <a href="{{ route('beasiswa.index') }}" class="text-decoration-none menu-item-link">
                                     <div class="folder-wrapper">
                                         <div class="folder-back"></div>
                                         <div class="folder-front">
-                                            <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
+                                            <i class="fas fa-graduation-cap fa-3x text-dark"></i>
                                         </div>
                                     </div>
                                     <span class="d-block font-weight-bold text-dark menu-title mt-2">Data Beasiswa</span>
@@ -91,11 +91,11 @@
                             </div>
 
                             <div class="col-12 col-md-6 mb-5">
-                                <a href="{{ route('organisasi.index') }}" class="text-decoration-none menu-item-link">
+                                <a href="{{ route('konseling.index') }}" class="text-decoration-none menu-item-link">
                                     <div class="folder-wrapper">
                                         <div class="folder-back"></div>
                                         <div class="folder-front">
-                                            <i class="fas fa-graduation-cap fa-3x text-dark"></i>
+                                            <i class="fas fa-comments fa-3x text-primary"></i>
                                         </div>
                                     </div>
                                     <span class="d-block font-weight-bold text-dark menu-title mt-2">Konseling</span>
@@ -108,7 +108,7 @@
                                     <div class="folder-wrapper">
                                         <div class="folder-back"></div>
                                         <div class="folder-front">
-                                            <i class="fas fa-graduation-cap fa-3x text-dark"></i>
+                                            <i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
                                         </div>
                                     </div>
                                     <span class="d-block font-weight-bold text-dark menu-title mt-2">Aduan</span>
@@ -117,11 +117,11 @@
 
                             <!-- 6. Tracer Study -->
                             <div class="col-12 col-md-6 mb-5">
-                                <a href="/aduan" class="text-decoration-none menu-item-link">
+                                <a href="{{ route('pengajuan-surat.index') }}" class="text-decoration-none menu-item-link">
                                     <div class="folder-wrapper">
                                         <div class="folder-back"></div>
                                         <div class="folder-front">
-                                            <i class="fas fa-briefcase fa-3x text-info"></i>
+                                            <i class=" fas fa-file-alt fa-3x text-dark"></i>
                                         </div>
                                     </div>
                                     <span class="d-block font-weight-bold text-dark menu-title mt-2">Pengajuan Surat</span>

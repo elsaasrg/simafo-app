@@ -222,7 +222,7 @@ class TracerStudyController extends Controller
      */
     public function destroy(TracerStudy $tracerStudy)
     {
-        if (!Auth::user()->hasRole('Admin')) abort(403);
+        if (!Auth::user()->hasRole('Admin') && !Auth::user()->hasRole('Kajur')) abort(403);
 
         $tracerStudy->delete();
         return redirect()->route('tracer-study.index')->withSuccess('Tracer Study berhasil dihapus');

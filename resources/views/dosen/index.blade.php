@@ -73,10 +73,10 @@
                                         @endcan
 
                                         @can('delete-dosen')
-                                        <form action="{{ route('dosen.destroy', $item->id) }}" method="POST" class="d-inline m-0">
+                                        <form action="{{ route('dosen.destroy', $item->id) }}" method="POST" class="d-inline m-0 delete-form">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm btn-radius" title="Hapus">
+                                            <button type="button" class="btn btn-danger btn-sm btn-radius btn-delete" title="Hapus">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -104,3 +104,29 @@
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    // Konfirmasi Hapus Data 
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data dosen ini beserta akun loginnya akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

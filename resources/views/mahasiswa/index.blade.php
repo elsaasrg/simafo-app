@@ -5,7 +5,6 @@
 <div class="row justify-content-center">
     <div class="col p-2 p-md-4">
 
-        {{-- Alert Sukses --}}
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -16,7 +15,6 @@
         <div class="card">
             <div class="card-header">
                 <div class="row align-items-center">
-
                     <div class="col-md-3 d-flex justify-content-center justify-content-md-start mt-2 mt-md-0">
                         @can('create-mahasiswa')
                         <a href="{{ route('mahasiswa.create') }}" class="btn btn-success btn-sm btn-radius">
@@ -32,10 +30,7 @@
             </div>
 
             <div class="card-body p-2 p-md-3">
-
                 <div class="table-responsive">
-
-
                     <table class="table table-bordered table-striped text-nowrap w-100 align-middle">
                         <thead>
                             <tr class="text-center">
@@ -72,10 +67,10 @@
                                         @endcan
 
                                         @can('delete-mahasiswa')
-                                        <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" class="d-inline m-0">
+                                        <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" class="d-inline m-0 delete-form">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus data ini beserta akun loginnya?');" class="btn btn-danger btn-sm btn-radius-2" title="Hapus">
+                                            <button type="button" class="btn btn-danger btn-sm btn-radius-2 btn-delete" title="Hapus">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -90,7 +85,6 @@
                             @endforelse
                         </tbody>
                     </table>
-
                 </div>
             </div>
 
@@ -102,4 +96,31 @@
     </div>
 </div>
 
+
 @endsection
+
+@push('js')
+<script>
+    // Konfirmasi Hapus Data 
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data mahasiswa ini beserta akun loginnya akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

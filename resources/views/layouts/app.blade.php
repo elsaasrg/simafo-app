@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/style-utama.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('styles')
 </head>
 

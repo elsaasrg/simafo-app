@@ -216,10 +216,10 @@
 
                                     {{-- Tombol Hapus (Tampil jika Mahasiswa & belum Valid) --}}
                                     @if (Auth::user()->hasRole('Mahasiswa') && $row->status_validasi !== 'valid')
-                                    <form action="{{ route('aktivitas.destroy', $row->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Yakin ingin menghapus data aktivitas ini?')">
+                                    <form action="{{ route('aktivitas.destroy', $row->id) }}" method="POST" class="d-inline-block delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger btn-radius" title="Hapus Data">
+                                        <button type="button" class="btn btn-sm btn-danger btn-radius btn-delete" title="Hapus Data">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -262,7 +262,7 @@
                 @method('PUT')
 
                 <div class="modal-body">
-                    <p class="mb-1"><strong>Mahasiswa:</strong> <span id="text_mahasiswa"></span></p>
+                    <p class="mb-1"><strong>Nama:</strong> <span id="text_mahasiswa"></span></p>
                     <p class="mb-3"><strong>Aktivitas:</strong> <span id="text_aktivitas"></span></p>
                     <hr>
 
@@ -397,8 +397,9 @@
         </div>
     </div>
 </div>
+@endsection
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@push('js')
 <script>
     $(document).ready(function() {
         // Logika Modal Validasi
@@ -474,5 +475,27 @@
         }
         document.getElementById('formFilter').submit();
     }
+
+    // Konfirmasi Hapus Data 
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data aktivitas ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
 </script>
-@endsection
+@endpush

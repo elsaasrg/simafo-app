@@ -131,6 +131,9 @@ class InfoLombaController extends Controller
      */
     public function destroy(InfoLomba $infoLomba)
     {
+        if ($infoLomba->user_id !== Auth::id()) {
+            abort(403, 'Hanya pembuat informasi lomba ini yang memiliki akses untuk menghapusnya');
+        }
         $infoLomba->delete();
 
         return redirect()->route('info-lomba.index')->withSuccess('Info lomba berhasil dihapus');

@@ -183,10 +183,10 @@
                                         <a href="{{ route('beasiswa.edit', $item->id) }}" class="btn bg-yellow-1 btn-sm btn-radius">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('beasiswa.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('beasiswa.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?');" class="btn btn-danger btn-sm px-2 btn-radius">
+                                            <button type="button" class="btn btn-danger btn-sm px-2 btn-radius btn-delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -236,7 +236,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
-                    <p class="mb-1"><strong>Mahasiswa:</strong> <span id="text_mahasiswa"></span></p>
+                    <p class="mb-1"><strong>Nama:</strong> <span id="text_mahasiswa"></span></p>
                     <p class="mb-3"><strong>Beasiswa:</strong> <span id="text_beasiswa"></span></p>
                     <hr>
                     <div class="form-group mb-3">
@@ -261,8 +261,10 @@
     </div>
 </div>
 
-{{-- JAVASCRIPT JQUERY UNTUK PASOK DATA KE FORM MODAL --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@endsection
+
+@push('js')
+
 <script>
     $(document).ready(function() {
         $('#modalValidasiBeasiswa').on('show.bs.modal', function(event) {
@@ -285,7 +287,28 @@
             $('#formValidasi').attr('action', '/beasiswa/' + id + '/update-status');
         });
     });
-</script>
-{{-- ============================================================================== --}}
 
-@endsection
+
+    // Konfirmasi Hapus Data
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data beasiswa ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

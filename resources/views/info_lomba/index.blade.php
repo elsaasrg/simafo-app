@@ -62,10 +62,10 @@
 
                                         <a href="{{ route('info-lomba.edit', $item->id) }}" class="btn btn-sm bg-yellow-1 btn-radius"><i class="fas fa-edit"></i></a>
 
-                                        <form action="{{ route('info-lomba.destroy', $item->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                        <form action="{{ route('info-lomba.destroy', $item->id) }}" method="POST" class="d-inline-block delete-form">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" class="btn btn-danger btn-sm btn-radius"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm btn-radius btn-delete"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </div>
                                 </td>
@@ -316,3 +316,29 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    // Konfirmasi Hapus Data 
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data informasi lomba ini beserta akun loginnya akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

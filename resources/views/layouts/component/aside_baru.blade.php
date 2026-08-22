@@ -181,19 +181,19 @@
                         <li class="nav-item">
                             <a href="{{ url('/aktivitas') }}" class="nav-link {{ request()->is('aktivitas*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat Data Aktivitas & Prestasi</p>
+                                <p>Data Aktivitas & Prestasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/organisasi') }}" class="nav-link {{ request()->is('organisasi*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat Data Organisasi</p>
+                                <p>Data Organisasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('beasiswa') }}" class="nav-link {{ request()->is('beasiswa*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat Data Beasiswa</p>
+                                <p>Data Beasiswa</p>
                             </a>
                         </li>
                     </ul>
@@ -243,7 +243,7 @@
                         <li class="nav-item">
                             <a href="{{ url('aktivitas') }}" class="nav-link {{ request()->is('aktivitas*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Kelola Aktivitas & Prestasi</p>
+                                <p>Kelola Data Aktivitas & Prestasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -264,13 +264,13 @@
                 <li class="nav-item">
                     <a href="{{ url('/info-lomba') }}" class="nav-link {{ request()->is('info-lomba*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle"></i>
-                        <p>Lihat Informasi Lomba</p>
+                        <p>Informasi Lomba</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/info-beasiswa') }}" class="nav-link {{ request()->is('info-beasiswa*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-circle"></i>
-                        <p>Lihat Informasi Beasiswa</p>
+                        <p>Informasi Beasiswa</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -305,19 +305,19 @@
                         <li class="nav-item">
                             <a href="{{ url('/aktivitas') }}" class="nav-link {{ request()->is('aktivitas*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat Data Aktivitas & Prestasi</p>
+                                <p>Data Aktivitas & Prestasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('/organisasi') }}" class="nav-link {{ request()->is('organisasi*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat Data Organisasi</p>
+                                <p>Data Organisasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('beasiswa') }}" class="nav-link {{ request()->is('beasiswa*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Lihat Data Beasiswa</p>
+                                <p>Data Beasiswa</p>
                             </a>
                         </li>
                     </ul>

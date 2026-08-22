@@ -148,12 +148,11 @@
 
                                             {{-- Tombol Hapus --}}
 
-                                            <form action="{{ route('tracer-study.destroy', $item->id) }}" method="POST" class="d-inline m-0 mx-1">
+                                            <form action="{{ route('tracer-study.destroy', $item->id) }}" method="POST" class="d-inline m-0 mx-1 delete-form">
                                                 @csrf
                                                 @method("DELETE")
-                                                <button type="submit"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data Tracer Study ini?');"
-                                                    class="btn btn-danger btn-sm btn-radius"
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm btn-radius btn-delete"
                                                     style="padding: .25rem .4rem;"
                                                     title="Hapus Data">
                                                     <i class="fas fa-trash"></i>
@@ -180,6 +179,8 @@
                         {{ $tracerstudy->appends(request()->query())->links() }}
                     </div>
 
+
+
                 </div>
             </div>
 
@@ -188,3 +189,30 @@
 </div>
 
 @endsection
+
+
+@push('js')
+<script>
+    // Konfirmasi Hapus Data
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data tracer study ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

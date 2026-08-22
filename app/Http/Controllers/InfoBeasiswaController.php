@@ -108,7 +108,7 @@ class InfoBeasiswaController extends Controller
     {
         // PROTEKSI: Dosen hanya bisa hapus beasiswa bikinannya sendiri
         if ($infoBeasiswa->user_id !== Auth::id()) {
-            abort(403, 'Anda tidak berhak menghapus informasi beasiswa ini.');
+            abort(403, 'Hanya pembuat informasi beasiswa ini yang memiliki akses untuk menghapusnya');
         }
 
         $infoBeasiswa->delete();

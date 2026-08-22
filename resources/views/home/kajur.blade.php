@@ -88,7 +88,7 @@
                             <div class="folder-wrapper">
                                 <div class="folder-back"></div>
                                 <div class="folder-front">
-                                    <i class="fas fa-graduation-cap fa-3x text-dark"></i>
+                                    <i class="fas fa-users fa-3x text-dark"></i>
                                 </div>
                             </div>
                             <span class="d-block font-weight-bold text-dark menu-title mt-2">Data Organisasi Mahasiswa</span>

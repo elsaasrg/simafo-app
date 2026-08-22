@@ -325,7 +325,7 @@
                                         <td colspan="3"
                                             class="text-center">
 
-                                            Belum ada aduan
+                                            Belum ada pengajuan surat
 
                                         </td>
                                     </tr>

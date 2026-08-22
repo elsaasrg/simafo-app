@@ -103,12 +103,12 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <form action="{{ route('aduan.destroy', $item->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('aduan.destroy', $item->id) }}" method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method("DELETE")
-                                        <button type="submit"
-                                            onclick="return confirm('Apakah Anda yakin ingin menghapus aduan ini?');"
-                                            class="btn btn-danger btn-sm btn-radius"
+                                        <button type="button"
+
+                                            class="btn btn-danger btn-sm btn-radius btn-delete"
                                             title="Hapus Aduan">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -151,3 +151,29 @@
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    // Konfirmasi Hapus Data
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            let form = this.closest('.delete-form');
+
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Data aduan ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush

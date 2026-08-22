@@ -49,7 +49,7 @@
                             <div class="folder-wrapper">
                                 <div class="folder-back"></div>
                                 <div class="folder-front">
-                                    <i class="fas fa-trophy fa-2x text-purple mb-2"></i>
+                                    <i class="fas fa-trophy fa-3x text-warning mb-2"></i>
                                 </div>
                             </div>
                             <span class="d-block font-weight-bold text-dark menu-title mt-2">Kelola Informasi Lomba</span>
@@ -62,10 +62,10 @@
                             <div class="folder-wrapper">
                                 <div class="folder-back"></div>
                                 <div class="folder-front">
-                                    <i class="fas fa-briefcase fa-2x text-danger mb-2"></i>
+                                    <i class="fas fa-graduation-cap fa-3x text-danger mb-2"></i>
                                 </div>
                             </div>
-                            <span class="d-block font-weight-bold text-dark menu-title mt-2">Kelola Informasi Beasiswa</span>
+                            <span class="d-block font-weight-bold text-dark menu-title mt-2 ">Kelola Informasi Beasiswa</span>
                         </a>
                     </div>
 
