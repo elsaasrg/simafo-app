@@ -40,7 +40,7 @@
                     <tr>
                         <th style="width: 20%;">NIM</th>
                         <td>
-                            NIM: {{ $aduan->mahasiswa->nim ?? '-' }}
+                            {{ $aduan->mahasiswa->nim ?? '-' }}
                         </td>
                     </tr>
                     <tr>

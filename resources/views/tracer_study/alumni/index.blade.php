@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="{{ route('tracer-study.show', $tracerstudy->id) }}" class="btn bg-kuning-4 text-white px-3 btn-radius">
+                        <a href="{{ route('tracer-study.show', $tracerstudy->id) }}" class="btn bg-yellow-4 text-white px-3 btn-radius">
                             <i class="fas fa-eye me-1"></i> Lihat Detail
                         </a>
 
@@ -41,7 +41,7 @@
                             <i class="fas fa-print me-1"></i> Cetak Bukti Pengisian
                         </a>
 
-                        <a href="{{ route('tracer-study.edit', $tracerstudy->id) }}" class="btn bg-kuning-6 text-white px-3 btn-radius">
+                        <a href="{{ route('tracer-study.edit', $tracerstudy->id) }}" class="btn bg-yellow-6 text-white px-3 btn-radius">
                             <i class="fas fa-pencil-alt me-1"></i> Edit Jawaban
                         </a>
                     </div>

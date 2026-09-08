@@ -14,7 +14,9 @@ class InfoBeasiswaController extends Controller
     public function index()
     {
         return view('info_beasiswa.index', [
-            'infoBeasiswa' => InfoBeasiswa::with('user')->orderBy('id', 'DESC')->paginate()
+            'infoBeasiswa' => InfoBeasiswa::with('user')->where('tanggal_selesai_pendaftaran', '>=', now()->toDateString())
+                ->orderBy('id', 'DESC')
+                ->paginate()
         ]);
     }
 

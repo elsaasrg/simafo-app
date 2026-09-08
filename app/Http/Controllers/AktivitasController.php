@@ -300,8 +300,10 @@ class AktivitasController extends Controller
             // Variabel pendukung template
             $prodi = "Sistem Informasi";
 
+            $ketuaJurusan = \App\Models\User::role('Kajur')->latest()->first();
+
             // Kirim data ke view cetak
-            return view('aktivitas.cetak_laporan', compact('laporan', 'prodi', 'status', 'periode', 'jenis'));
+            return view('aktivitas.cetak_laporan', compact('laporan', 'prodi', 'status', 'periode', 'jenis', 'ketuaJurusan'));
         } else {
             abort(403, 'Anda tidak memiliki akses ke halaman ini');
         }

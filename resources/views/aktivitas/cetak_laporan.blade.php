@@ -182,7 +182,7 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $row->mahasiswa->nim }}</td>
-                        <td class="text-left">{{ $row->mahasiswa->nama_lengkap }}</td>
+                        <td class="text-left">{{ $row->mahasiswa->user->name }}</td>
                         <td>{{ $prodi }}</td>
                         <td>
                             @if($row->jenis_aktivitas == 'AK' || $row->jenis_aktivitas == 'Aktivitas Kemahasiswaan')
@@ -209,7 +209,7 @@
                             <span class="text-danger">Tidak Valid</span>
                             @endif
                         </td>
-                        <td>{{ $row->skpi ?? 'Ya' }}</td>
+                        <td>{{ $row->skpi ?? 'Tidak' }}</td>
                         <td><strong>{{ number_format($row->poin, 2) }}</strong></td>
                         <td>Admin</td>
                     </tr>
@@ -229,8 +229,8 @@
 
                 <div class="ttd-space"></div>
 
-                <p class="mb-0 font-weight-bold" style="text-decoration: underline;">Renny Puspita Sari, S.T., M.T.</p>
-                <p class="mb-0 text-muted" style="font-size: 12px;">NIP. 198704182015042001</p>
+                <p class="mb-0 font-weight-bold" style="text-decoration: underline;">{{ $ketuaJurusan->name }}</p>
+                <p class="mb-0 text-muted" style="font-size: 12px;">NIP. {{ $ketuaJurusan->dosen->nip  }}</p>
             </div>
         </div>
     </div>

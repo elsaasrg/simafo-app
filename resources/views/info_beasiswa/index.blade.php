@@ -218,7 +218,7 @@
                         </div>
 
                         <div class="d-flex gap-2 mt-auto">
-                            <button type="button" class="btn border-yellow btn-sm flex-fill mr-1"
+                            <button type="button" class="btn border-yellow btn-sm flex-fill mr-1 btn-radius"
                                 data-toggle="modal" data-target="#detailModal{{ $item->id }}"
                                 data-bs-toggle="modal" data-bs-target="#detailModal{{ $item->id }}">
                                 <i class="fas fa-eye mr-1"></i> Lihat Detail

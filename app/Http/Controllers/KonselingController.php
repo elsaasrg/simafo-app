@@ -77,7 +77,7 @@ class KonselingController extends Controller
         $user = Auth::user();
 
         // JALUR DOSEN
-        if ($user->hasRole('Dosen') || $user->hasRole('DosenKemahasiswaan')) {
+        if ($user->hasRole('Dosen')) {
             // Otomatis ubah status menjadi dibaca saat dosen membuka detail
             if ($konseling->status == 'dikirim') {
                 $konseling->update(['status' => 'dibaca']);

@@ -17,7 +17,8 @@ class PengajuanSuratController extends Controller
             $mahasiswaId = auth()->user()->mahasiswa->id;
             $pengajuan_surat = PengajuanSurat::with('lampiranSurat')->where('mahasiswa_id', $mahasiswaId)->latest()->get();
         } else if (auth()->user()->hasRole('Admin')) {
-            $pengajuan_surat = PengajuanSurat::with(['mahasiswa', 'lampiranSurat'])->latest()->get();
+            $pengajuan_surat = PengajuanSurat::with(['mahasiswa', 'lampiranSurat'])->orderByRaw("FIELD(status, 'menunggu', 'diproses', 'ditolak', 'selesai')")
+                ->orderBy('created_at', 'desc')->get();
         } else {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }

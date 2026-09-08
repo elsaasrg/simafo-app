@@ -15,8 +15,9 @@ class InfoLombaController extends Controller
     public function index()
     {
         return view('info_lomba.index', [
-            // PERBAIKAN: Menambahkan with('user') untuk memuat data pengunggah secara efisien
-            'infolomba' => InfoLomba::with('user')->orderBy('id', 'DESC')->paginate()
+            'infolomba' => InfoLomba::with('user')->where('tanggal_selesai_pendaftaran', '>=', now()->toDateString())
+                ->orderBy('id', 'DESC')
+                ->paginate()
         ]);
     }
 

@@ -45,11 +45,11 @@
 
                     <!-- 1. Konseling -->
                     <div class="col-12 col-md-6 mb-5">
-                        <a href="/info-lomba" class="text-decoration-none menu-item-link">
+                        <a href="/konseling" class="text-decoration-none menu-item-link">
                             <div class="folder-wrapper">
                                 <div class="folder-back"></div>
                                 <div class="folder-front">
-                                    <i class="fas fa-trophy fa-2x text-purple mb-2"></i>
+                                    <i class="fas fa-trophy fa-4x text-warning mb-2"></i>
                                 </div>
                             </div>
                             <span class="d-block font-weight-bold text-dark menu-title mt-2">Konseling</span>

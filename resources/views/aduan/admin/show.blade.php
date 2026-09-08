@@ -45,16 +45,9 @@
                     <tr>
                         <th style="width: 22%;">NIM Pelapor</th>
                         <td>
-                            @if($aduan->is_anonim)
-                            <span>
-                                -
-                            </span>
-                            @else
-
                             <span class="mr-2">
                                 {{ $aduan->mahasiswa->nim ?? '-' }}
                             </span>
-                            @endif
                         </td>
                     </tr>
                     <tr>
