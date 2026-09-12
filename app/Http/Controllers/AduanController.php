@@ -68,7 +68,6 @@ class AduanController extends Controller
             'subjek'       => $request->subjek,
             'isi_aduan'    => $request->isi_aduan,
             'lampiran'     => $lampiranPath,
-
             'status'       => 'menunggu',
         ]);
 
