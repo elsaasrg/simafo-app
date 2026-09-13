@@ -23,5 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale('id');
         Paginator::useBootstrapFive();
+        date_default_timezone_set('Asia/Jakarta');
     }
 }
