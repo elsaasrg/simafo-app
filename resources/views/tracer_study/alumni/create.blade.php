@@ -120,8 +120,8 @@
                             <option value="bumn_bumd" {{ old('sektor_kerja') == 'bumn_bumd' ? 'selected' : '' }}>BUMN/BUMD</option>
                             <option value="swasta" {{ old('sektor_kerja') == 'swasta' ? 'selected' : '' }}>Swasta</option>
                             <option value="organisasi_multilateral" {{ old('sektor_kerja') == 'organisasi_multilateral' ? 'selected' : '' }}>Organisasi Multilateral</option>
-                            <option value="wirausaha" {{ old('sektor_usaha') == 'wirausaha' ? 'selected' : '' }}>Wirausaha</option>
-                            <option value="lainnya" {{ old('sektor_usaha') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            <option value="wirausaha" {{ old('sektor_kerja') == 'wirausaha' ? 'selected' : '' }}>Wirausaha</option>
+                            <option value="lainnya" {{ old('sektor_kerja') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -148,7 +148,7 @@
 
                     <div class="mb-3">
                         <label class="form-label font-weight-bold">11. Apa sumber dana utama yang membiayai studi lanjutan Anda?</label>
-                        <select name="sektor_kerja" class="form-control">
+                        <select name="sumber_dana_studi" class="form-control">
                             <option value="" selected disabled>-- Pilih Sumber Dana Studi --</option>
                             <option value="beasiswa" {{ old('sumber_dana_studi') == 'beasiswa' ? 'selected' : '' }}>Beasiswa</option>
                             <option value="biaya_sendiri" {{ old('sumber_dana_studi') == 'biaya_sendiri' ? 'selected' : '' }}>Biaya Sendiri</option>
