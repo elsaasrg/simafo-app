@@ -70,10 +70,18 @@
                                 <td>{{ $tracerStudy->lokasi_kerja ?? '-' }}</td>
                             </tr>
                             <tr>
+                                <td class="font-weight-bold text-muted">Sektor Kerja:</td>
+                                <td>{{ $tracerStudy->sektor_kerja ?? '-' }}</td>
+                            </tr>
+                            <tr>
                                 <td class="font-weight-bold text-muted">Rata-rata Gaji Bersih:</td>
-                                <td class="font-weight-bold text-success">
+                                <td>
                                     {{ $tracerStudy->gaji ? 'Rp ' . number_format($tracerStudy->gaji, 0, ',', '.') : '-' }}
                                 </td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold text-muted">Metode Cari Kerja:</td>
+                                <td>{{ $tracerStudy->metode_cari_kerja ?? '-' }}</td>
                             </tr>
                             <tr>
                                 <td class="font-weight-bold text-muted">Tingkat Kesesuaian:</td>
@@ -104,6 +112,10 @@
                             <tr>
                                 <td class="font-weight-bold text-muted">Nama Universitas/Institusi:</td>
                                 <td>{{ $tracerStudy->institusi_studi_lanjut ?? '-' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold text-muted">Sumber Dana Studi:</td>
+                                <td>{{ $tracerStudy->sumber_dana_studi ?? '-' }}</td>
                             </tr>
                         </table>
                     </div>
