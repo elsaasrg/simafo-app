@@ -79,7 +79,13 @@
                                 @foreach ($roles as $role)
                                 <option value="{{ $role->name }}"
                                     {{ is_array(old('roles')) && in_array($role->name, old('roles')) ? 'selected' : '' }}>
-                                    {{ ucfirst($role->name) }}
+                                    @if($role->name =='Kajur')
+                                    Ketua Jurusan
+                                    @elseif ($role->name =='DosenKemahasiswaan')
+                                    Dosen Pembina Kemahasiswaan
+                                    @elseif($role->name =='Dosen')
+                                    Dosen
+                                    @endif
                                 </option>
                                 @endforeach
 

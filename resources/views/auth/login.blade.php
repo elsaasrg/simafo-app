@@ -266,13 +266,11 @@
             <!-- RIGHT SIDE: LIME GREEN INFORMATION PANEL -->
             <div class="login-info-side">
 
-                <!-- Image Container (Pengguna dapat mengganti isi login-illustration.png di folder public/images/) -->
-                <div class="illustration-container mb-4 d-flex justify-content-center" style="width: 100%; max-width: 380px;">
-                    <img src="{{ asset('images/login-illustration.png') }}"
-                        onerror="this.onerror=null; this.src='https://placehold.co/380x280/CFE561/ffffff?text=SIMAFO+Illustration';"
+                <div class="illustration-container mb-4 d-flex justify-content-center" style="width: 100%; max-width: 380px; transform: translateY(20px);">
+                    <img src="{{ asset('images/login-illustration.svg') }}"
                         class="img-fluid"
                         alt="SIMAFO Illustration"
-                        style="max-width: 100%; height: auto; border-radius: 12px; object-fit: contain;">
+                        style="width: 100%; max-width:500px; height: auto; object-fit: contain;">
                 </div>
 
                 <!-- Description Text -->

@@ -40,7 +40,7 @@
                 class="img-fluid mb-1"
                 style="height: 55px; width: auto; object-fit: contain;">
             <span class="font-weight-black text-dark text-uppercase" style="font-weight: 850; font-size: 0.75rem; letter-spacing: 0.5px; font-family: 'Arial Black', sans-serif;">
-                Dosen Kemahasiswaan
+                Dosen Pembina Kemahasiswaan
             </span>
 
             @elseif(auth()->user()->hasRole('Dosen'))

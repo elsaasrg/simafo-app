@@ -138,7 +138,7 @@
                             <th class="d-none d-md-table-cell">NIM</th>
                             <th>Nama Aktivitas</th>
                             <th>Tanggal</th>
-                            <th>Poin Sistem</th>
+                            <th>Poin</th>
                             <th>Status Validasi</th>
                             <th style="width: 120px">Aksi</th>
                         </tr>

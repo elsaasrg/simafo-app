@@ -18,19 +18,14 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         return view('mahasiswa.create');
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        // 1. Validasi Input termasuk aturan kondisional tahun lulus jika status = lulus
+        // Validasi Input
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email:rfc,dns|unique:users',
@@ -43,7 +38,7 @@ class MahasiswaController extends Controller
         DB::beginTransaction();
 
         try {
-            // 2. Buat data user kredensial login
+            // Buat data user kredensial login
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -74,19 +69,11 @@ class MahasiswaController extends Controller
         }
     }
 
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Mahasiswa $mahasiswa)
     {
         return view('mahasiswa.edit', compact('mahasiswa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
         // 1. Validasi Update (Menghindari keunikan bentrok saat data tidak berubah)
@@ -137,9 +124,6 @@ class MahasiswaController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Mahasiswa $mahasiswa)
     {
         DB::beginTransaction();

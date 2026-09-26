@@ -88,7 +88,13 @@
                                 <option value="{{ $role->name }}"
                                     {{-- Logika untuk mengecek data dari input sebelumnya (jika gagal validasi) ATAU dari data yang sudah tersimpan di database user --}}
                                     {{ (is_array(old('roles')) && in_array($role->name, old('roles'))) || (!old('roles') && $dosen->user->roles->contains('name', $role->name)) ? 'selected' : '' }}>
-                                    {{ ucfirst($role->name) }}
+                                    @if( $role->name == 'Kajur' )
+                                    Ketua Jurusan
+                                    @elseif( $role->name == 'DosenKemahasiswaan' )
+                                    Dosen Pembina Kemahasiswaan
+                                    @elseif($role->name == 'Dosen')
+                                    Dosen
+                                    @endif
                                 </option>
                                 @endforeach
 

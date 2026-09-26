@@ -17,7 +17,7 @@
     </div>
     @endif
 
-    {{-- Main Card Form --}}
+
     <h4 class="font-weight-bold text-center">TAMBAH DATA BEASISWA</h4>
     <div class="card mb-4 ">
         <div class="card-header text-center bg-yellow-4 shadow-sm">

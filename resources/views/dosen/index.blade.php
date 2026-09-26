@@ -56,7 +56,7 @@
                                     @if($role->name == 'Dosen')
                                     <span class="badge bg-yellow-1 p-1 btn-radius">Dosen</span>
                                     @elseif($role->name == 'DosenKemahasiswaan')
-                                    <span class="badge bg-yellow-1 p-1 btn-radius">Dosen Kemahasiswaan</span>
+                                    <span class="badge bg-yellow-1 p-1 btn-radius">Dosen Pembina Kemahasiswaan</span>
                                     @elseif($role->name == 'Kajur')
                                     <span class="badge bg-yellow-1 p-1 btn-radius">Ketua Jurusan</span>
                                     @endif

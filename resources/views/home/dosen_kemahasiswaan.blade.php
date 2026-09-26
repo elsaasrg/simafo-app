@@ -11,7 +11,7 @@
         <div class="row mb-2">
             <div class="col-12 text-center">
                 <h4 class="m-0 text-dark font-weight-bold text-uppercase tracking-wide">
-                    Dashboard Dosen Kemahasiswaan
+                    Dashboard Dosen Pembina Kemahasiswaan
                 </h4>
             </div>
         </div>
@@ -29,12 +29,12 @@
                     <div class="card-body flex-column flex-sm-row d-flex justify-content-between align-items-center py-2 px-3">
                         <div class="flex-grow-1">
                             <p class="mb-0 font-weight-bold text-dark" style="font-size: 15px;">
-                                Selamat datang kembali, <span class="text-lowercase">{{ Auth::user()->name ?? 'dosen kemahasiswaan' }}</span>
+                                Selamat datang kembali, <span class="text-lowercase">{{ Auth::user()->name ?? 'dosen pembina kemahasiswaan' }}</span>
                             </p>
                         </div>
                         <div>
                             <span class="badge badge-role badge-success rounded-pill px-3 py-2 text-sm" style="background-color: #2da44e !important; border-radius: 20px;">
-                                Dosen Kemahasiswaan
+                                Dosen Pembina Kemahasiswaan
                             </span>
                         </div>
                     </div>
