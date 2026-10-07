@@ -138,7 +138,7 @@
                             <th class="d-none d-md-table-cell">NIM</th>
                             <th>Nama Aktivitas</th>
                             <th>Tanggal</th>
-                            <th>Poin</th>
+
                             <th>Status Validasi</th>
                             <th style="width: 120px">Aksi</th>
                         </tr>
@@ -151,7 +151,7 @@
                             <td class="text-center d-none d-md-table-cell">{{ $row->mahasiswa->nim }}</td>
                             <td>{{ $row->nama_aktivitas }}</td>
                             <td class="text-center small">{{ \Carbon\Carbon::parse($row->tanggal_mulai)->translatedFormat('d M Y') }}</td>
-                            <td class="text-center font-weight-bold">{{ number_format($row->poin, 2) }}</td>
+                            <!-- <td class="text-center font-weight-bold">{{ number_format($row->poin, 2) }}</td> -->
                             <td class="text-center">
                                 @if($row->status_validasi == 'menunggu')
                                 <span class="badge bg-yellow-1 text-dark btn-radius px-3">Menunggu</span>

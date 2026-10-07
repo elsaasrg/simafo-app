@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container py-4">
 
     <div class="row justify-content-center">
@@ -24,21 +23,37 @@
 
                         <!-- BARIS 1: Periode & Jenis Aktivitas -->
                         <div class="row">
+
                             <div class="col-md-6 mb-3">
                                 <label class="form-label font-weight-bold">Periode Akademik <span class="text-danger">*</span></label>
-                                <select name="periode_akademik" class="form-control" required>
-                                    <option value="" disabled>-- Pilih Periode --</option>
+                                <div class="row">
                                     @php
-                                    $periodeOld = old('periode_akademik', $aktivitas->periode_akademik);
+                                    $periode = $aktivitas->periode_akademik;
+                                    $bagianPeriode = explode(' ',$periode,2);
+                                    $tahunAkademik = $bagianPeriode[0] ?? '';
+                                    $semester = $bagianPeriode[1] ?? '';
                                     @endphp
-                                    <option value="2025/2026 Genap" {{ $periodeOld == '2025/2026 Genap' ? 'selected' : '' }}>2025/2026 Genap</option>
-                                    <option value="2025/2026 Ganjil" {{ $periodeOld == '2025/2026 Ganjil' ? 'selected' : '' }}>2025/2026 Ganjil</option>
-                                    <option value="2024/2025 Genap" {{ $periodeOld == '2024/2025 Genap' ? 'selected' : '' }}>2024/2025 Genap</option>
-                                    <option value="2024/2025 Ganjil" {{ $periodeOld == '2024/2025 Ganjil' ? 'selected' : '' }}>2024/2025 Ganjil</option>
-                                    <option value="2023/2024 Genap" {{ $periodeOld == '2023/2024 Genap' ? 'selected' : '' }}>2023/2024 Genap</option>
-                                    <option value="2023/2024 Ganjil" {{ $periodeOld == '2023/2024 Ganjil' ? 'selected' : '' }}>2023/2024 Ganjil</option>
-                                </select>
+                                    <div class="col-md-6">
+                                        <input type="text" name="tahun_akademik" id="periode_akademik" class="form-control @error('tahun_akademik') is-invalid @enderror"
+                                            placeholder="Contoh: 2025/2026" value="{{ old('tahun_akademik', $tahunAkademik) }}" required>
+                                        @error('tahun_akademik')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select
+                                            name="semester" class="form-control @error('semester') is-invalid @enderror" required>
+                                            <option value="" class="text-muted">-- Pilih Semester --</option>
+                                            <option value="Ganjil" {{ old('semester', $semester) == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                            <option value="Genap" {{ old('semester', $semester) == 'Genap' ? 'selected' : '' }}>Genap</option>
+                                        </select>
+                                        @error('semester')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
+
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label font-weight-bold">Jenis Aktivitas <span class="text-danger">*</span></label>

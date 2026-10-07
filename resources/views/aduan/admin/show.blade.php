@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="container-fluid pt-3">
-
     {{-- Flash Message Success --}}
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">

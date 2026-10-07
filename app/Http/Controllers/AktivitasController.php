@@ -74,7 +74,8 @@ class AktivitasController extends Controller
     {
         // Validasi input form secara ketat tingkat aplikasi (Server-Side)
         $request->validate([
-            'periode_akademik'        => 'required|string',
+            'tahun_akademik'          => 'required|string|regex:/^[0-9]{4}\/[0-9]{4}$/',
+            'semester'                => 'required|in:Ganjil,Genap',
             'jenis_aktivitas'         => 'required', // Kunci pilihan dosen
             'kelompok_aktivitas'      => 'required|string',
             'nama_aktivitas'          => 'required|string|max:255',
@@ -98,7 +99,7 @@ class AktivitasController extends Controller
         // Eksekusi simpan ke database melalui Model Aktivitas
         Aktivitas::create([
             'mahasiswa_id'            => $mahasiswaId,
-            'periode_akademik'        => $request->periode_akademik,
+            'periode_akademik'        => $request->tahun_akademik . ' ' . $request->semester,
             'jenis_aktivitas'         => $request->jenis_aktivitas,
             'kelompok_aktivitas'      => $request->kelompok_aktivitas,
             'nama_aktivitas'          => $request->nama_aktivitas,
@@ -137,7 +138,8 @@ class AktivitasController extends Controller
 
         // Validasi input
         $request->validate([
-            'periode_akademik'        => 'required|string',
+            'tahun_akademik'          => 'required|string|regex:/^[0-9]{4}\/[0-9]{4}$/',
+            'semester'                => 'required|in:Ganjil,Genap',
             'jenis_aktivitas'         => 'required',
             'kelompok_aktivitas'      => 'required|string',
             'nama_aktivitas'          => 'required|string|max:255',
@@ -169,7 +171,7 @@ class AktivitasController extends Controller
 
         // Update data aktivitas
         $aktivitas->update([
-            'periode_akademik'        => $request->periode_akademik,
+            'periode_akademik'        => $request->tahun_akademik . " " . $request->semester,
             'jenis_aktivitas'         => $request->jenis_aktivitas,
             'kelompok_aktivitas'      => $request->kelompok_aktivitas,
             'nama_aktivitas'          => $request->nama_aktivitas,

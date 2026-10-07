@@ -58,40 +58,34 @@
                                 name="nip"
                                 value="{{ old('nip') }}"
                                 class="form-control @error('nip') is-invalid @enderror">
-
                             @error('nip')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-
-                    {{-- Role --}}
+                    <!-- ini role baru -->
                     <div class="mb-3 row">
-                        <label class="col-form-label col-md-4 text-md-end">
+                        <label class="col-form-label col-md-4">
                             Role
                         </label>
                         <div class="col-md-6">
-                            <select name="roles[]"
-                                class="form-control @error('roles') is-invalid @enderror"
-                                multiple
-                                style="height: 120px;">
-
-                                @foreach ($roles as $role)
-                                <option value="{{ $role->name }}"
-                                    {{ is_array(old('roles')) && in_array($role->name, old('roles')) ? 'selected' : '' }}>
-                                    @if($role->name =='Kajur')
-                                    Ketua Jurusan
-                                    @elseif ($role->name =='DosenKemahasiswaan')
-                                    Dosen Pembina Kemahasiswaan
-                                    @elseif($role->name =='Dosen')
-                                    Dosen
-                                    @endif
-                                </option>
-                                @endforeach
-
-                            </select>
-                            <small class="form-text text-muted">Tahan tombol <strong>Ctrl</strong> (Windows) atau <strong>Command</strong> (Mac) untuk memilih lebih dari satu role.</small>
-
+                            @foreach($roles as $role)
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="roles[]" value="{{ $role->name }}" aria-label="Checkbox for following text input"
+                                            {{ is_array(old('roles')) && in_array($role->name, old('roles')) ? 'checked': '' }}>
+                                    </div>
+                                </div>
+                                @if($role->name == 'Kajur')
+                                <input type="text" class="form-control bg-white" aria-label="Text input with checkbox" value="Ketua Jurusan" readonly>
+                                @elseif($role->name == 'DosenKemahasiswaan')
+                                <input type="text" class="form-control bg-white" aria-label="Text input with checkbox" value="Dosen Pembina Kemahasiswaan" readonly>
+                                @elseif($role->name == 'Dosen')
+                                <input type="text" class="form-control bg-white" aria-label="Text input with checkbox" value="Dosen" readonly>
+                                @endif
+                            </div>
+                            @endforeach
                             @error('roles')
                             <span class="text-danger small">{{ $message }}</span>
                             @enderror

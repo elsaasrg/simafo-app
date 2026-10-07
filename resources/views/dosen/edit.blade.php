@@ -7,7 +7,7 @@
         <div class="card">
 
             <div class="card-header font-weight-bold text-center">
-                <h3>Edit Dosen</h3>
+                <h4><strong>Edit Dosen</strong></h4>
             </div>
 
             <div class="card-body">
@@ -73,39 +73,35 @@
                         </div>
                     </div>
 
-                    {{-- Multiple Pilihan Role / Jabatan --}}
+                    <!-- role -->
                     <div class="mb-3 row">
                         <label class="col-form-label col-md-4 text-md-end">
-                            Role / Jabatan
+                            Role
                         </label>
                         <div class="col-md-6">
-                            <select name="roles[]"
-                                class="form-control @error('roles') is-invalid @enderror"
-                                multiple
-                                style="height: 120px;">
+                            @foreach($roles as $role)
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="roles[]" value="{{ $role->name }}" aria-label="Checkbox for following text input" {{ (is_array(old('roles')) && in_array($role->name, old('roles'))) || (!old('roles') && $dosen->user->roles->contains('name', $role->name)) ? 'checked' : '' }}>
 
-                                @foreach ($roles as $role)
-                                <option value="{{ $role->name }}"
-                                    {{-- Logika untuk mengecek data dari input sebelumnya (jika gagal validasi) ATAU dari data yang sudah tersimpan di database user --}}
-                                    {{ (is_array(old('roles')) && in_array($role->name, old('roles'))) || (!old('roles') && $dosen->user->roles->contains('name', $role->name)) ? 'selected' : '' }}>
-                                    @if( $role->name == 'Kajur' )
-                                    Ketua Jurusan
-                                    @elseif( $role->name == 'DosenKemahasiswaan' )
-                                    Dosen Pembina Kemahasiswaan
-                                    @elseif($role->name == 'Dosen')
-                                    Dosen
-                                    @endif
-                                </option>
-                                @endforeach
-
-                            </select>
-                            <small class="form-text text-muted">Tahan tombol <strong>Ctrl</strong> (Windows) atau <strong>Command</strong> (Mac) untuk mengubah kombinasi role.</small>
-
-                            @error('roles')
-                            <span class="text-danger small">{{ $message }}</span>
-                            @enderror
+                                    </div>
+                                </div>
+                                @if($role->name == 'Kajur')
+                                <input type="text" class="form-control bg-white" aria-label="Text input with checkbox" value="Ketua Jurusan" readonly>
+                                @elseif($role->name == 'DosenKemahasiswaan')
+                                <input type="text" class="form-control bg-white" aria-label="Text input with checkbox" value="Dosen Pembina Kemahasiswaan" readonly>
+                                @elseif($role->name == 'Dosen')
+                                <input type="text" class="form-control bg-white" aria-label="Text input with checkbox" value="Dosen" readonly>
+                                @endif
+                            </div>
+                            @endforeach
                         </div>
+                        @error('roles')
+                        <span class="text-danger small">{{ $message }}</span>
+                        @enderror
                     </div>
+                    <!-- end role -->
 
                     {{-- Password Baru --}}
                     <div class="mb-3 row">

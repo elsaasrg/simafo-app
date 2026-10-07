@@ -27,23 +27,40 @@
 
                 <!-- BARIS 1: Periode & Jenis Aktivitas -->
                 <div class="row">
+
+                    <!-- periode akademik baru -->
                     <div class="col-md-6 mb-3">
-                        <label class="form-label font-weight-bold">Periode Akademik <span class="text-danger">*</span></label>
-                        <select name="periode_akademik" class="form-control" required>
-                            <option value="" disabled selected>-- Pilih Periode --</option>
-                            <option value="2025/2026 Genap" {{ old('periode_akademik') == '2025/2026 Genap' ? 'selected' : '' }}>2025/2026 Genap</option>
-                            <option value="2025/2026 Ganjil" {{ old('periode_akademik') == '2025/2026 Ganjil' ? 'selected' : '' }}>2025/2026 Ganjil</option>
-                            <option value="2024/2025 Genap" {{ old('periode_akademik') == '2024/2025 Genap' ? 'selected' : '' }}>2024/2025 Genap</option>
-                            <option value="2024/2025 Ganjil" {{ old('periode_akademik') == '2024/2025 Ganjil' ? 'selected' : '' }}>2024/2025 Ganjil</option>
-                            <option value="2023/2024 Genap" {{ old('periode_akademik') == '2023/2024 Genap' ? 'selected' : '' }}>2023/2024 Genap</option>
-                            <option value="2023/2024 Ganjil" {{ old('periode_akademik') == '2023/2024 Ganjil' ? 'selected' : '' }}>2023/2024 Ganjil</option>
-                        </select>
+                        <label for="periode_akademik" class="form-label"> Periode Akademik <span class="text-danger">*</span></label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="tahun_akademik" id="periode_akademik" class="form-control @error('tahun_akademik') is-invalid @enderror"
+                                    placeholder="Contoh: 2025/2026" value="{{ old('tahun_akademik') }}" required>
+                                @error('tahun_akademik')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <select
+                                    name="semester" class="form-control @error('semester') is-invalid @enderror" required>
+                                    <option value="">-- Pilih Semester --</option>
+                                    <option value="Ganjil" {{ old('semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                    <option value="Genap" {{ old('semester') == 'Genap' ? 'selected' : '' }}>Genap</option>
+                                </select>
+                                @error('semester')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
+
+
+                    <!-- end periode akademik baru -->
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label font-weight-bold">Jenis Aktivitas <span class="text-danger">*</span></label>
                         <select name="jenis_aktivitas" id="jenis_aktivitas" class="form-control" required onchange="jalankanPerubahan()">
-                            <option value="" disabled selected>-- Pilih Jenis Aktivitas --</option>
+                            <option value="" disabled selected class="text-muted">-- Pilih Jenis Aktivitas --</option>
                             <option value="Aktivitas Kemahasiswaan">AK (Aktivitas Kemahasiswaan)</option>
                             <option value="Kompetisi">K (Kompetisi / Prestasi)</option>
                             <option value="Program Kreativitas Mahasiswa">PKM (Program Kreativitas Mahasiswa)</option>
